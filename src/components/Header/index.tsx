@@ -62,8 +62,8 @@ const Header = () => {
           {/* <!-- header top left --> */}
           <div className="xl:w-auto flex-col sm:flex-row w-full flex sm:justify-between sm:items-center gap-5 sm:gap-10">
             <Link className="flex-shrink-0" href="/">
-              <Image
-                src="/images/new-images/logo.png"
+              <img
+                src="https://www.interliners.net/wp-content/uploads/2021/02/Logo_Interliners.png"
                 alt="Logo"
                 width={100}
                 height={36}
