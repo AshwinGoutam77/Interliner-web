@@ -14,7 +14,7 @@ const ShopDetails = () => {
 
   const [storage, setStorage] = useState("gb128");
   const [type, setType] = useState("active");
-  const [sim, setSim] = useState("dual");
+  const [sim, setSim] = useState("No");
   const [quantity, setQuantity] = useState(1);
 
   const [activeTab, setActiveTab] = useState("tabOne");
@@ -22,39 +22,44 @@ const ShopDetails = () => {
   const storages = [
     {
       id: "gb128",
-      title: "128 GB",
+      title: "36 Inch",
     },
     {
       id: "gb256",
-      title: "256 GB",
+      title: "44 Inch",
     },
     {
       id: "gb512",
-      title: "521 GB",
+      title: "60 Inch",
     },
   ];
 
   const types = [
     {
       id: "active",
-      title: "Active",
+      title: "25 Mtr",
     },
 
     {
       id: "inactive",
-      title: "Inactive",
+      title: "30 Mtr",
+    },
+
+    {
+      id: "inactive",
+      title: "100 Mtr",
     },
   ];
 
   const sims = [
     {
-      id: "dual",
-      title: "Dual",
+      id: "No",
+      title: "No",
     },
 
     {
-      id: "e-sim",
-      title: "E Sim",
+      id: "yes",
+      title: "Yes",
     },
   ];
 
@@ -91,7 +96,17 @@ const ShopDetails = () => {
     openPreviewModal();
   };
 
-  console.log(product);
+  const [inchQuantities, setInchQuantities] = useState({});
+  const [modalOpen, setModalOpen] = useState(false);
+  const inchesList = Array.from({ length: 8 }, (_, i) => (1 + i * 0.5).toString());
+
+
+  const handleSaveCutRolls = () => {
+    console.log("Saved", inchQuantities);
+    setModalOpen(false);
+  };
+
+  // if (!visible) return null;
 
   return (
     <>
@@ -108,7 +123,7 @@ const ShopDetails = () => {
                   <div className="lg:min-h-[512px] rounded-lg shadow-1 bg-gray-2 p-4 sm:p-7.5 relative flex items-center justify-center">
                     <div>
                       <button
-                        onClick={handlePreviewSlider}
+                        // onClick={handlePreviewSlider}
                         aria-label="button for zoom"
                         className="gallery__Image w-11 h-11 rounded-[5px] bg-gray-1 shadow-1 flex items-center justify-center ease-out duration-200 text-dark hover:text-blue absolute top-4 lg:top-6 right-4 lg:right-6 z-50"
                       >
@@ -144,11 +159,10 @@ const ShopDetails = () => {
                       <button
                         onClick={() => setPreviewImg(key)}
                         key={key}
-                        className={`flex items-center justify-center w-15 sm:w-25 h-15 sm:h-25 overflow-hidden rounded-lg bg-gray-2 shadow-1 ease-out duration-200 border-2 hover:border-blue ${
-                          key === previewImg
-                            ? "border-blue"
-                            : "border-transparent"
-                        }`}
+                        className={`flex items-center justify-center w-15 sm:w-25 h-15 sm:h-25 overflow-hidden rounded-lg bg-gray-2 shadow-1 ease-out duration-200 border-2 hover:border-blue ${key === previewImg
+                          ? "border-blue"
+                          : "border-transparent"
+                          }`}
                       >
                         <Image
                           width={50}
@@ -395,9 +409,8 @@ const ShopDetails = () => {
                                   onChange={() => setActiveColor(color)}
                                 />
                                 <div
-                                  className={`flex items-center justify-center w-5.5 h-5.5 rounded-full ${
-                                    activeColor === color && "border"
-                                  }`}
+                                  className={`flex items-center justify-center w-5.5 h-5.5 rounded-full ${activeColor === color && "border"
+                                    }`}
                                   style={{ borderColor: `${color}` }}
                                 >
                                   <span
@@ -414,7 +427,7 @@ const ShopDetails = () => {
                       {/* <!-- details item --> */}
                       <div className="flex items-center gap-4">
                         <div className="min-w-[65px]">
-                          <h4 className="font-medium text-dark">Storage:</h4>
+                          <h4 className="font-medium text-dark">Width:</h4>
                         </div>
 
                         <div className="flex items-center gap-4">
@@ -435,11 +448,10 @@ const ShopDetails = () => {
 
                                 {/*  */}
                                 <div
-                                  className={`mr-2 flex h-4 w-4 items-center justify-center rounded border ${
-                                    storage === item.id
-                                      ? "border-blue bg-blue"
-                                      : "border-gray-4"
-                                  } `}
+                                  className={`mr-2 flex h-4 w-4 items-center justify-center rounded border ${storage === item.id
+                                    ? "border-blue bg-blue"
+                                    : "border-gray-4"
+                                    } `}
                                 >
                                   <span
                                     className={
@@ -482,7 +494,7 @@ const ShopDetails = () => {
                       {/* // <!-- details item --> */}
                       <div className="flex items-center gap-4">
                         <div className="min-w-[65px]">
-                          <h4 className="font-medium text-dark">Type:</h4>
+                          <h4 className="font-medium text-dark">Length:</h4>
                         </div>
 
                         <div className="flex items-center gap-4">
@@ -503,11 +515,10 @@ const ShopDetails = () => {
 
                                 {/*  */}
                                 <div
-                                  className={`mr-2 flex h-4 w-4 items-center justify-center rounded border ${
-                                    type === item.id
-                                      ? "border-blue bg-blue"
-                                      : "border-gray-4"
-                                  } `}
+                                  className={`mr-2 flex h-4 w-4 items-center justify-center rounded border ${type === item.id
+                                    ? "border-blue bg-blue"
+                                    : "border-gray-4"
+                                    } `}
                                 >
                                   <span
                                     className={
@@ -550,7 +561,7 @@ const ShopDetails = () => {
                       {/* // <!-- details item --> */}
                       <div className="flex items-center gap-4">
                         <div className="min-w-[65px]">
-                          <h4 className="font-medium text-dark">Sim:</h4>
+                          <h4 className="font-medium text-dark">Do you want cut rolls:</h4>
                         </div>
 
                         <div className="flex items-center gap-4">
@@ -566,16 +577,13 @@ const ShopDetails = () => {
                                   name="storage"
                                   id={item.id}
                                   className="sr-only"
-                                  onChange={() => setSim(item.id)}
+                                  onChange={() => { setSim(item.id); setModalOpen(item.id == 'yes' && true); }}
                                 />
-
-                                {/*  */}
                                 <div
-                                  className={`mr-2 flex h-4 w-4 items-center justify-center rounded border ${
-                                    sim === item.id
-                                      ? "border-blue bg-blue"
-                                      : "border-gray-4"
-                                  } `}
+                                  className={`mr-2 flex h-4 w-4 items-center justify-center rounded border ${sim === item.id
+                                    ? "border-blue bg-blue"
+                                    : "border-gray-4"
+                                    } `}
                                 >
                                   <span
                                     className={
@@ -613,6 +621,59 @@ const ShopDetails = () => {
                             </label>
                           ))}
                         </div>
+
+                        {/* Cuts Modal */}
+                        {modalOpen && (
+                          <div className="fixed inset-0 z-50 mt-50 flex items-center justify-center">
+                            <div
+                              className="absolute inset-0 bg-[#0000006b]"
+                              onClick={() => setModalOpen(false)}
+                            />
+
+                            {/* Modal content */}
+                            <div className="relative bg-white rounded-2xl shadow-lg w-full max-w-lg p-6 z-10">
+                              {/* Header */}
+                              <div className="flex items-center justify-between border-b pb-3">
+                                <h2 className="text-lg font-semibold">Enter Pieces for Each Size</h2>
+                                <button
+                                  onClick={() => setModalOpen(false)}
+                                  className="p-1 hover:bg-gray-100 rounded-full"
+                                >
+                                  ✕
+                                </button>
+                              </div>
+                              <div className="max-h-[600px] overflow-y-auto my-4 space-y-4">
+                                {inchesList.map((inch) => (
+                                  <div key={inch} className="flex items-center justify-between gap-4">
+                                    <span className="font-medium">{inch}</span>
+                                    <input
+                                      type="number"
+                                      className="border rounded-lg px-3 py-1 w-28 focus:outline-none focus:ring focus:ring-blue-400"
+                                      value={inchQuantities[inch] || ""}
+                                      onChange={(e) =>
+                                        setInchQuantities((prev) => ({
+                                          ...prev,
+                                          [inch]: e.target.value,
+                                        }))
+                                      }
+                                    />
+                                  </div>
+                                ))}
+                              </div>
+                              <div className="flex items-center justify-between border-t pt-3">
+                                <span className="font-medium text-gray-700">Total: 33 Inches</span>
+                                <span className="font-medium text-gray-700">No. of Rolls: 1</span>
+                              </div>
+                              <button
+                                onClick={handleSaveCutRolls}
+                                className="mt-4 inline-flex font-medium text-white bg-blue py-3 px-7 rounded-md ease-out duration-200 hover:bg-blue-dark"
+                              >
+                                Save
+                              </button>
+                            </div>
+                          </div>
+                        )}
+
                       </div>
                     </div>
 
@@ -703,33 +764,27 @@ const ShopDetails = () => {
             </div>
           </section>
 
-          <section className="overflow-hidden bg-gray-2 py-20">
+          {/* <section className="overflow-hidden bg-gray-2 py-20">
             <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
-              {/* <!--== tab header start ==--> */}
               <div className="flex flex-wrap items-center bg-white rounded-[10px] shadow-1 gap-5 xl:gap-12.5 py-4.5 px-4 sm:px-6">
                 {tabs.map((item, key) => (
                   <button
                     key={key}
                     onClick={() => setActiveTab(item.id)}
-                    className={`font-medium lg:text-lg ease-out duration-200 hover:text-blue relative before:h-0.5 before:bg-blue before:absolute before:left-0 before:bottom-0 before:ease-out before:duration-200 hover:before:w-full ${
-                      activeTab === item.id
-                        ? "text-blue before:w-full"
-                        : "text-dark before:w-0"
-                    }`}
+                    className={`font-medium lg:text-lg ease-out duration-200 hover:text-blue relative before:h-0.5 before:bg-blue before:absolute before:left-0 before:bottom-0 before:ease-out before:duration-200 hover:before:w-full ${activeTab === item.id
+                      ? "text-blue before:w-full"
+                      : "text-dark before:w-0"
+                      }`}
                   >
                     {item.title}
                   </button>
                 ))}
               </div>
-              {/* <!--== tab header end ==--> */}
-
-              {/* <!--== tab content start ==--> */}
-              {/* <!-- tab content one start --> */}
+            
               <div>
                 <div
-                  className={`flex-col sm:flex-row gap-7.5 xl:gap-12.5 mt-12.5 ${
-                    activeTab === "tabOne" ? "flex" : "hidden"
-                  }`}
+                  className={`flex-col sm:flex-row gap-7.5 xl:gap-12.5 mt-12.5 ${activeTab === "tabOne" ? "flex" : "hidden"
+                    }`}
                 >
                   <div className="max-w-[670px] w-full">
                     <h2 className="font-medium text-2xl text-dark mb-7">
@@ -775,16 +830,12 @@ const ShopDetails = () => {
                   </div>
                 </div>
               </div>
-              {/* <!-- tab content one end --> */}
-
-              {/* <!-- tab content two start --> */}
+            
               <div>
                 <div
-                  className={`rounded-xl bg-white shadow-1 p-4 sm:p-6 mt-10 ${
-                    activeTab === "tabTwo" ? "block" : "hidden"
-                  }`}
+                  className={`rounded-xl bg-white shadow-1 p-4 sm:p-6 mt-10 ${activeTab === "tabTwo" ? "block" : "hidden"
+                    }`}
                 >
-                  {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
                       <p className="text-sm sm:text-base text-dark">Brand</p>
@@ -794,7 +845,6 @@ const ShopDetails = () => {
                     </div>
                   </div>
 
-                  {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
                       <p className="text-sm sm:text-base text-dark">Model</p>
@@ -806,7 +856,6 @@ const ShopDetails = () => {
                     </div>
                   </div>
 
-                  {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
                       <p className="text-sm sm:text-base text-dark">
@@ -820,7 +869,6 @@ const ShopDetails = () => {
                     </div>
                   </div>
 
-                  {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
                       <p className="text-sm sm:text-base text-dark">
@@ -835,7 +883,6 @@ const ShopDetails = () => {
                     </div>
                   </div>
 
-                  {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
                       <p className="text-sm sm:text-base text-dark">
@@ -848,8 +895,6 @@ const ShopDetails = () => {
                       </p>
                     </div>
                   </div>
-
-                  {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
                       <p className="text-sm sm:text-base text-dark">Chipset</p>
@@ -861,7 +906,6 @@ const ShopDetails = () => {
                     </div>
                   </div>
 
-                  {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
                       <p className="text-sm sm:text-base text-dark">Memory</p>
@@ -873,7 +917,6 @@ const ShopDetails = () => {
                     </div>
                   </div>
 
-                  {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
                       <p className="text-sm sm:text-base text-dark">
@@ -887,7 +930,6 @@ const ShopDetails = () => {
                     </div>
                   </div>
 
-                  {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
                       <p className="text-sm sm:text-base text-dark">
@@ -902,7 +944,6 @@ const ShopDetails = () => {
                     </div>
                   </div>
 
-                  {/* <!-- info item --> */}
                   <div className="rounded-md even:bg-gray-1 flex py-4 px-4 sm:px-5">
                     <div className="max-w-[450px] min-w-[140px] w-full">
                       <p className="text-sm sm:text-base text-dark">
@@ -918,14 +959,10 @@ const ShopDetails = () => {
                   </div>
                 </div>
               </div>
-              {/* <!-- tab content two end --> */}
-
-              {/* <!-- tab content three start --> */}
               <div>
                 <div
-                  className={`flex-col sm:flex-row gap-7.5 xl:gap-12.5 mt-12.5 ${
-                    activeTab === "tabThree" ? "flex" : "hidden"
-                  }`}
+                  className={`flex-col sm:flex-row gap-7.5 xl:gap-12.5 mt-12.5 ${activeTab === "tabThree" ? "flex" : "hidden"
+                    }`}
                 >
                   <div className="max-w-[570px] w-full">
                     <h2 className="font-medium text-2xl text-dark mb-9">
@@ -933,7 +970,6 @@ const ShopDetails = () => {
                     </h2>
 
                     <div className="flex flex-col gap-6">
-                      {/* <!-- review item --> */}
                       <div className="rounded-xl bg-white shadow-1 p-4 sm:p-6">
                         <div className="flex items-center justify-between">
                           <a href="#" className="flex items-center gap-4">
@@ -1047,7 +1083,6 @@ const ShopDetails = () => {
                         </p>
                       </div>
 
-                      {/* <!-- review item --> */}
                       <div className="rounded-xl bg-white shadow-1 p-4 sm:p-6">
                         <div className="flex items-center justify-between">
                           <a href="#" className="flex items-center gap-4">
@@ -1161,7 +1196,6 @@ const ShopDetails = () => {
                         </p>
                       </div>
 
-                      {/* <!-- review item --> */}
                       <div className="rounded-xl bg-white shadow-1 p-4 sm:p-6">
                         <div className="flex items-center justify-between">
                           <a href="#" className="flex items-center gap-4">
@@ -1439,10 +1473,8 @@ const ShopDetails = () => {
                   </div>
                 </div>
               </div>
-              {/* <!-- tab content three end --> */}
-              {/* <!--== tab content end ==--> */}
             </div>
-          </section>
+          </section> */}
 
           <RecentlyViewdItems />
 

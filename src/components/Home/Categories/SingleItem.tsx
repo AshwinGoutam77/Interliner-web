@@ -1,10 +1,11 @@
 import { Category } from "@/types/category";
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const SingleItem = ({ item }: { item: Category }) => {
   return (
-    <a href="#" className="group flex flex-col items-center overflow-hidden">
+    <Link href="/categories" className="group flex flex-col items-center overflow-hidden">
       <div className="max-w-[130px] w-full bg-[#F2F3F8] h-32.5 rounded-full overflow-hidden flex items-center justify-center mb-4">
         <Image src={item.img} alt="Category" width={100} height={62} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
       </div>
@@ -14,7 +15,7 @@ const SingleItem = ({ item }: { item: Category }) => {
           {item.title}
         </h3>
       </div>
-    </a>
+    </Link>
   );
 };
 

@@ -10,8 +10,10 @@ import { updateproductDetails } from "@/redux/features/product-details";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const ProductItem = ({ item }: { item: Product }) => {
+  const router = useRouter()
   const { openModal } = useModalContext();
 
   const dispatch = useDispatch<AppDispatch>();
@@ -45,8 +47,13 @@ const ProductItem = ({ item }: { item: Product }) => {
     dispatch(updateproductDetails({ ...item }));
   };
 
+  const handleViewProduct = () => {
+    localStorage.setItem('productDetails', JSON.stringify(item))
+    router.push('/shop-details')
+  }
+
   return (
-    <div className="group">
+    <div className="cursor-pointer group" onClick={handleViewProduct}>
       <div className="relative overflow-hidden flex items-center justify-center rounded-lg bg-[#F6F7FB] min-h-[270px] mb-4">
         <Image src={item.imgs.previews[0]} alt="" width={250} height={250} style={{ width: '100%', height: '280px', objectFit: 'cover' }} />
 
