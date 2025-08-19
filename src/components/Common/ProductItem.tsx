@@ -11,16 +11,20 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useCartModalContext } from "@/app/context/CartSidebarModalContext";
 
 const ProductItem = ({ item }: { item: Product }) => {
   const router = useRouter()
   const { openModal } = useModalContext();
 
   const dispatch = useDispatch<AppDispatch>();
-
+  const { openCartModal } = useCartModalContext();
+  1
   // update the QuickView state
   const handleQuickViewUpdate = () => {
     dispatch(updateQuickView({ ...item }));
+    localStorage.setItem('productDetails', JSON.stringify(item))
+    router.push('/shop-details')
   };
 
   // add to cart
@@ -31,6 +35,7 @@ const ProductItem = ({ item }: { item: Product }) => {
         quantity: 1,
       })
     );
+    openCartModal()
   };
 
   const handleItemToWishList = () => {
@@ -49,7 +54,7 @@ const ProductItem = ({ item }: { item: Product }) => {
 
   const handleViewProduct = () => {
     localStorage.setItem('productDetails', JSON.stringify(item))
-    router.push('/shop-details')
+    // router.push('/shop-details')
   }
 
   return (
@@ -60,7 +65,7 @@ const ProductItem = ({ item }: { item: Product }) => {
         <div className="absolute left-0 bottom-0 translate-y-full w-full flex items-center justify-center gap-2.5 pb-5 ease-linear duration-200 group-hover:translate-y-0">
           <button
             onClick={() => {
-              openModal();
+              // openModal();
               handleQuickViewUpdate();
             }}
             id="newOne"

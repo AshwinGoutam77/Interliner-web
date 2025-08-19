@@ -6,6 +6,7 @@ import Newsletter from "../Common/Newsletter";
 import RecentlyViewdItems from "./RecentlyViewd";
 import { usePreviewSlider } from "@/app/context/PreviewSliderContext";
 import { useAppSelector } from "@/redux/store";
+import Link from "next/link";
 
 const ShopDetails = () => {
   const [activeColor, setActiveColor] = useState("blue");
@@ -333,36 +334,18 @@ const ShopDetails = () => {
                     <span className="text-sm sm:text-base text-dark">
                       Price: ${product.price}
                     </span>
-                    <span className="line-through">
+                    {/* <span className="line-through">
                       {" "}
                       ${product.discountedPrice}{" "}
-                    </span>
+                    </span> */}
                   </h3>
 
                   <ul className="flex flex-col gap-2">
                     <li className="flex items-center gap-2.5">
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M13.3589 8.35863C13.603 8.11455 13.603 7.71882 13.3589 7.47475C13.1149 7.23067 12.7191 7.23067 12.4751 7.47475L8.75033 11.1995L7.5256 9.97474C7.28152 9.73067 6.8858 9.73067 6.64172 9.97474C6.39764 10.2188 6.39764 10.6146 6.64172 10.8586L8.30838 12.5253C8.55246 12.7694 8.94819 12.7694 9.19227 12.5253L13.3589 8.35863Z"
-                          fill="#3C50E0"
-                        />
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M10.0003 1.04169C5.05277 1.04169 1.04199 5.05247 1.04199 10C1.04199 14.9476 5.05277 18.9584 10.0003 18.9584C14.9479 18.9584 18.9587 14.9476 18.9587 10C18.9587 5.05247 14.9479 1.04169 10.0003 1.04169ZM2.29199 10C2.29199 5.74283 5.74313 2.29169 10.0003 2.29169C14.2575 2.29169 17.7087 5.74283 17.7087 10C17.7087 14.2572 14.2575 17.7084 10.0003 17.7084C5.74313 17.7084 2.29199 14.2572 2.29199 10Z"
-                          fill="#3C50E0"
-                        />
-                      </svg>
-                      Free delivery available
+                      Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry.Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry.Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry.Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry.Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry.
                     </li>
 
-                    <li className="flex items-center gap-2.5">
+                    {/* <li className="flex items-center gap-2.5">
                       <svg
                         width="20"
                         height="20"
@@ -382,7 +365,7 @@ const ShopDetails = () => {
                         />
                       </svg>
                       Sales 30% Off Use Code: PROMO30
-                    </li>
+                    </li> */}
                   </ul>
 
                   <form onSubmit={(e) => e.preventDefault()}>
@@ -390,7 +373,7 @@ const ShopDetails = () => {
                       {/* <!-- details item --> */}
                       <div className="flex items-center gap-4">
                         <div className="min-w-[65px]">
-                          <h4 className="font-medium text-dark">Color:</h4>
+                          <h4 className="font-medium text-dark">Shades:</h4>
                         </div>
 
                         <div className="flex items-center gap-2.5">
@@ -556,6 +539,11 @@ const ShopDetails = () => {
                             </label>
                           ))}
                         </div>
+                      </div>
+
+                      <div>
+                        <h4 className="font-medium text-dark mb-2">Number of un-cut rolls:</h4>
+                        <input type="number" placeholder="" className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20" />
                       </div>
 
                       {/* // <!-- details item --> */}
@@ -730,12 +718,12 @@ const ShopDetails = () => {
                         </button>
                       </div>
 
-                      <a
-                        href="#"
+                      <Link
+                        href="/checkout"
                         className="inline-flex font-medium text-white bg-blue py-3 px-7 rounded-md ease-out duration-200 hover:bg-blue-dark"
                       >
                         Purchase Now
-                      </a>
+                      </Link>
 
                       <a
                         href="#"

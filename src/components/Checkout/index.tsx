@@ -7,8 +7,14 @@ import ShippingMethod from "./ShippingMethod";
 import PaymentMethod from "./PaymentMethod";
 import Coupon from "./Coupon";
 import Billing from "./Billing";
+import Link from "next/link";
+import { useAppSelector } from "@/redux/store";
+import { useSelector } from "react-redux";
+import { selectTotalPrice } from "@/redux/features/cart-slice";
 
 const Checkout = () => {
+  const cartItems = useAppSelector((state) => state.cartReducer.items);
+  const totalPrice = useSelector(selectTotalPrice)
   return (
     <>
       <Breadcrumb title={"Checkout"} pages={["checkout"]} />
@@ -25,7 +31,7 @@ const Checkout = () => {
                 <Billing />
 
                 {/* <!-- address box two --> */}
-                <Shipping />
+                {/* <Shipping /> */}
 
                 {/* <!-- others note box --> */}
                 <div className="bg-white shadow-1 rounded-[10px] p-4 sm:p-8.5 mt-7.5">
@@ -56,49 +62,104 @@ const Checkout = () => {
                   </div>
 
                   <div className="pt-2.5 pb-8.5 px-4 sm:px-8.5">
-                    {/* <!-- title --> */}
-                    <div className="flex items-center justify-between py-5 border-b border-gray-3">
-                      <div>
-                        <h4 className="font-medium text-dark">Product</h4>
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-dark text-right">
-                          Subtotal
-                        </h4>
-                      </div>
-                    </div>
+                    {/* <!-- product item --> */}
+                    {cartItems.map((item, key) => (
+                      // <div key={key} className="flex items-center justify-between py-5 border-b border-gray-3">
+                      //   <div>
+                      //     <p className="text-dark">{item.title}</p>
+                      //   </div>
+                      //   <div>
+                      //     <p className="text-dark text-right">
+                      //       ${item.discountedPrice * item.quantity}
+                      //     </p>
+                      //   </div>
+                      // </div>
+                      <Link href='/shop-details' className="flex items-center justify-between py-5 border-b border-gray-3">
+                        <div>
+                          <p className="text-dark">{item.title}</p>
+                        </div>
+                        <div className="flex">
+                          <p className="text-dark text-right"> ${item.discountedPrice * item.quantity}</p>
+                          <svg
+                            className="fill-current"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              clipRule="evenodd"
+                              d="M8.51192 4.43057C8.82641 4.161 9.29989 4.19743 9.56946 4.51192L15.5695 11.5119C15.8102 11.7928 15.8102 12.2072 15.5695 12.4881L9.56946 19.4881C9.29989 19.8026 8.82641 19.839 8.51192 19.5695C8.19743 19.2999 8.161 18.8264 8.43057 18.5119L14.0122 12L8.43057 5.48811C8.161 5.17361 8.19743 4.70014 8.51192 4.43057Z"
+                              fill=""
+                            />
+                          </svg>
+                        </div>
+                      </Link>
+                    ))}
+
 
                     {/* <!-- product item --> */}
-                    <div className="flex items-center justify-between py-5 border-b border-gray-3">
+                    <Link href='/shop-details' className="flex items-center justify-between py-5 border-b border-gray-3">
                       <div>
-                        <p className="text-dark">iPhone 14 Plus , 6/128GB</p>
+                        <p className="text-dark">Threads</p>
                       </div>
-                      <div>
-                        <p className="text-dark text-right">$899.00</p>
-                      </div>
-                    </div>
-
-                    {/* <!-- product item --> */}
-                    <div className="flex items-center justify-between py-5 border-b border-gray-3">
-                      <div>
-                        <p className="text-dark">Asus RT Dual Band Router</p>
-                      </div>
-                      <div>
+                      <div className="flex">
                         <p className="text-dark text-right">$129.00</p>
+                        <svg
+                          className="fill-current"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            d="M8.51192 4.43057C8.82641 4.161 9.29989 4.19743 9.56946 4.51192L15.5695 11.5119C15.8102 11.7928 15.8102 12.2072 15.5695 12.4881L9.56946 19.4881C9.29989 19.8026 8.82641 19.839 8.51192 19.5695C8.19743 19.2999 8.161 18.8264 8.43057 18.5119L14.0122 12L8.43057 5.48811C8.161 5.17361 8.19743 4.70014 8.51192 4.43057Z"
+                            fill=""
+                          />
+                        </svg>
                       </div>
-                    </div>
+                    </Link>
+
+                    {/* <!-- product item --> */}
+                    <Link href='/shop-details' className="flex items-center justify-between py-5 border-b border-gray-3">
+                      <div>
+                        <p className="text-dark">Cuffs, Collars & Bands</p>
+                      </div>
+                      <div className="flex">
+                        <p className="text-dark text-right">$29.00</p>
+                        <svg
+                          className="fill-current"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            d="M8.51192 4.43057C8.82641 4.161 9.29989 4.19743 9.56946 4.51192L15.5695 11.5119C15.8102 11.7928 15.8102 12.2072 15.5695 12.4881L9.56946 19.4881C9.29989 19.8026 8.82641 19.839 8.51192 19.5695C8.19743 19.2999 8.161 18.8264 8.43057 18.5119L14.0122 12L8.43057 5.48811C8.161 5.17361 8.19743 4.70014 8.51192 4.43057Z"
+                            fill=""
+                          />
+                        </svg>
+                      </div>
+                    </Link>
 
                     {/* <!-- product item --> */}
                     <div className="flex items-center justify-between py-5 border-b border-gray-3">
                       <div>
-                        <p className="text-dark">Havit HV-G69 USB Gamepad</p>
+                        <p className="text-dark">GST</p>
                       </div>
                       <div>
-                        <p className="text-dark text-right">$29.00</p>
+                        <p className="text-dark text-right">$2.00</p>
                       </div>
                     </div>
 
-                    {/* <!-- product item --> */}
                     <div className="flex items-center justify-between py-5 border-b border-gray-3">
                       <div>
                         <p className="text-dark">Shipping Fee</p>
@@ -126,7 +187,7 @@ const Checkout = () => {
                 <Coupon />
 
                 {/* <!-- shipping box --> */}
-                <ShippingMethod />
+                {/* <ShippingMethod /> */}
 
                 {/* <!-- payment box --> */}
                 <PaymentMethod />
@@ -140,9 +201,9 @@ const Checkout = () => {
                 </button>
               </div>
             </div>
-          </form>
-        </div>
-      </section>
+          </form >
+        </div >
+      </section >
     </>
   );
 };
