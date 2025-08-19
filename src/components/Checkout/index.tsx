@@ -74,7 +74,7 @@ const Checkout = () => {
                       //     </p>
                       //   </div>
                       // </div>
-                      <Link href='/shop-details' className="flex items-center justify-between py-5 border-b border-gray-3">
+                      <Link href='/shop-details' className="flex items-center justify-between py-5 border-b border-gray-3" key={key}>
                         <div>
                           <p className="text-dark">{item.title}</p>
                         </div>
