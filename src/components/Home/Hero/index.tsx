@@ -38,7 +38,7 @@ const Hero = () => {
                 >
                   <div className="flex items-center gap-14">
                     <div>
-                      <h2 className="max-w-[153px] font-semibold text-dark text-xl mb-20">
+                      <h2 className="max-w-[153px] font-semibold text-dark text-xl mb-10">
                         <a href="#">{item.title}</a>
                       </h2>
 
@@ -48,14 +48,22 @@ const Hero = () => {
                             {item.description}
                           </p>
                         )}
-                        <span className="flex items-center gap-3">
-                          <span className="font-medium text-heading-5 text-red">
-                            {item.price}
+                        <div>
+                          <span className="flex items-center gap-3">
+                            <span className="font-medium text-heading-5 text-red">
+                              {item.price}
+                            </span>
+                            <span className="font-medium text-2xl text-dark-4 line-through">
+                              {item.oldPrice}
+                            </span>
                           </span>
-                          <span className="font-medium text-2xl text-dark-4 line-through">
-                            {item.oldPrice}
-                          </span>
-                        </span>
+                          <a
+                            href="#"
+                            className="inline-flex font-medium text-white text-custom-sm rounded-md bg-dark py-3 px-9 ease-out duration-200 hover:bg-blue mt-2"
+                          >
+                            Apply Now
+                          </a>
+                        </div>
                       </div>
                     </div>
 
@@ -63,7 +71,7 @@ const Hero = () => {
                       <Image
                         src={item.img}
                         alt={item.title}
-                        width={i === 0 ? 223 : 123}
+                        width={123}
                         height={161}
                       />
                     </div>

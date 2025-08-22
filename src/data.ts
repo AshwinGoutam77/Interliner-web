@@ -7,7 +7,7 @@ export const heroTranslations = {
             subtitle: "Sale\nOff",
             description:
                 "Experience timeless tradition with a modern touch. Crafted from premium fabric, this Kandura offers unmatched comfort and style for any occasion.",
-            cta: "Shop Now",
+            cta: "Apply Now",
         },
         {
             discount: "25%",
@@ -15,7 +15,7 @@ export const heroTranslations = {
             subtitle: "Exclusive Offer",
             description:
                 "Step into timeless elegance with our finely crafted kanduras perfect for any occasion. Experience unmatched comfort and style in every stitch.",
-            cta: "Shop Now",
+            cta: "Apply Now",
         },
     ],
     ar: [

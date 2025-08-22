@@ -51,7 +51,7 @@ const config: Config = {
         7: "#374151",
       },
       blue: {
-        DEFAULT: "#3C50E0",
+        DEFAULT: "#012169",
         dark: "#1C3FB7",
         light: "#5475E5",
         "light-2": "#8099EC",
@@ -241,7 +241,7 @@ const config: Config = {
           "0px 0px 1px 0px rgba(33, 37, 41, 0.08), 0px 2px 2px 0px rgba(33, 37, 41, 0.06)",
         filter: "0px 1px 0px 0px #E5E7EB",
         list: "1px 0px 0px 0px #E5E7EB",
-        input: "inset 0 0 0 2px #3C50E0",
+        input: "inset 0 0 0 2px #012169",
       },
     },
   },

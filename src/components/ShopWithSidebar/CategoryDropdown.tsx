@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 const CategoryItem = ({ category }) => {
-  const [selected, setSelected] = useState(false);
+  const [selected, setSelected] = useState(true);
   return (
     <button
       className={`${

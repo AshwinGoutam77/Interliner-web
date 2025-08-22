@@ -1,43 +1,38 @@
 const data = [
   {
-    title: "Arabic Thobe",
+    title: "Shirts",
     id: 1,
     img: "https://interliners.net/wp-content/uploads/2021/02/Arabic-Thobe.jpg",
   },
   {
-    title: "Shirts, Blazers & Jackets",
+    title: "Kandura",
     id: 2,
     img: "https://interliners.net/wp-content/uploads/2021/02/homepage-slider-2.jpg",
   },
   {
-    title: "Embroidery Interlining",
+    title: "Trousers",
     id: 3,
     img: "https://interliners.net/wp-content/uploads/2021/02/embroidery-interlining.jpg",
   },
   {
-    title: "Essentials",
+    title: "Jackets Blazers",
     id: 4,
-    img: "https://interliners.net/wp-content/uploads/2021/03/Essentials-category-home-page-photo-640x800.jpeg",
+    img: "https://interliners.net/wp-content/uploads/2021/02/homepage-slider-2.jpg",
   },
   {
-    title: "Perforated Tapes",
+    title: "Women's Clothes",
     id: 5,
     img: "https://interliners.net/wp-content/uploads/2021/03/Perforated-tapes.jpg",
   },
   {
-    title: "Pre-Cut",
+    title: "T-Shirts & Hoodies",
     id: 6,
     img: "https://interliners.net/wp-content/uploads/2021/03/Precuts-scaled.jpg",
   },
   {
-    title: "Straight Cut",
+    title: "Non-Womven",
     id: 7,
     img: "https://interliners.net/wp-content/uploads/2021/03/Straight-cut.jpg",
-  },
-  {
-    title: "Bias Cut",
-    id: 8,
-    img: "https://interliners.net/wp-content/uploads/2021/03/bias-cut.jpg",
   },
 ];
 

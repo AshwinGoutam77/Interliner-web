@@ -1,0 +1,13 @@
+.bg-blue {
+    background-color: #012169 !important;
+}
+
+.text-blue,
+.last\:text-blue:last-child {
+    color: #012169 !important;
+}
+
+/* svg,
+svg path {
+    fill: #012169 !important;
+} */

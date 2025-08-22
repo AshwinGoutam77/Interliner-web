@@ -64,16 +64,6 @@ const Checkout = () => {
                   <div className="pt-2.5 pb-8.5 px-4 sm:px-8.5">
                     {/* <!-- product item --> */}
                     {cartItems.map((item, key) => (
-                      // <div key={key} className="flex items-center justify-between py-5 border-b border-gray-3">
-                      //   <div>
-                      //     <p className="text-dark">{item.title}</p>
-                      //   </div>
-                      //   <div>
-                      //     <p className="text-dark text-right">
-                      //       ${item.discountedPrice * item.quantity}
-                      //     </p>
-                      //   </div>
-                      // </div>
                       <Link href='/shop-details' className="flex items-center justify-between py-5 border-b border-gray-3" key={key}>
                         <div>
                           <p className="text-dark">{item.title}</p>
