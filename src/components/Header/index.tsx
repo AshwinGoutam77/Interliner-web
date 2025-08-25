@@ -10,8 +10,11 @@ import { selectTotalPrice } from "@/redux/features/cart-slice";
 import { useCartModalContext } from "@/app/context/CartSidebarModalContext";
 import Image from "next/image";
 import LanguageDropdown from "./LangugageDropdown";
+import { usePathname } from "next/navigation";
+import { subMenuData } from "./subMenuData";
 
 const Header = () => {
+  const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState("");
   const [navigationOpen, setNavigationOpen] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
@@ -70,7 +73,7 @@ const Header = () => {
               />
             </Link>
 
-            <div className="max-w-[475px] w-full">
+            {/* <div className="max-w-[475px] w-full">
               <form>
                 <div className="flex items-center">
                   <CustomSelect options={options} />
@@ -110,11 +113,43 @@ const Header = () => {
                   </div>
                 </div>
               </form>
-            </div>
+            </div> */}
           </div>
+
 
           {/* <!-- header top right --> */}
           <div className="flex w-full lg:w-auto items-center gap-7.5">
+
+            <ul className="hidden lg:flex xl:items-center gap-5 xl:gap-6">
+              {menuData.map((menuItem, i) =>
+                menuItem.submenu ? (
+                  <Dropdown
+                    key={i}
+                    menuItem={menuItem}
+                    stickyMenu={stickyMenu}
+                  />
+                ) : (
+                  <li
+                    key={i}
+                    className="group relative"
+                  >
+                    <Link
+                      href={menuItem.path}
+                      className={`hover:text-blue text-md font-medium text-dark flex ${stickyMenu ? "xl:py-4" : "xl:py-6"
+                        } ${pathname === menuItem.path
+                          ? "text-blue"
+                          : "text-dark hover:text-blue"
+                        }`}
+                    >
+                      {menuItem.title}
+                    </Link>
+                  </li>
+                )
+              )}
+            </ul>
+
+            <span className="hidden xl:block w-px h-7.5 bg-gray-4"></span>
+
             <div className="hidden xl:flex items-center gap-3.5">
               <svg
                 width="24"
@@ -151,7 +186,6 @@ const Header = () => {
               </div>
             </div>
 
-            {/* <!-- divider --> */}
             <span className="hidden xl:block w-px h-7.5 bg-gray-4"></span>
 
             <div className="flex w-full lg:w-auto justify-between items-center gap-5">
@@ -282,7 +316,7 @@ const Header = () => {
         {/* <!-- header top end --> */}
       </div>
 
-      <div className="border-t border-gray-3">
+      {!pathname.startsWith('/dashboard')  && <div className="border-t border-gray-3">
         <div className="max-w-[1170px] mx-auto px-4 sm:px-7.5 xl:px-0">
           <div className="flex items-center justify-between">
             <div
@@ -292,27 +326,26 @@ const Header = () => {
             >
               <nav>
                 <ul className="flex xl:items-center flex-col xl:flex-row gap-5 xl:gap-6">
-                  {menuData.map((menuItem, i) =>
-                    menuItem.submenu ? (
-                      <Dropdown
-                        key={i}
-                        menuItem={menuItem}
-                        stickyMenu={stickyMenu}
-                      />
-                    ) : (
-                      <li
-                        key={i}
-                        className="group relative before:w-0 before:h-[3px] before:bg-blue before:absolute before:left-0 before:top-0 before:rounded-b-[3px] before:ease-out before:duration-200 hover:before:w-full "
+                  <li
+                    className={`hover:text-blue text-custom-sm font-medium text-dark flex`}
+                  >
+                    Browse by Category :
+                  </li>
+                  {subMenuData.map((menuItem, i) =>
+                  (
+                    <li
+                      key={i}
+                      className="group relative before:w-0 before:h-[3px] before:bg-blue before:absolute before:left-0 before:top-0 before:rounded-b-[3px] before:ease-out before:duration-200 hover:before:w-full "
+                    >
+                      <Link
+                        href={menuItem.path}
+                        className={`hover:text-blue text-custom-sm font-medium text-dark flex ${stickyMenu ? "xl:py-4" : "xl:py-6"
+                          }`}
                       >
-                        <Link
-                          href={menuItem.path}
-                          className={`hover:text-blue text-custom-sm font-medium text-dark flex ${stickyMenu ? "xl:py-4" : "xl:py-6"
-                            }`}
-                        >
-                          {menuItem.title}
-                        </Link>
-                      </li>
-                    )
+                        {menuItem.title}
+                      </Link>
+                    </li>
+                  )
                   )}
                 </ul>
               </nav>
@@ -373,7 +406,7 @@ const Header = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div>}
     </header>
   );
 };

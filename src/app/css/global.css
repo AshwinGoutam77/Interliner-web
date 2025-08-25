@@ -11,3 +11,12 @@
 svg path {
     fill: #012169 !important;
 } */
+
+
+.primary-btn {
+    background: #012169;
+    padding: 12px 18px;
+    font-size: 14px;
+    color: white;
+    border-radius: 8px;
+}

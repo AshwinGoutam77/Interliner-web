@@ -4,9 +4,9 @@ import Breadcrumb from "../Common/Breadcrumb";
 const Contact = () => {
   return (
     <>
-      <Breadcrumb title={"Contact"} pages={["contact"]} />
+      <section className="overflow-hidden relative pb-20 pt-5 lg:pt-20 xl:pt-28 bg-[#f3f4f62e]">
+        <Breadcrumb title={"Contact"} pages={["contact"]} />
 
-      <section className="overflow-hidden py-20 bg-gray-2">
         <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
           <div className="flex flex-col xl:flex-row gap-7.5">
             <div className="xl:max-w-[370px] w-full bg-white rounded-xl shadow-1">
@@ -33,7 +33,7 @@ const Contact = () => {
                         fill="#012169"
                       />
                     </svg>
-                    Name: James Septimus
+                    liners@eim.ae
                   </p>
 
                   <p className="flex items-center gap-4">
@@ -61,7 +61,7 @@ const Contact = () => {
                         fill="#012169"
                       />
                     </svg>
-                    Phone: 1234 567890
+                    +971-6-7436061/ +971-6-5556354
                   </p>
 
                   <p className="flex gap-4">
@@ -80,8 +80,21 @@ const Contact = () => {
                         fill="#012169"
                       />
                     </svg>
-                    Address: 7398 Smoke Ranch RoadLas Vegas, Nevada 89128
+                    Head Office: Ajman – UAE
                   </p>
+
+                  <div className="w-full h-[320px] border border-0 rounded">
+                    <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115861.00676570407!2d55.4053!3d25.4052!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ef5f58edc0b5487%3A0x60a1a75568128b8a!2sAjman%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2sae!4v1692941450555!5m2!1sen!2sae"
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0, borderRadius: '5px' }}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                    ></iframe>
+                  </div>
+
                 </div>
               </div>
             </div>

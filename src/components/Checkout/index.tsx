@@ -17,8 +17,8 @@ const Checkout = () => {
   const totalPrice = useSelector(selectTotalPrice)
   return (
     <>
-      <Breadcrumb title={"Checkout"} pages={["checkout"]} />
-      <section className="overflow-hidden py-20 bg-gray-2">
+      <section className="overflow-hidden py-20 bg-[#f3f4f62e]">
+        <Breadcrumb title={"Checkout"} pages={["checkout"]} />
         <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
           <form>
             <div className="flex flex-col lg:flex-row gap-7.5 xl:gap-11">
