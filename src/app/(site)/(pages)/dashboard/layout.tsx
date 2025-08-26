@@ -13,6 +13,8 @@ export default function DashboardLayout({ children }) {
                     <Link href="/dashboard/credit-information" className="block text-white hover:text-blue-600">Credit Information</Link>
                     <Link href="/dashboard/payment" className="block text-white hover:text-blue-600">Payment</Link>
                     <Link href="/dashboard/complain" className="block text-white hover:text-blue-600">Complain</Link>
+                    {/* <Link href="/dashboard/complain" className="block text-white hover:text-blue-600">Edit Profile</Link> */}
+                    <Link href="/" className="block text-white hover:text-blue-600">Logout</Link>
                 </nav>
             </aside>
 
