@@ -265,15 +265,15 @@ export default function TrackOrder() {
                                     Order Items
                                 </h2>
 
-                                <div className="space-y-4">
+                                <div className="flex flex-col gap-2">
                                     {orderItems.map((item) => (
                                         <div
                                             key={item.id}
-                                            className={`border border-[#ccc] rounded-lg p-6 cursor-pointer`}
+                                            className="border border-[#ccc] rounded-lg p-6 cursor-pointer"
                                             onMouseEnter={() => setHoveredItem(item.id)}
                                             onMouseLeave={() => setHoveredItem(null)}
                                         >
-                                            <div className="flex gap-4">
+                                            <div className="flex flex-col md:grid md:grid-cols-1 xxl:grid-cols-[auto,1fr] gap-4">
                                                 <img
                                                     src={item.image}
                                                     alt={item.name}
@@ -305,9 +305,11 @@ export default function TrackOrder() {
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
                                     ))}
                                 </div>
+
 
                                 {/* Order Summary */}
                                 <div className="mt-6 p-6 border border-[#ccc] rounded-lg">
