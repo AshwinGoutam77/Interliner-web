@@ -15,8 +15,17 @@ svg path {
 
 .primary-btn {
     background: #012169;
-    padding: 12px 18px;
+    padding: 8px 18px;
     font-size: 14px;
     color: white;
     border-radius: 8px;
+}
+
+.secondary-btn {
+    border: 1px solid #012169;
+    padding: 8px 18px;
+    font-size: 14px;
+    color: #012169;
+    border-radius: 8px;
+    font-weight: 600;
 }

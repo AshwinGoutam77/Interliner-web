@@ -10,8 +10,13 @@ import PriceDropdown from "./PriceDropdown";
 import shopData from "../Shop/shopData";
 import SingleGridItem from "../Shop/SingleGridItem";
 import SingleListItem from "../Shop/SingleListItem";
+import { usePathname } from "next/navigation";
 
 const ShopWithSidebar = () => {
+  const pathname = usePathname();
+  const lastSegment = pathname.split("/").filter(Boolean).pop() || "";
+  const pageTitle = lastSegment.charAt(0).toUpperCase() + lastSegment.slice(1);
+
   const [productStyle, setProductStyle] = useState("grid");
   const [productSidebar, setProductSidebar] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
@@ -23,14 +28,7 @@ const ShopWithSidebar = () => {
       setStickyMenu(false);
     }
   };
-
-  const options = [
-    { label: "Latest Products", value: "0" },
-    { label: "Best Selling", value: "1" },
-    { label: "Old Products", value: "2" },
-  ];
-
-  const categories = [
+  const categories2 = [
     {
       name: "Shirt Collar",
       products: 10,
@@ -46,20 +44,38 @@ const ShopWithSidebar = () => {
       products: 30,
       isRefined: true,
     },
+    {
+      name: "Pocket",
+      products: 12,
+      isRefined: true,
+    },
+    {
+      name: "Flap",
+      products: 30,
+      isRefined: true,
+    },
   ];
-
-  const genders = [
+  const categories = [
     {
-      name: "Men",
-      products: 10,
+      name: "Shirt",
+      children: [
+        { name: "Collar", products: 10, isRefined: true },
+        { name: "Cuffs", products: 12, isRefined: true },
+        { name: "Plackets", products: 30, isRefined: true },
+        { name: "Pocket", products: 30, isRefined: true },
+        { name: "Flap", products: 30, isRefined: true },
+      ],
     },
     {
-      name: "Women",
-      products: 23,
-    },
-    {
-      name: "Unisex",
-      products: 8,
+      name: "Kandura",
+      children: [
+        { name: "Collar", products: 10, isRefined: true },
+        { name: "Cuffs", products: 12, isRefined: true },
+        { name: "Plackets", products: 30, isRefined: true },
+        { name: "Faruka", products: 30, isRefined: true },
+        { name: "Pocket", products: 30, isRefined: true },
+        { name: "Embroidery", products: 30, isRefined: true },
+      ],
     },
   ];
 
@@ -82,28 +98,30 @@ const ShopWithSidebar = () => {
     };
   });
 
+  const data = pathname !== '/shop' ? categories2 : categories
+
   return (
     <>
       <section className="overflow-hidden relative pb-20 pt-5 lg:pt-20 xl:pt-28 bg-[#f3f4f62e]">
         <Breadcrumb
-          title={"Shirts"}
-          pages={["shop", "/", "Shirts"]}
+          title={pageTitle}
+          pages={[pageTitle]}
         />
         <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
           <div className="flex gap-7.5">
             {/* <!-- Sidebar Start --> */}
             <div
               className={`sidebar-content fixed xl:z-1 z-9999 left-0 top-0 xl:translate-x-0 xl:static max-w-[310px] xl:max-w-[270px] w-full ease-out duration-200 ${productSidebar
-                  ? "translate-x-0 bg-white p-5 h-screen overflow-y-auto"
-                  : "-translate-x-full"
+                ? "translate-x-0 bg-white p-5 h-screen overflow-y-auto"
+                : "-translate-x-full"
                 }`}
             >
               <button
                 onClick={() => setProductSidebar(!productSidebar)}
                 aria-label="button for product sidebar toggle"
                 className={`xl:hidden absolute -right-12.5 sm:-right-8 flex items-center justify-center w-8 h-8 rounded-md bg-white shadow-1 ${stickyMenu
-                    ? "lg:top-20 sm:top-34.5 top-35"
-                    : "lg:top-24 sm:top-39 top-37"
+                  ? "lg:top-20 sm:top-34.5 top-35"
+                  : "lg:top-24 sm:top-39 top-37"
                   }`}
               >
                 <svg
@@ -140,7 +158,7 @@ const ShopWithSidebar = () => {
                   </div>
 
                   {/* <!-- category box --> */}
-                  <CategoryDropdown categories={categories} />
+                  <CategoryDropdown categories={data} />
 
                   {/* <!-- gender box --> */}
                   {/* <GenderDropdown genders={genders} /> */}
@@ -163,8 +181,8 @@ const ShopWithSidebar = () => {
               {/* <!-- Products Grid Tab Content Start --> */}
               <div
                 className={`${productStyle === "grid"
-                    ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-7.5 gap-y-9"
-                    : "flex flex-col gap-7.5"
+                  ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-7.5 gap-y-9"
+                  : "flex flex-col gap-7.5"
                   }`}
               >
                 {shopData.map((item, key) =>

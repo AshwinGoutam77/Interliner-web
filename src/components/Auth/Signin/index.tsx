@@ -5,9 +5,9 @@ import React from "react";
 const Signin = () => {
   return (
     <>
-      <section className="overflow-hidden py-20 bg-[#f3f4f62e]">
-        <Breadcrumb title={"Signin"} pages={["Signin"]} />
-        <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
+      <section className="overflow-hidden py-20 bg-[#f3f4f62e] mt-45">
+        <div className="absolute inset-0 bg-[url('/images/banner/login-banner.png')] bg-cover bg-bottom opacity-50"></div>
+        <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0 relative z-10">
           <div className="max-w-[570px] w-full mx-auto rounded-xl bg-white shadow-1 p-4 sm:p-7.5 xl:p-11">
             <div className="text-center mb-11">
               <h2 className="font-semibold text-xl sm:text-2xl xl:text-heading-5 text-dark mb-1.5">
@@ -50,7 +50,7 @@ const Signin = () => {
                 <Link
                   href='/dashboard'
                   type="submit"
-                  className="w-full flex justify-center font-medium text-white bg-dark py-3 px-6 rounded-lg ease-out duration-200 hover:bg-blue mt-7.5"
+                  className="w-fit mx-auto flex justify-center font-medium text-white bg-dark py-3 px-6 rounded-lg ease-out duration-200 hover:bg-blue mt-7.5"
                 >
                   Sign in to account
                 </Link>

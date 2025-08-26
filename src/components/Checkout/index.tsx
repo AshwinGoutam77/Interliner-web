@@ -152,7 +152,7 @@ const Checkout = () => {
 
                     <div className="flex items-center justify-between py-5 border-b border-gray-3">
                       <div>
-                        <p className="text-dark">Shipping Fee</p>
+                        <p className="text-dark">Promo</p>
                       </div>
                       <div>
                         <p className="text-dark text-right">$15.00</p>

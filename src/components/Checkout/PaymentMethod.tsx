@@ -119,6 +119,7 @@ const PaymentMethod = () => {
 
                 <div className="">
                   <p>My Wallet</p>
+                  <p className="text-xs">$90</p>
                 </div>
               </div>
             </div>
@@ -157,6 +158,7 @@ const PaymentMethod = () => {
 
                 <div className="">
                   <p>Pay later</p>
+                  <p className="text-xs">Credit Balance: $90</p>
                 </div>
               </div>
             </div>

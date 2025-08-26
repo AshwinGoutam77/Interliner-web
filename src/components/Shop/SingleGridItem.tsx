@@ -72,17 +72,19 @@ const ProductItem = ({ item }: { item: Product }) => {
 
       </div>
 
-      <h3
-        className="font-medium text-dark ease-out duration-200 hover:text-blue mb-1.5"
-        onClick={() => handleProductDetails()}
-      >
-        <Link href="/shop-details"> {item.title} </Link>
-      </h3>
+      <div className="flex items-center justify-between gap-2">
+        <h3
+          className="font-medium text-lg text-dark ease-out duration-200 hover:text-blue"
+          onClick={() => handleProductDetails()}
+        >
+          <Link href="/shop-details"> {item.title} </Link>
+        </h3>
 
-      <span className="flex items-center gap-2 font-medium text-lg">
-        <span className="text-dark">${item.discountedPrice}</span>
-        <span className="text-dark-4 line-through">${item.price}</span>
-      </span>
+        <span className="flex items-center gap-2 font-medium text-lg">
+          <span className="text-dark">${item.discountedPrice}</span>
+          <span className="text-dark-4 line-through">${item.price}</span>
+        </span>
+      </div>
     </Link>
   );
 };

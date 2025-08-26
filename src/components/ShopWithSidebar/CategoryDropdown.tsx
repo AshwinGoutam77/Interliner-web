@@ -3,18 +3,19 @@
 import { useState } from "react";
 
 const CategoryItem = ({ category }) => {
-  const [selected, setSelected] = useState(true);
+  const [selected, setSelected] = useState(category.isRefined || false);
+
   return (
     <button
       className={`${
         selected && "text-blue"
-      } group flex items-center justify-between ease-out duration-200 hover:text-blue `}
+      } group flex items-center justify-between ease-out duration-200 hover:text-blue w-full`}
       onClick={() => setSelected(!selected)}
     >
       <div className="flex items-center gap-2">
         <div
           className={`cursor-pointer flex items-center justify-center rounded w-4 h-4 border ${
-            selected ? "border-blue bg-blue" : "bg-white border-gray-3"
+            selected ? "border-[#ccc] bg-blue" : "bg-white border-[#ccc]"
           }`}
         >
           <svg
@@ -34,26 +35,65 @@ const CategoryItem = ({ category }) => {
             />
           </svg>
         </div>
-
         <span>{category.name}</span>
       </div>
 
-      <span
-        className={`${
-          selected ? "text-white bg-blue" : "bg-gray-2"
-        } inline-flex rounded-[30px] text-custom-xs px-2 ease-out duration-200 group-hover:text-white group-hover:bg-blue`}
-      >
-        {category.products}
-      </span>
+      {category.products && (
+        <span
+          className={`${
+            selected ? "text-white bg-blue" : "bg-gray-2"
+          } inline-flex rounded-[30px] text-custom-xs px-2 ease-out duration-200 group-hover:text-white group-hover:bg-blue`}
+        >
+          {category.products}
+        </span>
+      )}
     </button>
+  );
+};
+
+const ParentCategory = ({ parent }) => {
+  const [open, setOpen] = useState(true);
+
+  return (
+    <div className="border-b border-[#ccc9]">
+      {/* Parent header */}
+      <div
+        onClick={() => setOpen(!open)}
+        className="cursor-pointer flex items-center justify-between py-3 px-6 bg-gray-50 hover:bg-gray-100"
+      >
+        <span className="font-semibold text-dark">{parent.name}</span>
+        <svg
+          className={`w-4 h-4 transition-transform ${open ? "rotate-180" : ""}`}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={2}
+          viewBox="0 0 24 24"
+        >
+          <path d="M19 9l-7 7-7-7" />
+        </svg>
+      </div>
+
+      {/* Child categories */}
+      {open && (
+        <div className="flex flex-col gap-3 py-3 pl-8 pr-5">
+          {parent.children?.map((child, i) => (
+            <CategoryItem key={i} category={child} />
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
 
 const CategoryDropdown = ({ categories }) => {
   const [toggleDropdown, setToggleDropdown] = useState(true);
 
+  // check if categories are parent-child or flat
+  const hasParents = categories.some((cat) => cat.children);
+
   return (
     <div className="bg-white shadow-1 rounded-lg">
+      {/* Dropdown header */}
       <div
         onClick={(e) => {
           e.preventDefault();
@@ -76,7 +116,6 @@ const CategoryDropdown = ({ categories }) => {
             height="24"
             viewBox="0 0 24 24"
             fill="none"
-            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               fillRule="evenodd"
@@ -88,16 +127,17 @@ const CategoryDropdown = ({ categories }) => {
         </button>
       </div>
 
-      {/* dropdown && 'shadow-filter */}
-      {/* <!-- dropdown menu --> */}
-      <div
-        className={`flex-col gap-3 py-6 pl-6 pr-5.5 ${
-          toggleDropdown ? "flex" : "hidden"
-        }`}
-      >
-        {categories.map((category, key) => (
-          <CategoryItem key={key} category={category} />
-        ))}
+      {/* Dropdown content */}
+      <div className={` mt-2 flex-col ${toggleDropdown ? "flex" : "hidden"}`}>
+        {hasParents
+          ? categories.map((parent, key) => (
+              <ParentCategory key={key} parent={parent} />
+            ))
+          : categories.map((cat, key) => (
+              <div key={key} className="py-2 px-6">
+                <CategoryItem category={cat} />
+              </div>
+            ))}
       </div>
     </div>
   );

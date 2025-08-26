@@ -316,7 +316,7 @@ const Header = () => {
         {/* <!-- header top end --> */}
       </div>
 
-      {!pathname.startsWith('/dashboard')  && <div className="border-t border-gray-3">
+      {!pathname.startsWith('/dashboard') && <div className="border-t border-gray-3">
         <div className="max-w-[1170px] mx-auto px-4 sm:px-7.5 xl:px-0">
           <div className="flex items-center justify-between">
             <div
@@ -326,16 +326,15 @@ const Header = () => {
             >
               <nav>
                 <ul className="flex xl:items-center flex-col xl:flex-row gap-5 xl:gap-6">
-                  <li
-                    className={`hover:text-blue text-custom-sm font-medium text-dark flex`}
-                  >
-                    Browse by Category :
-                  </li>
                   {subMenuData.map((menuItem, i) =>
                   (
                     <li
                       key={i}
-                      className="group relative before:w-0 before:h-[3px] before:bg-blue before:absolute before:left-0 before:top-0 before:rounded-b-[3px] before:ease-out before:duration-200 hover:before:w-full "
+                      className={`group relative before:h-[3px] before:bg-blue before:absolute before:left-0 before:top-0 before:rounded-b-[3px] before:ease-out before:duration-200 hover:before:w-full
+                        ${pathname === menuItem.path
+                          ? "before:w-full"
+                          : "before:w-0 "
+                        }`}
                     >
                       <Link
                         href={menuItem.path}
@@ -407,7 +406,7 @@ const Header = () => {
           </div>
         </div>
       </div>}
-    </header>
+    </header >
   );
 };
 

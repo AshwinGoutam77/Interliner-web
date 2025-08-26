@@ -64,7 +64,7 @@ const PromoBanner = () => {
             </p>
 
             <a
-              href="/categories"
+              href="/categories/shirts"
               className="inline-flex font-medium text-custom-sm text-white bg-blue py-[11px] px-9.5 rounded-md ease-out duration-200 hover:bg-blue-dark mt-7.5"
             >
               Shop Now
@@ -109,7 +109,7 @@ const PromoBanner = () => {
               </p> */}
 
               <Link
-                href="/categories"
+                href="/categories/shirts"
                 className="inline-flex font-medium text-custom-sm text-white bg-teal py-2.5 px-8.5 rounded-md ease-out duration-200 hover:bg-teal-dark mt-9"
               >
                 Shop Now
@@ -141,7 +141,7 @@ const PromoBanner = () => {
               </p> */}
 
               <Link
-                href="/categories"
+                href="/categories/shirts"
                 className="inline-flex font-medium text-custom-sm text-white bg-orange py-2.5 px-8.5 rounded-md ease-out duration-200 hover:bg-orange-dark mt-7.5"
               >
                 Shop Now
@@ -171,7 +171,7 @@ const PromoBanner = () => {
               </h2>
 
               <Link
-                href="/categories"
+                href="/categories/shirts"
                 className="inline-flex font-medium text-custom-sm text-white bg-orange py-2.5 px-8.5 rounded-md ease-out duration-200 hover:bg-orange-dark mt-7.5"
               >
                 Shop Now
@@ -198,7 +198,7 @@ const PromoBanner = () => {
               </h2>
 
               <Link
-                href="/categories"
+                href="/categories/shirts"
                 className="inline-flex font-medium text-custom-sm text-white bg-teal py-2.5 px-8.5 rounded-md ease-out duration-200 hover:bg-teal-dark mt-9"
               >
                 Shop Now
@@ -228,7 +228,7 @@ const PromoBanner = () => {
               </h2>
 
               <Link
-                href="/categories"
+                href="/categories/shirts"
                 className="inline-flex font-medium text-custom-sm text-white bg-teal py-2.5 px-8.5 rounded-md ease-out duration-200 hover:bg-teal-dark mt-9"
               >
                 Shop Now
@@ -252,11 +252,11 @@ const PromoBanner = () => {
               </span>
 
               <h2 className="font-bold text-xl lg:text-heading-4 text-dark mb-2.5">
-                T-Shits & <br />Hoodies
+                T-Shirts & <br />Hoodies
               </h2>
 
               <Link
-                href="/categories"
+                href="/categories/shirts"
                 className="inline-flex font-medium text-custom-sm text-white bg-orange py-2.5 px-8.5 rounded-md ease-out duration-200 hover:bg-orange-dark mt-7.5"
               >
                 Shop Now

@@ -68,7 +68,7 @@ export default function Page() {
                                 <td className="px-6 py-4">{row.ticketID}</td>
                                 <td className="px-6 py-4">{row.status}</td>
                                 <td className="px-6 py-4">
-                                    <button className="primary-btn text-xs" onClick={() => setIsFeedbackOpen(true)}>
+                                    <button className="secondary-btn" onClick={() => setIsFeedbackOpen(true)}>
                                         Give Feedback
                                     </button>
                                 </td>
@@ -116,7 +116,7 @@ export default function Page() {
                                     rows="3"
                                 ></textarea>
                             </div>
-                            <button type="submit" className="primary-btn w-full">Submit</button>
+                            <button type="submit" className="primary-btn w-auto ml-auto">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -157,7 +157,7 @@ export default function Page() {
                                     <option value="5">5 - Excellent</option>
                                 </select>
                             </div>
-                            <button type="submit" className="primary-btn w-full">Submit Feedback</button>
+                            <button type="submit" className="primary-btn w-auto ml-auto">Submit Feedback</button>
                         </form>
                     </div>
                 </div>

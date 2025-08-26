@@ -59,23 +59,23 @@ const trackingSteps = [
 const orderItems = [
     {
         id: 1,
-        name: 'Apple AirPods Pro (2nd Gen)',
+        name: 'Waist Band',
         brand: 'Apple',
         quantity: 1,
         price: 24900,
         originalPrice: 27900,
-        image: 'https://images.pexels.com/photos/8534088/pexels-photo-8534088.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://interliners.net/wp-content/uploads/2021/03/Waist-band-247x296.jpg',
         rating: 4.8,
         warranty: '1 Year Apple Warranty'
     },
     {
         id: 2,
-        name: 'Apple Watch Series 9 GPS',
+        name: 'Perforated Tapes',
         brand: 'Apple',
         quantity: 1,
         price: 41900,
         originalPrice: 45900,
-        image: 'https://images.pexels.com/photos/437037/pexels-photo-437037.jpeg?auto=compress&cs=tinysrgb&w=400',
+        image: 'https://interliners.net/wp-content/uploads/2021/03/Interlining-Tape-Perforated-for-The-Waistband-247x296.jpg',
         rating: 4.9,
         warranty: '1 Year Apple Warranty'
     }
@@ -281,15 +281,6 @@ export default function TrackOrder() {
                                                 />
                                                 <div className="flex-1">
                                                     <h3 className="font-semibold text-dark mb-1">{item.name}</h3>
-                                                    <p className="text-sm text-dark mb-2">{item.brand}</p>
-                                                    <div className="flex items-center gap-2 mb-2">
-                                                        <div className="flex items-center gap-1">
-                                                            <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                                                            <span className="text-sm font-medium text-dark">{item.rating}</span>
-                                                        </div>
-                                                        <span className="text-xs text-dark">•</span>
-                                                        <span className="text-xs text-dark">{item.warranty}</span>
-                                                    </div>
                                                     <div className="flex items-center justify-between">
                                                         <span className="text-sm text-dark">Qty: {item.quantity}</span>
                                                         <div className="text-right">

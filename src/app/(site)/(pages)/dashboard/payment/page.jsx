@@ -34,6 +34,15 @@ export default function Page() {
         { date: "02/09/2025", number: "#3434", total: "$50.00", paid: "$20.00", balance: "$30.00" },
     ];
 
+    const paymentRows = [
+        { date: "2025-08-25 10:30 AM", method: "Paid directly", total: "$120", paidVia: "Via Cash" },
+        { date: "2025-08-25 10:30 AM", method: "Paid directly", total: "$120", paidVia: "Via Cash" },
+        { date: "2025-08-25 10:30 AM", method: "Paid directly", total: "$120", paidVia: "Via Cash" },
+        { date: "2025-08-25 10:30 AM", method: "Paid directly", total: "$120", paidVia: "Via Cash" },
+        { date: "2025-08-25 10:30 AM", method: "Paid directly", total: "$120", paidVia: "Via Cash" },
+        { date: "2025-08-25 10:30 AM", method: "Paid directly", total: "$120", paidVia: "Via Cash" },
+    ];
+
     const handleFileChange = (e) => {
         setForm({ ...form, file: e.target.files[0] });
     };
@@ -85,30 +94,29 @@ export default function Page() {
                         aria-labelledby={`${tab.id}-tab`}
                     >
                         {tab.id === "payment-records" ? (
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                                {payments.map((payment) => (
-                                    <div
-                                        key={payment.id}
-                                        className="p-4 bg-white dark:bg-gray-700 rounded-xl border border-[#ccc] flex wrap gap-2 items-center justify-between"
-                                    >
-                                        <div>
-                                            <h3 className="text-md font-semibold text-blue dark:text-white">
-                                                {payment.title}
-                                            </h3>
-                                            <p className="text-xs text-gray-500 dark:text-gray-300 m-0">
-                                                {payment.date}
-                                            </p>
-                                        </div>
-                                        <div>
-                                            <p className="text-xl font-semibold text-blue">
-                                                {payment.amount}
-                                            </p>
-                                            <p className="text-xs mt-1 text-gray-600 dark:text-gray-300">
-                                                Via <span className="font-medium">{payment.method}</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                ))}
+                            <div className="overflow-x-auto overflow-visible">
+                                <div className="relative overflow-x-auto overflow-visible h-100">
+                                    <table className="w-full text-sm text-left rtl:text-right text-dark">
+                                        <thead className="text-xs text-white uppercase bg-blue">
+                                            <tr>
+                                                <th className="px-6 py-5">Payment Method</th>
+                                                <th className="px-6 py-3">Date</th>
+                                                <th className="px-6 py-3">Amount</th>
+                                                <th className="px-6 py-3">Paid Via</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {paymentRows.map((row, i) => (
+                                                <tr key={i} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-[#ccc]">
+                                                    <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{row.date}</th>
+                                                    <td className="px-6 py-4">{row.method}</td>
+                                                    <td className="px-6 py-4">{row.total}</td>
+                                                    <td className="px-6 py-4">{row.paidVia}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         ) : tab.id === "pay-by-order" ? (
                             <div className="overflow-x-auto overflow-visible">
@@ -324,7 +332,7 @@ export default function Page() {
                             {/* Submit */}
                             <button
                                 type="submit"
-                                className="primary-btn w-full"
+                                className="primary-btn w-auto"
                             >
                                 Submit Payment
                             </button>
