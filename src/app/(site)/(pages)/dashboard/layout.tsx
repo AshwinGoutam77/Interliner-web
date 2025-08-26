@@ -12,7 +12,7 @@ export default function DashboardLayout({ children }) {
         { href: "/dashboard/credit-information", label: "Credit Information" },
         { href: "/dashboard/payment", label: "Payment" },
         { href: "/dashboard/complain", label: "Complain" },
-        { href: "/dashboard/edit-profile", label: "Edit Profile" }, // fixed duplicate
+        { href: "/dashboard/edit-profile", label: "Edit Profile" },
         { href: "/", label: "Logout" },
     ];
 
