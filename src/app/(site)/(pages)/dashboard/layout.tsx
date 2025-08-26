@@ -10,9 +10,9 @@ export default function DashboardLayout({ children }) {
                 <nav className="space-y-4">
                     <Link href="/dashboard" className="block text-white hover:text-blue-600">Previous Orders</Link>
                     <Link href="/dashboard/track-order" className="block text-white hover:text-blue-600">Track Orders</Link>
-                    <Link href="/dashboard" className="block text-white hover:text-blue-600">Credit Information</Link>
+                    <Link href="/dashboard/credit-information" className="block text-white hover:text-blue-600">Credit Information</Link>
                     <Link href="/dashboard/payment" className="block text-white hover:text-blue-600">Payment</Link>
-                    <Link href="/dashboard" className="block text-white hover:text-blue-600">Complain</Link>
+                    <Link href="/dashboard/complain" className="block text-white hover:text-blue-600">Complain</Link>
                 </nav>
             </aside>
 

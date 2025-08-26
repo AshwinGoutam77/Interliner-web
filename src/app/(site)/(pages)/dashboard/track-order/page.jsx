@@ -33,7 +33,7 @@ export default function DashboardPage() {
                                 <tr key={i} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-[#ccc]">
                                     <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{row.date}</th>
                                     <td className="px-6 py-4">{row.number}</td>
-                                    <td className="px-6 py-4 relative overflow-visible"> <Link href='/' className="flex items-center text-blue">Track Order <ChevronRight color="#012169" /></Link> </td>
+                                    <td className="px-6 py-4 relative overflow-visible"> <Link href='/dashboard/track-order/order-id=#2334' className="flex items-center text-blue">Track Order <ChevronRight color="#012169" /></Link> </td>
                                 </tr>
                             ))}
                         </tbody>
