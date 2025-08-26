@@ -47,13 +47,13 @@ const Signin = () => {
                   />
                 </div>
 
-                <button
+                <Link
+                  href='/dashboard'
                   type="submit"
                   className="w-full flex justify-center font-medium text-white bg-dark py-3 px-6 rounded-lg ease-out duration-200 hover:bg-blue mt-7.5"
                 >
                   Sign in to account
-                </button>
-
+                </Link>
                 <a
                   href="#"
                   className="block text-center text-dark-4 mt-4.5 ease-out duration-200 hover:text-dark"
