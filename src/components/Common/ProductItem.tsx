@@ -60,7 +60,15 @@ const ProductItem = ({ item }: { item: Product }) => {
   return (
     <Link href="/shop-details" className="cursor-pointer group" onClick={handleViewProduct}>
       <div className="relative overflow-hidden flex items-center justify-center rounded-lg bg-[#F6F7FB] min-h-[270px] mb-4">
-        <Image src={item.imgs.previews[0]} alt="" width={250} height={250} style={{ width: '100%', height: '280px', objectFit: 'cover' }} />
+        <Image
+          src={item.imgs.previews[0]}
+          alt=""
+          width={250}
+          height={250}
+          style={{ width: '100%', height: '280px', objectFit: 'cover' }}
+          className="transition-transform duration-300 hover:scale-105 rounded-lg"
+        />
+
       </div>
       <h3
         className="font-medium text-dark ease-out duration-200 hover:text-blue mb-1.5"
