@@ -93,13 +93,13 @@ export default function DashboardLayout({ children }) {
 
                     {/* Logout */}
                     <div className="mt-8 pt-4 border-t border-[#cccccc3b]">
-                        <a
-                            href="#"
+                        <Link
+                            href="/"
                             className="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition-all duration-200"
                         >
                             <LogOut className="h-5 w-5 text-white" />
                             <span className="font-medium text-white">Logout</span>
-                        </a>
+                        </Link>
                     </div>
                 </nav>
             </aside>
