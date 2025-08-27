@@ -137,8 +137,8 @@ const Header = () => {
                       href={menuItem.path}
                       className={`hover:text-blue text-md font-medium text-dark flex ${stickyMenu ? "xl:py-4" : "xl:py-6"
                         } ${pathname === menuItem.path
-                          ? "text-blue"
-                          : "text-dark hover:text-blue"
+                          ? "text-blue font-bold underline"
+                          : "text-dark hover:text-blue hover:underline"
                         }`}
                     >
                       {menuItem.title}

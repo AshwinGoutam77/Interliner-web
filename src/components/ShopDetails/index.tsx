@@ -130,7 +130,7 @@ const ShopDetails = () => {
         "Please add product"
       ) : (
         <>
-          <section className="overflow-hidden relative pb-20 pt-5 lg:pt-20 xl:pt-28 bg-[#f3f4f62e]">
+          <section className="overflow-hidden relative pb-20 pt-25 lg:pt-20 xl:pt-28 bg-[#f3f4f62e]">
             <Breadcrumb title={"Straight Cut"} pages={["Categories/  Straight Cut"]} />
 
             <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
@@ -214,7 +214,7 @@ const ShopDetails = () => {
                   <form onSubmit={(e) => e.preventDefault()}>
                     <div className="flex flex-col gap-4.5 border-y border-gray-3 mt-7 mb-9 py-7">
                       {/* <!-- details item --> */}
-                      <div className="flex items-center gap-4">
+                      <div className="flex flex-wrap items-center gap-4">
                         <div className="min-w-[65px]">
                           <h4 className="font-medium text-dark">Shades:</h4>
                         </div>
@@ -465,7 +465,7 @@ const ShopDetails = () => {
 
                         {/* Cuts Modal */}
                         {modalOpen && (
-                          <div className="fixed inset-0 z-[999999999999999] mt-0 flex items-center justify-center">
+                          <div className="fixed inset-0 z-[999999999999999] mt-0 flex items-center justify-center px-2">
                             <div
                               className="absolute inset-0 bg-[#0000006b]"
                               onClick={() => setModalOpen(false)}
@@ -474,7 +474,7 @@ const ShopDetails = () => {
                             {/* Modal content */}
                             <div className="relative bg-white rounded-2xl shadow-lg w-full max-w-lg p-6 ">
                               {/* Header */}
-                              <div className="flex items-center justify-between border-b pb-3">
+                              <div className="flex items-center justify-between border-b border-[#ccc] pb-3">
                                 <h2 className="text-lg font-semibold">Enter Pieces for Each Size</h2>
                                 <button
                                   onClick={() => setModalOpen(false)}
@@ -489,7 +489,7 @@ const ShopDetails = () => {
                                     <span className="font-medium">{inch}</span>
                                     <input
                                       type="number"
-                                      className="border rounded-lg px-3 py-1 w-28 focus:outline-none focus:ring focus:ring-blue-400"
+                                      className="border border-[#ccc] rounded-md px-3 py-1 w-28 focus:outline-none focus:ring focus:ring-0"
                                       value={inchQuantities[inch] || ""}
                                       onChange={(e) =>
                                         setInchQuantities((prev) => ({
@@ -501,15 +501,15 @@ const ShopDetails = () => {
                                   </div>
                                 ))}
                               </div>
-                              <div className="flex items-center justify-between border-t pt-3">
+                              <div className="flex items-center justify-between border-t border-[#ccc] pt-3">
                                 <span className="font-medium text-gray-700">Total: 33 Inches</span>
-                                <span className="font-medium text-gray-700">No. of Rolls: 1</span>
+                                <span className="font-medium text-gray-700">No. of Coils: 1</span>
                               </div>
                               <button
                                 onClick={handleSaveCutRolls}
-                                className="mt-4 inline-flex font-medium text-white bg-blue py-3 px-7 rounded-md ease-out duration-200 hover:bg-blue-dark"
+                                className="mt-4 primary-btn"
                               >
-                                Save
+                                Save Changes
                               </button>
                             </div>
                           </div>
@@ -593,11 +593,11 @@ const ShopDetails = () => {
                               Item has been added to cart
                             </h2>
 
-                            <div className="flex justify-center gap-3 mt-6">
+                            <div className="flex flex-wrap justify-center gap-3 mt-6">
                               {/* Continue Shopping */}
                               <Link
                                 href="/shop-with-sidebar"
-                                className="px-5 py-2 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
+                                className="secondary-btn text-center"
                               >
                                 Continue Shopping
                               </Link>
@@ -605,7 +605,7 @@ const ShopDetails = () => {
                               {/* Checkout */}
                               <Link
                                 href="/checkout"
-                                className="px-5 py-2 rounded-md bg-blue text-white hover:bg-blue-dark transition"
+                                className="primary-btn text-center"
                               >
                                 Checkout
                               </Link>

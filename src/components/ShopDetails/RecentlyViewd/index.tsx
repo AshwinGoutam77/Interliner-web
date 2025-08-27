@@ -85,8 +85,19 @@ const RecentlyViewdItems = () => {
 
           <Swiper
             ref={sliderRef}
-            slidesPerView={4}
             spaceBetween={20}
+            slidesPerView={4}
+            breakpoints={{
+              0: {       // mobile 
+                slidesPerView: 1.2,
+              },
+              768: {     // tablet
+                slidesPerView: 3,
+              },
+              1024: {    // desktop
+                slidesPerView: 4,
+              },
+            }}
             className="justify-between"
           >
             {shopData.map((item, key) => (
@@ -95,6 +106,7 @@ const RecentlyViewdItems = () => {
               </SwiperSlide>
             ))}
           </Swiper>
+
         </div>
       </div>
     </section>

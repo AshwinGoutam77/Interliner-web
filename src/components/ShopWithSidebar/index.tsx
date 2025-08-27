@@ -102,7 +102,7 @@ const ShopWithSidebar = () => {
 
   return (
     <>
-      <section className="overflow-hidden relative pb-20 pt-5 lg:pt-20 xl:pt-28 bg-[#f3f4f62e]">
+      <section className="overflow-hidden relative pb-20 pt-25 lg:pt-20 xl:pt-28 bg-[#f3f4f62e]">
         <Breadcrumb
           title={pageTitle}
           pages={[pageTitle]}
