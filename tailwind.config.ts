@@ -8,6 +8,14 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: [
+    'from-blue-500', 'to-blue-600', 'hover:from-blue-600', 'hover:to-blue-700',
+    'from-emerald-500', 'to-emerald-600', 'hover:from-emerald-600', 'hover:to-emerald-700',
+    'from-purple-500', 'to-purple-600', 'hover:from-purple-600', 'hover:to-purple-700',
+    'from-amber-500', 'to-amber-600', 'hover:from-amber-600', 'hover:to-amber-700',
+    'from-red-500', 'to-red-600', 'hover:from-red-600', 'hover:to-red-700',
+    'from-indigo-500', 'to-indigo-600', 'hover:from-indigo-600', 'hover:to-indigo-700',
+  ],
   darkMode: "class",
   theme: {
     fontFamily: {

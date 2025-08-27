@@ -79,9 +79,9 @@ export default function DashboardPage() {
         <div className="p-6 bg-gray-50 min-h-screen">
             <h1 className="text-3xl font-bold mb-8 text-dark">Previous Orders</h1>
 
-            <div className="overflow-x-auto overflow-visible">
-                <div className="relative overflow-x-auto overflow-visible h-100">
-                    <table className="w-full text-sm text-left rtl:text-right text-dark">
+            <div className="overflow-hidden">
+                <div className="relative h-100">
+                    <table className="w-full overflow-auto text-sm text-left rtl:text-right text-dark">
                         <thead className="text-xs text-white uppercase bg-blue">
                             <tr>
                                 <th className="px-6 py-5">Order Date</th>
