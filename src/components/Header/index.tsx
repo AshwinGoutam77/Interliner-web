@@ -180,9 +180,9 @@ const Header = () => {
                 <span className="block text-2xs text-dark-4 uppercase">
                   24/7 SUPPORT
                 </span>
-                <p className="font-medium text-custom-sm text-dark">
+                <Link href="tel:+971-6-7436061" className="font-medium text-custom-sm text-dark hover:underline">
                   +971-6-7436061
-                </p>
+                </Link>
               </div>
             </div>
 
@@ -216,7 +216,7 @@ const Header = () => {
                     <span className="block text-2xs text-dark-4 uppercase">
                       account
                     </span>
-                    <p className="font-medium text-custom-sm text-dark">
+                    <p className="font-medium text-custom-sm text-dark hover:underline">
                       Sign In
                     </p>
                   </div>
