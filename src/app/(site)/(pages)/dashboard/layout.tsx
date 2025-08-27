@@ -49,8 +49,8 @@ export default function DashboardLayout({ children }) {
             {/* Sidebar */}
             <aside
                 className={`
-          fixed top-0 left-0 z-[999999999999] h-[120vh] w-64 bg-blue transform transition-transform duration-300
-          ${isOpen ? "translate-x-0" : "-translate-x-full"}
+          fixed top-0 left-0 z-[999999999999] w-64 bg-blue transform transition-transform duration-300
+          ${isOpen ? "translate-x-0 h-screen" : "-translate-x-full h-auto"}
           lg:translate-x-0 lg:static lg:z-auto
         `}
             >
