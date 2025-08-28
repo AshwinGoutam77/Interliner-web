@@ -13,13 +13,21 @@ import {
     LogOut,
     X,
     Menu,
+    BarChart3, // reports icon
 } from "lucide-react";
+import { useSelector } from "react-redux";
 
 export default function DashboardLayout({ children }) {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
-
-    const menuItems = [
+    interface RootState {
+        auth: {
+            role: string;
+        };
+    }
+    const role = useSelector((state: RootState) => state.auth.role);
+    // base menu
+    let menuItems = [
         { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
         { icon: Clock, label: "Previous Orders", href: "/dashboard/previous-orders" },
         { icon: MapPin, label: "Track Orders", href: "/dashboard/track-order" },
@@ -29,11 +37,23 @@ export default function DashboardLayout({ children }) {
         { icon: User, label: "Profile", href: "/dashboard/profile" },
     ];
 
+    // if sales → replace Credit Information with Reports
+    if (role === "sales") {
+        menuItems = menuItems.map((item) =>
+            item.label === "Credit Information"
+                ? { icon: BarChart3, label: "Reports", href: "/dashboard/reports" }
+                : item
+        );
+    }
+
     return (
         <div className="flex min-h-screen bg-gray-100">
             {/* Mobile topbar with hamburger */}
             <header className="lg:hidden fixed top-[112px] left-auto right-3 z-[99999999999999]">
-                <button onClick={() => setIsOpen(true)} className="p-2 rounded-md hover:bg-blue-800 bg-blue">
+                <button
+                    onClick={() => setIsOpen(true)}
+                    className="p-2 rounded-md hover:bg-blue-800 bg-blue"
+                >
                     <Menu className="h-6 w-6 text-white" />
                 </button>
             </header>
@@ -76,12 +96,13 @@ export default function DashboardLayout({ children }) {
                                     <Link
                                         href={item.href}
                                         className={`
-                      flex items-center gap-3 px-4 py-3 rounded transition-all duration-200
-                      ${active
+                                            flex items-center gap-3 px-4 py-3 rounded transition-all duration-200
+                                            ${active
                                                 ? "bg-white/20 text-white backdrop-blur-sm"
-                                                : "text-white hover:text-white hover:bg-white/20"}
-                    `}
-                                        onClick={() => setIsOpen(false)} // close sidebar after click (mobile)
+                                                : "text-white hover:text-white hover:bg-white/20"
+                                            }
+                                        `}
+                                        onClick={() => setIsOpen(false)}
                                     >
                                         <Icon className="h-5 w-5" />
                                         <span className="font-medium">{item.label}</span>
@@ -105,7 +126,9 @@ export default function DashboardLayout({ children }) {
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 p-0 sm:p-8 mt-40 sm:mt-28 overflow-auto bg-[#fff]">{children}</main>
+            <main className="flex-1 p-0 sm:p-8 mt-40 sm:mt-28 overflow-auto bg-[#fff]">
+                {children}
+            </main>
         </div>
     );
 }

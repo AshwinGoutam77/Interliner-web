@@ -1,8 +1,12 @@
+'use client'
 import Breadcrumb from "@/components/Common/Breadcrumb";
+import { loginAsSales, loginAsUser } from "@/redux/features/authSlice";
 import Link from "next/link";
 import React from "react";
+import { useDispatch } from "react-redux";
 
 const Signin = () => {
+  const dispatch = useDispatch();
   return (
     <>
       <section className="overflow-hidden py-20 bg-[#f3f4f62e] mt-45">
@@ -47,13 +51,24 @@ const Signin = () => {
                   />
                 </div>
 
-                <Link
-                  href='/dashboard'
-                  type="submit"
-                  className="w-fit mx-auto flex justify-center font-medium text-white bg-dark py-3 px-6 rounded-lg ease-out duration-200 hover:bg-blue mt-7.5"
-                >
-                  Sign in to account
-                </Link>
+                <div className="flex items-center gap-2">
+                  <Link
+                    href='/dashboard'
+                    type="submit"
+                    className="w-full mx-auto flex justify-center font-medium text-white bg-dark py-3 px-6 rounded-lg ease-out duration-200 hover:bg-blue"
+                    onClick={() => dispatch(loginAsUser())}
+                  >
+                    Sign in as customer
+                  </Link>
+                  <Link
+                    href='/dashboard'
+                    type="submit"
+                    className="w-full mx-auto flex justify-center font-medium text-white bg-dark py-3 px-6 rounded-lg ease-out duration-200 hover:bg-blue"
+                    onClick={() => dispatch(loginAsSales())}
+                  >
+                    Sign in as sales
+                  </Link>
+                </div>
                 <a
                   href="#"
                   className="block text-center text-dark-4 mt-4.5 ease-out duration-200 hover:text-dark"

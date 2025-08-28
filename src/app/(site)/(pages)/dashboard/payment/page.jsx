@@ -1,9 +1,19 @@
 "use client";
+import { ChevronDown, ChevronRight } from "lucide-react";
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function Page() {
     const [activeTab, setActiveTab] = useState("payment-records");
     const [isOpen, setIsOpen] = useState(false);
+    const role = useSelector((state) => state.auth.role);
+    const users = [
+        { id: 1, name: "John Doe", img: "../../../../images/users/user-04.jpg" },
+        { id: 2, name: "Jane Smith", img: "../../../../images/users/user-04.jpg" },
+        { id: 3, name: "David Johnson", img: "../../../../images/users/user-04.jpg" },
+    ];
+    const [selectedUser, setSelectedUser] = useState(role === "sales" ? users[0] : null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [form, setForm] = useState({
         amount: "",
@@ -14,20 +24,39 @@ export default function Page() {
     });
 
     const tabs = [
-        { id: "payment-records", label: "Payment Records" },
-        { id: "pay-by-order", label: "Pay by Order" },
-        { id: "make-payment", label: "Make Payment" },
+        { id: "payment-records", label: "Payment Records", sales: true, user: true },
+        { id: "pay-by-order", label: "Pay by Order", sales: true, user: true },
+        { id: "make-payment", label: "Make Payment", sales: false, user: true },
+        { id: "credit-info", label: "Credit Informations", sales: true, user: false },
     ];
 
-    // Dummy data for payment records
-    const payments = [
-        { id: 1, title: "Paid directly", date: "2025-08-25 10:30 AM", amount: "$120", method: "Cash" },
-        { id: 2, title: "Partial Payment", date: "2025-08-20 03:15 PM", amount: "$250", method: "Cheque" },
-        { id: 3, title: "Full Payment", date: "2025-08-18 05:45 PM", amount: "$75", method: "Cash" },
-        { id: 4, title: "Paid directly", date: "2025-08-25 10:30 AM", amount: "$120", method: "Card" },
-        { id: 5, title: "Partial Payment", date: "2025-08-20 03:15 PM", amount: "$250", method: "Cheque" },
-        { id: 6, title: "Full Payment", date: "2025-08-18 05:45 PM", amount: "$75", method: "Card" },
+    const usersCreditData = [
+        {
+            id: 1,
+            data: [
+                { label: "Customer Name", value: "John Doe" },
+                { label: "Amount Paid", value: "$20" },
+                { label: "Amount Due", value: "$10" },
+            ],
+        },
+        {
+            id: 2,
+            data: [
+                { label: "Customer Name", value: "Jane Smith" },
+                { label: "Amount Paid", value: "$50" },
+                { label: "Amount Due", value: "$0" },
+            ],
+        },
+        {
+            id: 3,
+            data: [
+                { label: "Customer Name", value: "Mike Johnson" },
+                { label: "Amount Paid", value: "$35" },
+                { label: "Amount Due", value: "$5" },
+            ],
+        },
     ];
+
 
     const rows = [
         { date: "02/09/2025", number: "#2344", total: "$24.00", paid: "$2.00", balance: "$22.00" },
@@ -59,28 +88,73 @@ export default function Page() {
 
     return (
         <>
+
+            {role === "sales" && isModalOpen && (
+                <div className="fixed inset-0 z-[999999999] flex items-center justify-center bg-[#0000006b]">
+                    <div className="bg-white rounded-lg shadow-lg w-[400px] p-6">
+                        <h2 className="text-lg font-bold mb-4">Select User</h2>
+                        <ul className="space-y-3">
+                            {users.map((user) => (
+                                <li key={user.id}>
+                                    <button
+                                        onClick={() => {
+                                            setSelectedUser(user);
+                                            setIsModalOpen(false);
+                                        }}
+                                        className="flex items-center justify-between gap-3 w-full text-left px-3 py-2 rounded hover:bg-gray"
+                                    >
+                                        <div className="flex items-center gap-2">
+                                            <img src={user.img} alt={user.name} className="w-10 h-10 rounded-full" />
+                                            <span>{user.name}</span>
+                                        </div>
+                                        <ChevronRight />
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            )}
+
             {/* Tab Buttons */}
-            <div className="mb-4 border-b border-[#ccc] dark:border-gray-700">
-                <ul className="flex flex-wrap -mb-px text-sm font-medium text-center">
-                    {tabs.map((tab) => (
-                        <li key={tab.id} className="me-2" role="presentation">
-                            <button
-                                onClick={() => setActiveTab(tab.id)}
-                                className={`inline-block p-4 rounded-t-lg
+            <div className="mb-4">
+                <div className="flex items-center justify-between">
+                    <ul className="flex flex-wrap -mb-px text-sm font-medium text-center border-b border-[#ccc]">
+                        {tabs.map((tab) => (
+                            ((role === "user" && tab.user) || (role === "sales" && tab.sales)) &&
+                            <li key={tab.id} className="me-2" role="presentation">
+                                <button
+                                    onClick={() => setActiveTab(tab.id)}
+                                    className={`inline-block p-4 rounded-t-lg
                                     ${activeTab === tab.id
-                                        ? "text-dark border-dark dark:text-white dark:border-white border-b-2"
-                                        : "text-gray-500 border-gray-100 hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:border-gray-700 dark:hover:text-gray-300"
-                                    }`}
-                                type="button"
-                                role="tab"
-                                aria-controls={tab.id}
-                                aria-selected={activeTab === tab.id}
-                            >
-                                {tab.label}
-                            </button>
-                        </li>
-                    ))}
-                </ul>
+                                            ? "text-dark border-dark dark:text-white dark:border-white border-b-2"
+                                            : "text-gray-500 border-gray-100 hover:text-gray-600 hover:border-gray-300 dark:text-gray-400 dark:border-gray-700 dark:hover:text-gray-300"
+                                        }`}
+                                    type="button"
+                                    role="tab"
+                                    aria-controls={tab.id}
+                                    aria-selected={activeTab === tab.id}
+                                >
+                                    {tab.label}
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
+                    {role === "sales" && selectedUser && (
+                        <button
+                            onClick={() => setIsModalOpen(true)}
+                            className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow border border-gray-200 hover:bg-gray-100"
+                        >
+                            <img
+                                src={selectedUser.img}
+                                alt={selectedUser.name}
+                                className="w-8 h-8 rounded-full"
+                            />
+                            <span className="font-medium">{selectedUser.name}</span>
+                            <ChevronDown className="w-4 h-4" />
+                        </button>
+                    )}
+                </div>
             </div>
 
             {/* Tab Content */}
@@ -99,6 +173,7 @@ export default function Page() {
                                     <table className="w-full text-sm text-left rtl:text-right text-dark">
                                         <thead className="text-xs text-white uppercase bg-blue">
                                             <tr>
+                                                {role == 'sales' && <th className="px-6 py-5">Customer Name</th>}
                                                 <th className="px-6 py-5">Payment Method</th>
                                                 <th className="px-6 py-3">Date</th>
                                                 <th className="px-6 py-3">Amount</th>
@@ -108,6 +183,7 @@ export default function Page() {
                                         <tbody>
                                             {paymentRows.map((row, i) => (
                                                 <tr key={i} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-[#ccc]">
+                                                    {role == 'sales' && <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{selectedUser.name}</th>}
                                                     <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{row.date}</th>
                                                     <td className="px-6 py-4">{row.method}</td>
                                                     <td className="px-6 py-4">{row.total}</td>
@@ -124,37 +200,39 @@ export default function Page() {
                                     <table className="w-full text-sm text-left rtl:text-right text-dark">
                                         <thead className="text-xs text-white uppercase bg-blue">
                                             <tr>
+                                                {role === "sales" && <th className="px-6 py-5">Customer Name</th>}
                                                 <th className="px-6 py-5">Order Date</th>
                                                 <th className="px-6 py-3">Order Number</th>
                                                 <th className="px-6 py-3">Total Amount</th>
                                                 <th className="px-6 py-3">Paid Amount</th>
                                                 <th className="px-6 py-3">Balance Due</th>
-                                                <th className="px-6 py-3"></th>
+                                                {role !== "sales" && <th className="px-6 py-3"></th>}
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {rows.map((row, i) => (
                                                 <tr key={i} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-[#ccc]">
+                                                    {role === "sales" && <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{selectedUser.name}</th>}
                                                     <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{row.date}</th>
                                                     <td className="px-6 py-4">{row.number}</td>
                                                     <td className="px-6 py-4">{row.total}</td>
                                                     <td className="px-6 py-4">{row.paid}</td>
                                                     <td className="px-6 py-4">{row.balance}</td>
-                                                    <td className="px-6 py-4 relative overflow-visible">
+                                                    {role !== "sales" && <td className="px-6 py-4 relative overflow-visible">
                                                         <button
                                                             onClick={() => setIsOpen(true)}
                                                             className="bg-blue text-white px-3 py-2 rounded-md text-xs hover:bg-blue/90"
                                                         >
                                                             Pay Now
                                                         </button>
-                                                    </td>
+                                                    </td>}
                                                 </tr>
                                             ))}
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                        ) :
+                        ) : tab.id === "make-payment" ?
                             <div
                                 className="fixed inset-0 bg-[#0000006b] flex items-center justify-center z-[999999999]"
                                 onClick={() => setActiveTab("pay-by-order")}
@@ -264,6 +342,26 @@ export default function Page() {
                                         </button>
                                     </form>
                                 </div>
+                            </div> :
+                            <div className="space-y-6">
+                                {usersCreditData.map((user) => (
+                                    <div
+                                        key={user.id}
+                                        className="bg-white rounded-2xl border border-[#ccc9] p-6"
+                                    >
+                                        <div className="space-y-4">
+                                            {user.data.map((item, idx) => (
+                                                <div
+                                                    key={idx}
+                                                    className="flex items-center justify-between border-b border-[#ccc9] last:border-none pb-3 last:pb-0"
+                                                >
+                                                    <span className="text-gray-600 font-medium">{item.label}</span>
+                                                    <span className="text-gray-900 font-semibold">{item.value}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         }
                     </div>

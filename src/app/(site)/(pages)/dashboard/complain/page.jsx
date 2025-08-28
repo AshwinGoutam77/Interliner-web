@@ -1,6 +1,8 @@
 "use client";
 
+import { ChevronDown, ChevronRight } from "lucide-react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function Page() {
     const rows = [
@@ -10,6 +12,15 @@ export default function Page() {
 
     const [isOpen, setIsOpen] = useState(false);
     const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
+
+    const role = useSelector((state) => state.auth.role);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const users = [
+        { id: 1, name: "John Doe", img: "../../../../images/users/user-04.jpg" },
+        { id: 2, name: "Jane Smith", img: "../../../../images/users/user-04.jpg" },
+        { id: 3, name: "David Johnson", img: "../../../../images/users/user-04.jpg" },
+    ];
+    const [selectedUser, setSelectedUser] = useState(role === "sales" ? users[0] : null);
 
     const [form, setForm] = useState({
         remark: "",
@@ -44,15 +55,32 @@ export default function Page() {
 
     return (
         <div className="p-6 bg-gray-50 min-h-screen">
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between gap-2 mb-8">
                 <h1 className="text-3xl font-bold text-dark">Complain</h1>
-                <button className="primary-btn" onClick={() => setIsOpen(true)}>Make Complain</button>
+                <div className="flex items-center justify-between gap-2">
+                    <button className="primary-btn" onClick={() => setIsOpen(true)}>Make Complain</button>
+                    {role === "sales" && selectedUser && (
+                        <button
+                            onClick={() => setIsModalOpen(true)}
+                            className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow border border-gray-200 hover:bg-gray-100"
+                        >
+                            <img
+                                src={selectedUser.img}
+                                alt={selectedUser.name}
+                                className="w-8 h-8 rounded-full"
+                            />
+                            <span className="font-medium">{selectedUser.name}</span>
+                            <ChevronDown className="w-4 h-4" />
+                        </button>
+                    )}
+                </div>
             </div>
 
             <div className="overflow-x-auto">
                 <table className="w-full text-sm text-left rtl:text-right text-dark">
                     <thead className="text-xs text-white uppercase bg-blue">
                         <tr>
+                            {role == "sales" && <th className="px-6 py-5">Customer Name</th>}
                             <th className="px-6 py-5">Order Date</th>
                             <th className="px-6 py-3">Order Number</th>
                             <th className="px-6 py-3">Ticket ID</th>
@@ -63,6 +91,7 @@ export default function Page() {
                     <tbody>
                         {rows.map((row, i) => (
                             <tr key={i} className="bg-white border-b border-[#ccc]">
+                                {role == "sales" && <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{selectedUser?.name}</th>}
                                 <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{row.date}</th>
                                 <td className="px-6 py-4">{row.number}</td>
                                 <td className="px-6 py-4">{row.ticketID}</td>
@@ -159,6 +188,33 @@ export default function Page() {
                             </div>
                             <button type="submit" className="primary-btn w-auto ml-auto">Submit Feedback</button>
                         </form>
+                    </div>
+                </div>
+            )}
+
+            {role === "sales" && isModalOpen && (
+                <div className="fixed inset-0 z-[999999999] flex items-center justify-center bg-[#0000006b]">
+                    <div className="bg-white rounded-lg shadow-lg w-[400px] p-6">
+                        <h2 className="text-lg font-bold mb-4">Select User</h2>
+                        <ul className="space-y-3">
+                            {users.map((user) => (
+                                <li key={user.id}>
+                                    <button
+                                        onClick={() => {
+                                            setSelectedUser(user);
+                                            setIsModalOpen(false);
+                                        }}
+                                        className="flex items-center justify-between gap-3 w-full text-left px-3 py-2 rounded hover:bg-gray"
+                                    >
+                                        <div className="flex items-center gap-2">
+                                            <img src={user.img} alt={user.name} className="w-10 h-10 rounded-full" />
+                                            <span>{user.name}</span>
+                                        </div>
+                                        <ChevronRight />
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
                     </div>
                 </div>
             )}
