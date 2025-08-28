@@ -18,8 +18,8 @@ const Coupon = () => {
           />
 
           <button
-            type="button"
-            className="inline-flex font-medium text-white bg-blue py-3 px-6 rounded-md ease-out duration-200 hover:bg-blue-dark"
+            type="submit"
+            className="primary-btn"
           >
             Apply
           </button>

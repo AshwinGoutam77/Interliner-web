@@ -522,7 +522,7 @@ const ShopDetails = () => {
                       <div className="flex items-center rounded-md border border-gray-3">
                         <button
                           aria-label="button for remove product"
-                          className="flex items-center justify-center w-12 h-12 ease-out duration-200 hover:text-blue"
+                          className="flex items-center justify-center w-12 h-10 ease-out duration-200 hover:text-blue"
                           onClick={() =>
                             quantity > 1 && setQuantity(quantity - 1)
                           }
@@ -542,14 +542,14 @@ const ShopDetails = () => {
                           </svg>
                         </button>
 
-                        <span className="flex items-center justify-center w-16 h-12 border-x border-gray-4">
+                        <span className="flex items-center justify-center w-16 h-10 border-x border-gray-4">
                           {quantity}
                         </span>
 
                         <button
                           onClick={() => setQuantity(quantity + 1)}
                           aria-label="button for add product"
-                          className="flex items-center justify-center w-12 h-12 ease-out duration-200 hover:text-blue"
+                          className="flex items-center justify-center w-12 h-10 ease-out duration-200 hover:text-blue"
                         >
                           <svg
                             className="fill-current"
@@ -573,7 +573,7 @@ const ShopDetails = () => {
 
                       <button
                         onClick={() => { setIsOpen(true); handleAddToCart(product) }}
-                        className="inline-flex font-medium text-white bg-blue py-3 px-7 rounded-md ease-out duration-200 hover:bg-blue-dark"
+                        className="primary-btn"
                       >
                         Add to Cart
                       </button>

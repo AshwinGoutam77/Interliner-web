@@ -1,12 +1,15 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
   const year = new Date().getFullYear();
+  const pathname = usePathname();
 
   return (
     <footer className="overflow-hidden bg-gray-1 relative z-10">
-      <div className="max-w-[1170px] mx-auto px-4 sm:px-8 xl:px-0">
+      {!pathname.startsWith('/dashboard') && <div className="max-w-[1170px] mx-auto px-4 sm:px-8 xl:px-0">
         {/* <!-- footer menu start --> */}
         <div className="flex flex-wrap xl:flex-nowrap gap-10 xl:gap-19 xl:justify-between pt-1.5 xl:pt-10.5 pb-10 xl:pb-15">
           <div className="max-w-[330px] w-full">
@@ -204,19 +207,19 @@ const Footer = () => {
 
             <ul className="flex flex-col gap-3.5">
               <li>
-                <a className="ease-out duration-200 hover:text-blue" href="#">
+                <Link className="ease-out duration-200 hover:text-blue" href="/signin">
                   Login / Register
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="ease-out duration-200 hover:text-blue" href="#">
+                <Link className="ease-out duration-200 hover:text-blue" href="/cart">
                   Cart
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="ease-out duration-200 hover:text-blue" href="#">
+                <Link className="ease-out duration-200 hover:text-blue" href="/shop">
                   Shop
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -317,7 +320,7 @@ const Footer = () => {
           </div>
         </div>
         {/* <!-- footer menu end --> */}
-      </div>
+      </div>}
 
       {/* <!-- footer bottom start --> */}
       <div className="py-5 xl:py-7.5 bg-gray-1">

@@ -5,7 +5,7 @@ import Link from "next/link";
 import React from "react";
 import { useDispatch } from "react-redux";
 
-const Signin = () => {
+const Forgot = () => {
   const dispatch = useDispatch();
   return (
     <>
@@ -15,7 +15,7 @@ const Signin = () => {
           <div className="max-w-[570px] w-full mx-auto rounded-xl bg-white shadow-1 p-4 sm:p-7.5 xl:p-11">
             <div className="text-center mb-11">
               <h2 className="font-semibold text-xl sm:text-2xl xl:text-heading-5 text-dark mb-1.5">
-                Sign In to Your Account
+                Forgot Password
               </h2>
               <p>Enter your detail below</p>
             </div>
@@ -51,45 +51,31 @@ const Signin = () => {
                   />
                 </div>
 
+                <div className="mb-5">
+                  <label htmlFor="password" className="block mb-2.5">
+                    Confirm Password
+                  </label>
+
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    autoComplete="on"
+                    className="rounded-lg border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-3 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                  />
+                </div>
+
                 <div className="flex items-center gap-2">
                   <Link
                     href='/dashboard'
                     type="submit"
-                    className="w-full mx-auto flex justify-center font-medium text-white bg-dark py-3 px-6 rounded-lg ease-out duration-200 hover:bg-blue"
+                    className="w-auto mx-auto flex justify-center font-medium text-white bg-dark py-3 px-6 rounded-lg ease-out duration-200 hover:bg-blue"
                     onClick={() => dispatch(loginAsUser())}
                   >
-                    Sign in as customer
-                  </Link>
-                  <Link
-                    href='/dashboard'
-                    type="submit"
-                    className="w-full mx-auto flex justify-center font-medium text-white bg-dark py-3 px-6 rounded-lg ease-out duration-200 hover:bg-blue"
-                    onClick={() => dispatch(loginAsSales())}
-                  >
-                    Sign in as sales
+                    Change Password
                   </Link>
                 </div>
-                <Link
-                  href="/forgot-password"
-                  className="block text-center text-dark-4 mt-4.5 ease-out duration-200 hover:text-dark"
-                >
-                  Forget your password?
-                </Link>
-
-                <span className="relative z-1 block font-medium text-center mt-4.5">
-                  <span className="block absolute -z-1 left-0 top-1/2 h-px w-full bg-gray-3"></span>
-                  <span className="inline-block px-3 bg-white">Or</span>
-                </span>
-
-                <p className="text-center mt-6">
-                  Don&apos;t have an account?
-                  <Link
-                    href="/signup"
-                    className="text-dark ease-out duration-200 hover:text-blue pl-2"
-                  >
-                    Sign Up Now!
-                  </Link>
-                </p>
               </form>
             </div>
           </div>
@@ -99,4 +85,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default Forgot;

@@ -92,12 +92,6 @@ const deliveryPartner = {
 export default function TrackOrder() {
     const [hoveredStep, setHoveredStep] = useState(null);
     const [hoveredItem, setHoveredItem] = useState(null);
-    const [currentTime, setCurrentTime] = useState(new Date());
-
-    useEffect(() => {
-        const timer = setInterval(() => setCurrentTime(new Date()), 1000);
-        return () => clearInterval(timer);
-    }, []);
 
     const getStepStyles = (status) => {
         switch (status) {
@@ -107,7 +101,7 @@ export default function TrackOrder() {
                     line: 'bg-dark',
                     text: 'text-gray-900',
                     date: 'text-green-600',
-                    card: 'bg-green-50 border-green-200'
+                    card: 'bg-green-50 border-[#fff]'
                 };
             case 'current':
                 return {
@@ -115,7 +109,7 @@ export default function TrackOrder() {
                     line: 'bg-gray',
                     text: 'text-blue-600 font-semibold',
                     date: 'text-blue-500',
-                    card: 'bg-blue-50 border-dark ring-1'
+                    card: 'bg-green-50 border-[#fff]'
                 };
             default:
                 return {
@@ -123,7 +117,7 @@ export default function TrackOrder() {
                     line: 'bg-gray-200',
                     text: 'text-gray-400',
                     date: 'text-gray-400',
-                    card: 'bg-gray-50 border-gray-200'
+                    card: 'bg-green-50 border-[#fff]'
                 };
         }
     };
@@ -154,10 +148,6 @@ export default function TrackOrder() {
                                     <div className="flex items-center gap-2 bg-green-100 px-4 py-2 rounded-full">
                                         <Calendar className="w-4 h-4 text-green-600" />
                                         <span className="text-green-800">Placed on Aug 22, 2025</span>
-                                    </div>
-                                    <div className="flex items-center gap-2 bg-purple-100 px-4 py-2 rounded-full">
-                                        <Clock className="w-4 h-4 text-purple-600" />
-                                        <span className="text-purple-800">{currentTime.toLocaleTimeString()}</span>
                                     </div>
                                 </div>
                             </div>
@@ -269,7 +259,7 @@ export default function TrackOrder() {
                                     {orderItems.map((item) => (
                                         <div
                                             key={item.id}
-                                            className="border border-[#ccc] rounded-lg p-6 cursor-pointer"
+                                            className="border-b border-[#ccc] py-2 cursor-pointer"
                                             onMouseEnter={() => setHoveredItem(item.id)}
                                             onMouseLeave={() => setHoveredItem(null)}
                                         >
@@ -288,9 +278,6 @@ export default function TrackOrder() {
                                                                 <span className="text-lg font-bold text-dark">
                                                                     ₹{item.price.toLocaleString()}
                                                                 </span>
-                                                                <span className="text-sm text-dark line-through">
-                                                                    ₹{item.originalPrice.toLocaleString()}
-                                                                </span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -303,7 +290,7 @@ export default function TrackOrder() {
 
 
                                 {/* Order Summary */}
-                                <div className="mt-6 p-6 border border-[#ccc] rounded-lg">
+                                <div className="mt-6">
                                     <div className="space-y-3">
                                         <div className="flex justify-between items-center">
                                             <span className="text-dark">Subtotal</span>
@@ -317,7 +304,7 @@ export default function TrackOrder() {
                                             <span className="text-dark">GST</span>
                                             <span className="font-semibold text-dark">$24</span>
                                         </div>
-                                        <div className="border-t border-[#ccc] pt-3">
+                                        <div className="border-t border-[#ccc] pt-6">
                                             <div className="flex justify-between items-center">
                                                 <span className="text-xl font-bold text-dark">Total Paid</span>
                                                 <span className="text-2xl font-bold text-dark">
@@ -327,26 +314,26 @@ export default function TrackOrder() {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            {/* Payment Info */}
-                            <div className="border border-[#ccc] rounded-lg p-8">
-                                <h2 className="text-xl font-bold text-dark mb-4">
-                                    Payment Details
-                                </h2>
+                                {/* Payment Info */}
+                                <div className="border-t border-[#ccc9] pt-6 mt-6">
+                                    <h2 className="text-xl font-bold text-dark mb-4">
+                                        Payment Details
+                                    </h2>
 
-                                <div className="space-y-3">
-                                    <div className="flex justify-between items-center">
-                                        <span className="text-gray-600">Payment Method</span>
-                                        <span className="font-medium text-gray-900">Credit Card</span>
-                                    </div>
-                                    <div className="flex justify-between items-center">
-                                        <span className="text-gray-600">Card ending in</span>
-                                        <span className="font-medium text-gray-900">****4242</span>
-                                    </div>
-                                    <div className="flex justify-between items-center">
-                                        <span className="text-gray-600">Transaction ID</span>
-                                        <span className="font-mono text-sm text-gray-900">TXN123456789</span>
+                                    <div className="space-y-3">
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-gray-600">Payment Method</span>
+                                            <span className="font-medium text-gray-900">Credit Card</span>
+                                        </div>
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-gray-600">Card ending in</span>
+                                            <span className="font-medium text-gray-900">****4242</span>
+                                        </div>
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-gray-600">Transaction ID</span>
+                                            <span className="font-mono text-sm text-gray-900">TXN123456789</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

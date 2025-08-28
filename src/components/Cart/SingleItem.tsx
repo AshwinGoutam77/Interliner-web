@@ -44,6 +44,7 @@ const SingleItem = ({ item }) => {
               <h3 className="text-dark ease-out duration-200 hover:text-blue">
                 <a href="#"> {item.title} </a>
               </h3>
+               <p className="text-custom-xs w-50">Off White | Cut - 10 rolls | UnCut - 2 rolls | 36 Inch | 25 Meter</p>
             </div>
           </div>
         </div>

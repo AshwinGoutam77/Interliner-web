@@ -1,10 +1,20 @@
 "use client";
 import { ChevronDown, ChevronRight } from "lucide-react";
-import React, { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 export default function Page() {
+    const searchParams = useSearchParams();
+    const tabFromUrl = searchParams.get("tab");
     const [activeTab, setActiveTab] = useState("payment-records");
+
+    useEffect(() => {
+        if (tabFromUrl) {
+            setActiveTab(tabFromUrl);
+        }
+    }, [tabFromUrl]);
+
     const [isOpen, setIsOpen] = useState(false);
     const role = useSelector((state) => state.auth.role);
     const users = [
@@ -90,9 +100,16 @@ export default function Page() {
         <>
 
             {role === "sales" && isModalOpen && (
-                <div className="fixed inset-0 z-[999999999] flex items-center justify-center bg-[#0000006b]">
-                    <div className="bg-white rounded-lg shadow-lg w-[400px] p-6">
-                        <h2 className="text-lg font-bold mb-4">Select User</h2>
+                <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-[#0000006b]" onClick={() => setIsModalOpen(false)}>
+                    <div className="bg-white rounded-lg shadow-lg w-[400px] p-6" onClick={(e) => e.stopPropagation()}>
+                        <h2 className="text-lg font-bold mb-4">Select Customer</h2>
+                        <input
+                            type="text"
+                            name="firstName"
+                            id="firstName"
+                            placeholder="Search Customer"
+                            className="mb-4 rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                        />
                         <ul className="space-y-3">
                             {users.map((user) => (
                                 <li key={user.id}>
@@ -112,6 +129,7 @@ export default function Page() {
                                 </li>
                             ))}
                         </ul>
+                        <button className='primary-btn mt-4 ml-auto' onClick={() => setIsModalOpen(false)}>Clear All</button>
                     </div>
                 </div>
             )}
@@ -174,8 +192,8 @@ export default function Page() {
                                         <thead className="text-xs text-white uppercase bg-blue">
                                             <tr>
                                                 {role == 'sales' && <th className="px-6 py-5">Customer Name</th>}
-                                                <th className="px-6 py-5">Payment Method</th>
                                                 <th className="px-6 py-3">Date</th>
+                                                <th className="px-6 py-5">Payment Method</th>
                                                 <th className="px-6 py-3">Amount</th>
                                                 <th className="px-6 py-3">Paid Via</th>
                                             </tr>
@@ -218,14 +236,19 @@ export default function Page() {
                                                     <td className="px-6 py-4">{row.total}</td>
                                                     <td className="px-6 py-4">{row.paid}</td>
                                                     <td className="px-6 py-4">{row.balance}</td>
-                                                    {role !== "sales" && <td className="px-6 py-4 relative overflow-visible">
-                                                        <button
-                                                            onClick={() => setIsOpen(true)}
-                                                            className="bg-blue text-white px-3 py-2 rounded-md text-xs hover:bg-blue/90"
-                                                        >
-                                                            Pay Now
-                                                        </button>
-                                                    </td>}
+                                                    {role !== "sales" &&
+                                                        // <td className="px-6 py-4 relative overflow-visible">
+                                                        //     <button
+                                                        //         onClick={() => setIsOpen(true)}
+                                                        //         className="bg-blue text-white px-3 py-2 rounded-md text-xs hover:bg-blue/90"
+                                                        //     >
+                                                        //         Pay Now
+                                                        //     </button>
+                                                        // </td>
+                                                        <td className="px-6 py-4 relative overflow-visible cursor-pointer" onClick={() => setIsOpen(true)}>
+                                                            <p className="flex items-center text-blue">Pay Now <ChevronRight color="#012169" /></p>
+                                                        </td>
+                                                    }
                                                 </tr>
                                             ))}
                                         </tbody>
@@ -307,20 +330,6 @@ export default function Page() {
                                                     />
                                                 </div>
                                             )}
-                                        </div>
-
-                                        {/* Amount */}
-                                        <div>
-                                            <label className="block text-sm font-medium mb-1">Amount</label>
-                                            <input
-                                                type="number"
-                                                name="amount"
-                                                value={form.amount}
-                                                onChange={handleChange}
-                                                placeholder="Enter amount"
-                                                className="w-full border border-[#ccc] rounded-md text-sm p-2"
-                                                required
-                                            />
                                         </div>
 
                                         {/* Remark */}

@@ -53,8 +53,10 @@ export default function ProfilePage() {
                     <label className="block text-gray-700 font-medium mb-1">Name</label>
                     <input
                         type="text"
-                        placeholder="Enter your name"
-                        className="w-full border border-[#ccc] rounded-lg px-4 py-2 focus:outline-none focus:ring-0"
+                        name="firstName"
+                        id="firstName"
+                        placeholder="Jhon Doe"
+                        className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                     />
                 </div>
 
@@ -62,8 +64,10 @@ export default function ProfilePage() {
                     <label className="block text-gray-700 font-medium mb-1">Email</label>
                     <input
                         type="email"
-                        placeholder="Enter your email"
-                        className="w-full border border-[#ccc] rounded-lg px-4 py-2 focus:outline-none focus:ring-0"
+                        name="firstName"
+                        id="firstName"
+                        placeholder="jhon@gmail.com"
+                        className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                     />
                 </div>
 
@@ -73,8 +77,10 @@ export default function ProfilePage() {
                     </label>
                     <input
                         type="tel"
-                        placeholder="xxxxxxxxx"
-                        className="w-full border border-[#ccc] rounded-lg px-4 py-2 focus:outline-none focus:ring-0"
+                        name="firstName"
+                        id="firstName"
+                        placeholder="xxxxxxxx"
+                        className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                     />
                 </div>
 
@@ -82,17 +88,21 @@ export default function ProfilePage() {
                     <label className="block text-gray-700 font-medium mb-1">Password</label>
                     <input
                         type="password"
-                        placeholder="********"
-                        className="w-full border border-[#ccc] rounded-lg px-4 py-2 focus:outline-none focus:ring-0"
+                        name="firstName"
+                        id="firstName"
+                        placeholder="*******"
+                        className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                     />
                 </div>
 
                 <div className="md:col-span-2">
                     <label className="block text-gray-700 font-medium mb-1">Address</label>
                     <textarea
-                        rows="3"
+                        name="notes"
+                        id="notes"
+                        rows={2}
                         placeholder="Enter your address"
-                        className="w-full border border-[#ccc] rounded-lg px-4 py-2 focus:outline-none focus:ring-0"
+                        className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full p-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
                     ></textarea>
                 </div>
             </form>

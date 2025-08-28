@@ -73,9 +73,16 @@ export default function DashboardPage() {
             </div>
 
             {role === "sales" && isModalOpen && (
-                <div className="fixed inset-0 z-[999999999] flex items-center justify-center bg-[#0000006b]">
-                    <div className="bg-white rounded-lg shadow-lg w-[400px] p-6">
-                        <h2 className="text-lg font-bold mb-4">Select User</h2>
+                <div className="fixed inset-0 z-[999999] flex items-center justify-center bg-[#0000006b]" onClick={() => setIsModalOpen(false)}>
+                    <div className="bg-white rounded-lg shadow-lg w-[400px] p-6" onClick={(e) => e.stopPropagation()}>
+                        <h2 className="text-lg font-bold mb-4">Select Customer</h2>
+                        <input
+                            type="text"
+                            name="firstName"
+                            id="firstName"
+                            placeholder="Search Customer"
+                            className="mb-4 rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                        />
                         <ul className="space-y-3">
                             {users.map((user) => (
                                 <li key={user.id}>
@@ -95,6 +102,7 @@ export default function DashboardPage() {
                                 </li>
                             ))}
                         </ul>
+                        <button className='primary-btn mt-4 ml-auto' onClick={() => setIsModalOpen(false)}>Clear All</button>
                     </div>
                 </div>
             )}

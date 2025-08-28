@@ -20,178 +20,180 @@ const Checkout = () => {
       <section className="overflow-hidden py-20 bg-[#f3f4f62e]">
         <Breadcrumb title={"Checkout"} pages={["checkout"]} />
         <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
-          <form>
-            <div className="flex flex-col lg:flex-row gap-7.5 xl:gap-11">
-              {/* <!-- checkout left --> */}
-              <div className="lg:max-w-[670px] w-full">
-                {/* <!-- login box --> */}
-                {/* <Login /> */}
+          {/* <form> */}
+          <div className="flex flex-col lg:flex-row gap-7.5 xl:gap-11">
+            {/* <!-- checkout left --> */}
+            <div className="lg:max-w-[670px] w-full">
+              {/* <!-- login box --> */}
+              {/* <Login /> */}
 
-                {/* <!-- billing details --> */}
-                <Billing />
+              {/* <!-- billing details --> */}
+              <Billing />
 
-                {/* <!-- address box two --> */}
-                {/* <Shipping /> */}
+              {/* <!-- address box two --> */}
+              {/* <Shipping /> */}
 
-                {/* <!-- others note box --> */}
-                <div className="bg-white shadow-1 rounded-[10px] p-4 sm:p-8.5 mt-7.5">
-                  <div>
-                    <label htmlFor="notes" className="block mb-2.5">
-                      Other Notes (optional)
-                    </label>
+              {/* <!-- others note box --> */}
+              <div className="bg-white shadow-1 rounded-[10px] p-4 sm:p-8.5 mt-7.5">
+                <div>
+                  <label htmlFor="notes" className="block mb-2.5">
+                    Other Notes (optional)
+                  </label>
 
-                    <textarea
-                      name="notes"
-                      id="notes"
-                      rows={5}
-                      placeholder="Notes about your order, e.g. speacial notes for delivery."
-                      className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full p-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
-                    ></textarea>
-                  </div>
+                  <textarea
+                    name="notes"
+                    id="notes"
+                    rows={5}
+                    placeholder="Notes about your order, e.g. speacial notes for delivery."
+                    className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full p-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20"
+                  ></textarea>
                 </div>
-              </div>
-
-              {/* // <!-- checkout right --> */}
-              <div className="max-w-[455px] w-full">
-                {/* <!-- order list box --> */}
-                <div className="bg-white shadow-1 rounded-[10px]">
-                  <div className="border-b border-gray-3 py-5 px-4 sm:px-8.5">
-                    <h3 className="font-medium text-xl text-dark">
-                      Your Order
-                    </h3>
-                  </div>
-
-                  <div className="pt-2.5 pb-8.5 px-4 sm:px-8.5">
-                    {/* <!-- product item --> */}
-                    {cartItems.map((item, key) => (
-                      <Link href='/shop-details' className="flex items-center justify-between py-5 border-b border-gray-3" key={key}>
-                        <div>
-                          <p className="text-dark">{item.title}</p>
-                        </div>
-                        <div className="flex">
-                          <p className="text-dark text-right"> ${item.discountedPrice * item.quantity}</p>
-                          <svg
-                            className="fill-current"
-                            width="24"
-                            height="24"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              clipRule="evenodd"
-                              d="M8.51192 4.43057C8.82641 4.161 9.29989 4.19743 9.56946 4.51192L15.5695 11.5119C15.8102 11.7928 15.8102 12.2072 15.5695 12.4881L9.56946 19.4881C9.29989 19.8026 8.82641 19.839 8.51192 19.5695C8.19743 19.2999 8.161 18.8264 8.43057 18.5119L14.0122 12L8.43057 5.48811C8.161 5.17361 8.19743 4.70014 8.51192 4.43057Z"
-                              fill=""
-                            />
-                          </svg>
-                        </div>
-                      </Link>
-                    ))}
-
-
-                    {/* <!-- product item --> */}
-                    <Link href='/shop-details' className="flex items-center justify-between py-5 border-b border-gray-3">
-                      <div>
-                        <p className="text-dark">Threads</p>
-                      </div>
-                      <div className="flex">
-                        <p className="text-dark text-right">$129.00</p>
-                        <svg
-                          className="fill-current"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            clipRule="evenodd"
-                            d="M8.51192 4.43057C8.82641 4.161 9.29989 4.19743 9.56946 4.51192L15.5695 11.5119C15.8102 11.7928 15.8102 12.2072 15.5695 12.4881L9.56946 19.4881C9.29989 19.8026 8.82641 19.839 8.51192 19.5695C8.19743 19.2999 8.161 18.8264 8.43057 18.5119L14.0122 12L8.43057 5.48811C8.161 5.17361 8.19743 4.70014 8.51192 4.43057Z"
-                            fill=""
-                          />
-                        </svg>
-                      </div>
-                    </Link>
-
-                    {/* <!-- product item --> */}
-                    <Link href='/shop-details' className="flex items-center justify-between py-5 border-b border-gray-3">
-                      <div>
-                        <p className="text-dark">Cuffs, Collars & Bands</p>
-                      </div>
-                      <div className="flex">
-                        <p className="text-dark text-right">$29.00</p>
-                        <svg
-                          className="fill-current"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            clipRule="evenodd"
-                            d="M8.51192 4.43057C8.82641 4.161 9.29989 4.19743 9.56946 4.51192L15.5695 11.5119C15.8102 11.7928 15.8102 12.2072 15.5695 12.4881L9.56946 19.4881C9.29989 19.8026 8.82641 19.839 8.51192 19.5695C8.19743 19.2999 8.161 18.8264 8.43057 18.5119L14.0122 12L8.43057 5.48811C8.161 5.17361 8.19743 4.70014 8.51192 4.43057Z"
-                            fill=""
-                          />
-                        </svg>
-                      </div>
-                    </Link>
-
-                    {/* <!-- product item --> */}
-                    <div className="flex items-center justify-between py-5 border-b border-gray-3">
-                      <div>
-                        <p className="text-dark">GST</p>
-                      </div>
-                      <div>
-                        <p className="text-dark text-right">$2.00</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between py-5 border-b border-gray-3">
-                      <div>
-                        <p className="text-dark">Promo</p>
-                      </div>
-                      <div>
-                        <p className="text-dark text-right">$15.00</p>
-                      </div>
-                    </div>
-
-                    {/* <!-- total --> */}
-                    <div className="flex items-center justify-between pt-5">
-                      <div>
-                        <p className="font-medium text-lg text-dark">Total</p>
-                      </div>
-                      <div>
-                        <p className="font-medium text-lg text-dark text-right">
-                          $1072.00
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* <!-- coupon box --> */}
-                <Coupon />
-
-                {/* <!-- shipping box --> */}
-                {/* <ShippingMethod /> */}
-
-                {/* <!-- payment box --> */}
-                <PaymentMethod />
-
-                {/* <!-- checkout button --> */}
-                <button
-                  type="submit"
-                  className="w-full flex justify-center font-medium text-white bg-blue py-3 px-6 rounded-md ease-out duration-200 hover:bg-blue-dark mt-7.5"
-                >
-                  Process to Checkout
-                </button>
               </div>
             </div>
-          </form >
+
+            {/* // <!-- checkout right --> */}
+            <div className="max-w-[455px] w-full">
+              {/* <!-- order list box --> */}
+              <div className="bg-white shadow-1 rounded-[10px]">
+                <div className="border-b border-gray-3 py-5 px-4 sm:px-8.5">
+                  <h3 className="font-medium text-xl text-dark">
+                    Your Order
+                  </h3>
+                </div>
+
+                <div className="pt-2.5 pb-8.5 px-4 sm:px-8.5">
+                  {/* <!-- product item --> */}
+                  {cartItems.map((item, key) => (
+                    <Link href='/shop-details' className="flex items-center justify-between py-5 border-b border-gray-3" key={key}>
+                      <div>
+                        <p className="text-dark">{item.title}</p>
+                      </div>
+                      <div className="flex">
+                        <p className="text-dark text-right"> ${item.discountedPrice * item.quantity}</p>
+                        <svg
+                          className="fill-current"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            clipRule="evenodd"
+                            d="M8.51192 4.43057C8.82641 4.161 9.29989 4.19743 9.56946 4.51192L15.5695 11.5119C15.8102 11.7928 15.8102 12.2072 15.5695 12.4881L9.56946 19.4881C9.29989 19.8026 8.82641 19.839 8.51192 19.5695C8.19743 19.2999 8.161 18.8264 8.43057 18.5119L14.0122 12L8.43057 5.48811C8.161 5.17361 8.19743 4.70014 8.51192 4.43057Z"
+                            fill=""
+                          />
+                        </svg>
+                      </div>
+                    </Link>
+                  ))}
+
+
+                  {/* <!-- product item --> */}
+                  <Link href='/shop-details' className="flex items-center justify-between py-5 border-b border-gray-3">
+                    <div>
+                      <p className="text-dark">Threads</p>
+                    </div>
+                    <div className="flex">
+                      <p className="text-dark text-right">$129.00</p>
+                      <svg
+                        className="fill-current"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          clipRule="evenodd"
+                          d="M8.51192 4.43057C8.82641 4.161 9.29989 4.19743 9.56946 4.51192L15.5695 11.5119C15.8102 11.7928 15.8102 12.2072 15.5695 12.4881L9.56946 19.4881C9.29989 19.8026 8.82641 19.839 8.51192 19.5695C8.19743 19.2999 8.161 18.8264 8.43057 18.5119L14.0122 12L8.43057 5.48811C8.161 5.17361 8.19743 4.70014 8.51192 4.43057Z"
+                          fill=""
+                        />
+                      </svg>
+                    </div>
+                  </Link>
+
+                  {/* <!-- product item --> */}
+                  <Link href='/shop-details' className="flex items-center justify-between py-5 border-b border-gray-3">
+                    <div>
+                      <p className="text-dark">Cuffs, Collars & Bands</p>
+                    </div>
+                    <div className="flex">
+                      <p className="text-dark text-right">$29.00</p>
+                      <svg
+                        className="fill-current"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          clipRule="evenodd"
+                          d="M8.51192 4.43057C8.82641 4.161 9.29989 4.19743 9.56946 4.51192L15.5695 11.5119C15.8102 11.7928 15.8102 12.2072 15.5695 12.4881L9.56946 19.4881C9.29989 19.8026 8.82641 19.839 8.51192 19.5695C8.19743 19.2999 8.161 18.8264 8.43057 18.5119L14.0122 12L8.43057 5.48811C8.161 5.17361 8.19743 4.70014 8.51192 4.43057Z"
+                          fill=""
+                        />
+                      </svg>
+                    </div>
+                  </Link>
+
+                  {/* <!-- product item --> */}
+                  <div className="flex items-center justify-between py-5 border-b border-gray-3">
+                    <div>
+                      <p className="text-dark">GST</p>
+                    </div>
+                    <div>
+                      <p className="text-dark text-right">$2.00</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between py-5 border-b border-gray-3">
+                    <div>
+                      <p className="text-dark">Promo</p>
+                    </div>
+                    <div>
+                      <p className="text-dark text-right">$15.00</p>
+                    </div>
+                  </div>
+
+                  {/* <!-- total --> */}
+                  <div className="flex items-center justify-between pt-5">
+                    <div>
+                      <p className="font-medium text-lg text-dark">Total</p>
+                    </div>
+                    <div>
+                      <p className="font-medium text-lg text-dark text-right">
+                        $1072.00
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* <!-- coupon box --> */}
+              <Coupon />
+
+              {/* <!-- shipping box --> */}
+              {/* <ShippingMethod /> */}
+
+              {/* <!-- payment box --> */}
+              <PaymentMethod />
+
+              {/* <!-- checkout button --> */}
+              <div className="text-end">
+                <Link
+                  href='/order-success'
+                  className="primary-btn mt-7 ml-auto"
+                >
+                  Process to Checkout
+                </Link>
+              </div>
+            </div>
+          </div>
+          {/* </form > */}
         </div >
       </section >
     </>

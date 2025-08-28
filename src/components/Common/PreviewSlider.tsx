@@ -97,10 +97,20 @@ const PreviewSliderModal = () => {
       <Swiper ref={sliderRef} slidesPerView={1} spaceBetween={20}>
         <SwiperSlide>
           <div className="flex justify-center items-center">
-            <Image
-              src={"/images/products/product-2-bg-1.png"}
+            <img
+              src={"https://interliners.net/wp-content/uploads/2021/03/Waist-band-247x296.jpg"}
               alt={"product image"}
-              width={450}
+              width={350}
+              height={450}
+            />
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="flex justify-center items-center">
+            <img
+              src={"https://interliners.net/wp-content/uploads/2021/03/Waist-band-247x296.jpg"}
+              alt={"product image"}
+              width={350}
               height={450}
             />
           </div>

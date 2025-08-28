@@ -21,6 +21,7 @@ const SingleItem = ({ item, removeItemFromCart }) => {
           <h3 className="font-medium text-dark mb-1 ease-out duration-200 hover:text-blue">
             <a href="#"> {item.title} </a>
           </h3>
+          <p className="text-custom-sm">Off White | Cut - 10 rolls | UnCut - 2 rolls | 36 Inch | 25 Meter</p>
           <p className="text-custom-sm">Price: ${item.discountedPrice}</p>
         </div>
       </div>
