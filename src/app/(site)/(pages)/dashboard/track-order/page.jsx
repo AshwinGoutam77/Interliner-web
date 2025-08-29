@@ -1,5 +1,6 @@
 "use client";
 
+import DataTableComponent from "@/components/DataTableComponent/page";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
@@ -7,6 +8,12 @@ import { useSelector } from "react-redux";
 
 export default function DashboardPage() {
     const role = useSelector((state) => state.auth.role);
+    const users = [
+        { id: 1, name: "John Doe", img: "../../../../images/users/user-04.jpg" },
+        { id: 2, name: "Jane Smith", img: "../../../../images/users/user-04.jpg" },
+        { id: 3, name: "David Johnson", img: "../../../../images/users/user-04.jpg" },
+    ];
+    const [selectedUser, setSelectedUser] = useState(role === "sales" ? users[0] : null);
     const rows = [
         { date: "02/08/2025", number: "#2344" },
         { date: "08/08/2025", number: "#3434" },
@@ -16,15 +23,42 @@ export default function DashboardPage() {
         { date: "08/08/2025", number: "#3434" },
     ];
 
+    const orderColumns = [
+        ...(role === "sales"
+            ? [
+                {
+                    name: "Customer Name",
+                    selector: () => selectedUser.name ?? "",
+                },
+            ]
+            : []),
+        {
+            name: "Order Date",
+            selector: row => row.date,
+        },
+        {
+            name: "Order Number",
+            selector: row => row.number,
+        },
+        {
+            name: "",
+            cell: (row) => (
+                <Link
+                    href={`/dashboard/track-order/order-id=${row.number.replace("#", "")}`}
+                    className="flex items-center text-blue cursor-pointer"
+                >
+                    Track Order <ChevronRight color="#012169" />
+                </Link>
+            ),
+        },
+
+    ];
+
+
     const [isModalOpen, setIsModalOpen] = useState(false); // open immediately for sales
 
 
-    const users = [
-        { id: 1, name: "John Doe", img: "../../../../images/users/user-04.jpg" },
-        { id: 2, name: "Jane Smith", img: "../../../../images/users/user-04.jpg" },
-        { id: 3, name: "David Johnson", img: "../../../../images/users/user-04.jpg" },
-    ];
-    const [selectedUser, setSelectedUser] = useState(role === "sales" ? users[0] : null);
+
 
 
     return (
@@ -49,7 +83,7 @@ export default function DashboardPage() {
 
             <div className="overflow-x-auto overflow-visible">
                 <div className="relative overflow-x-auto overflow-visible h-100">
-                    <table className="w-full text-sm text-left rtl:text-right text-dark">
+                    {/* <table className="w-full text-sm text-left rtl:text-right text-dark">
                         <thead className="text-xs text-white uppercase bg-blue">
                             <tr>
                                 {role === "sales" && <th className="px-6 py-5">Customer Name</th>}
@@ -68,7 +102,8 @@ export default function DashboardPage() {
                                 </tr>
                             ))}
                         </tbody>
-                    </table>
+                    </table> */}
+                    <DataTableComponent columns={orderColumns} data={rows} />
                 </div>
             </div>
 

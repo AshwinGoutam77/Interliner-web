@@ -3,6 +3,7 @@ import { ChevronDown, ChevronRight } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import DataTableComponent from "../../../../../components/DataTableComponent/page"
 
 export default function Page() {
     const searchParams = useSearchParams();
@@ -81,6 +82,86 @@ export default function Page() {
         { date: "2025-08-25 10:30 AM", method: "Paid directly", total: "$120", paidVia: "Via Cash" },
         { date: "2025-08-25 10:30 AM", method: "Paid directly", total: "$120", paidVia: "Via Cash" },
     ];
+
+
+    const paymentColumns = [
+        ...(role === "sales"
+            ? [
+                {
+                    name: "Customer Name",
+                    selector: () => selectedUser.name,
+                    sortable: false,
+                },
+            ]
+            : []),
+        {
+            name: "Date",
+            selector: row => row.date,
+            sortable: true,
+        },
+        {
+            name: "Payment Method",
+            selector: row => row.method,
+            sortable: true,
+        },
+        {
+            name: "Amount",
+            selector: row => row.total,
+            sortable: true,
+        },
+        {
+            name: "Paid Via",
+            selector: row => row.paidVia,
+            sortable: true,
+        },
+    ];
+
+    const orderColumns = [
+        ...(role === "sales"
+            ? [
+                {
+                    name: "Customer Name",
+                    selector: () => selectedUser.name,
+                },
+            ]
+            : []),
+        {
+            name: "Order Date",
+            selector: row => row.date,
+        },
+        {
+            name: "Order Number",
+            selector: row => row.number,
+        },
+        {
+            name: "Total Amount",
+            selector: row => row.total,
+        },
+        {
+            name: "Paid Amount",
+            selector: row => row.paid,
+        },
+        {
+            name: "Balance Due",
+            selector: row => row.balance,
+        },
+        ...(role !== "sales"
+            ? [
+                {
+                    name: "",
+                    cell: () => (
+                        <p
+                            className="flex items-center text-blue cursor-pointer"
+                            onClick={() => setIsOpen(true)}
+                        >
+                            Pay Now <ChevronRight color="#012169" />
+                        </p>
+                    ),
+                },
+            ]
+            : []),
+    ];
+
 
     const handleFileChange = (e) => {
         setForm({ ...form, file: e.target.files[0] });
@@ -188,34 +269,17 @@ export default function Page() {
                         {tab.id === "payment-records" ? (
                             <div className="overflow-x-auto overflow-visible">
                                 <div className="relative overflow-x-auto overflow-visible h-100">
-                                    <table className="w-full text-sm text-left rtl:text-right text-dark">
-                                        <thead className="text-xs text-white uppercase bg-blue">
-                                            <tr>
-                                                {role == 'sales' && <th className="px-6 py-5">Customer Name</th>}
-                                                <th className="px-6 py-3">Date</th>
-                                                <th className="px-6 py-5">Payment Method</th>
-                                                <th className="px-6 py-3">Amount</th>
-                                                <th className="px-6 py-3">Paid Via</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {paymentRows.map((row, i) => (
-                                                <tr key={i} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-[#ccc]">
-                                                    {role == 'sales' && <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{selectedUser.name}</th>}
-                                                    <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{row.date}</th>
-                                                    <td className="px-6 py-4">{row.method}</td>
-                                                    <td className="px-6 py-4">{row.total}</td>
-                                                    <td className="px-6 py-4">{row.paidVia}</td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
+                                    <DataTableComponent
+                                        columns={paymentColumns}
+                                        data={paymentRows}
+                                        title=""
+                                    />
                                 </div>
                             </div>
                         ) : tab.id === "pay-by-order" ? (
                             <div className="overflow-x-auto overflow-visible">
                                 <div className="relative overflow-x-auto overflow-visible h-100">
-                                    <table className="w-full text-sm text-left rtl:text-right text-dark">
+                                    {/* <table className="w-full text-sm text-left rtl:text-right text-dark">
                                         <thead className="text-xs text-white uppercase bg-blue">
                                             <tr>
                                                 {role === "sales" && <th className="px-6 py-5">Customer Name</th>}
@@ -252,7 +316,12 @@ export default function Page() {
                                                 </tr>
                                             ))}
                                         </tbody>
-                                    </table>
+                                    </table> */}
+                                    <DataTableComponent
+                                        columns={orderColumns}
+                                        data={rows}
+                                        title=""
+                                    />
                                 </div>
                             </div>
                         ) : tab.id === "make-payment" ?

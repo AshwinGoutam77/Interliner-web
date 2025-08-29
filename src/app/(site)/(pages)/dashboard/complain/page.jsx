@@ -1,5 +1,6 @@
 "use client";
 
+import DataTableComponent from "@/components/DataTableComponent/page";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -53,6 +54,49 @@ export default function Page() {
         setIsFeedbackOpen(false);
     };
 
+    const orderColumns = [
+        ...(role === "sales"
+            ? [
+                {
+                    name: "Customer Name",
+                    selector: () => selectedUser.name,
+                },
+            ]
+            : []),
+        {
+            name: "Complain Date",
+            selector: row => row.date,
+        },
+        {
+            name: "Ticket ID",
+            selector: row => row.ticketID,
+        },
+        {
+            name: "Order Number",
+            selector: row => row.number,
+        },
+        {
+            name: "Status",
+            selector: row => row.status,
+        },
+        ...(role !== "sales"
+            ? [
+                {
+                    name: "",
+                    cell: () => (
+                        <p
+                            className="flex items-center text-blue cursor-pointer"
+                            onClick={() => setIsFeedbackOpen(true)}
+                        >
+                            Give Feedback <ChevronRight color="#012169" />
+                        </p>
+                    ),
+                },
+            ]
+            : []),
+    ];
+
+
     return (
         <div className="p-6 bg-gray-50 min-h-screen">
             <div className="flex items-center justify-between gap-2 mb-8">
@@ -77,7 +121,7 @@ export default function Page() {
             </div>
 
             <div className="overflow-x-auto">
-                <table className="w-full text-sm text-left rtl:text-right text-dark">
+                {/* <table className="w-full text-sm text-left rtl:text-right text-dark">
                     <thead className="text-xs text-white uppercase bg-blue">
                         <tr>
                             {role == "sales" && <th className="px-6 py-5">Customer Name</th>}
@@ -96,18 +140,15 @@ export default function Page() {
                                 <td className="px-6 py-4">{row.ticketID}</td>
                                 <td className="px-6 py-4">{row.number}</td>
                                 <td className="px-6 py-4">{row.status}</td>
-                                {/* <td className="px-6 py-4">
-                                    <button className="secondary-btn" onClick={() => setIsFeedbackOpen(true)}>
-                                        Give Feedback
-                                    </button>
-                                </td> */}
                                 <td className="px-6 py-4 relative overflow-visible cursor-pointer" onClick={() => setIsFeedbackOpen(true)}>
                                     <p className="flex items-center text-blue">Give Feedback <ChevronRight color="#012169" /></p>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
-                </table>
+                </table> */}
+
+                <DataTableComponent columns={orderColumns} data={rows} />
             </div>
 
             {/* --- Raise Complain Modal --- */}

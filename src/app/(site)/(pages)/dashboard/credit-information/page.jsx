@@ -22,8 +22,8 @@ export default function Page() {
                             key={idx}
                             className="flex items-center justify-between border-b border-[#ccc9] last:border-none pb-3 last:pb-0"
                         >
-                            <span className="text-gray-600 font-medium">{item.label}</span>
-                            <span className="text-gray-900 font-semibold">{item.value}</span>
+                            <span className={`${idx == 2 || idx == 4 ?'text-red':'text-gray-6'} font-medium`}>{item.label}</span>
+                            <span className={`${idx == 2 || idx == 4 ?'text-red':'text-gray-6'} font-semibold`}>{item.value}</span>
                         </div>
                     ))}
                 </div>
