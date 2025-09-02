@@ -1,7 +1,7 @@
 "use client";
 
 import DataTableComponent from "@/components/DataTableComponent/page";
-import { ChevronDown, ChevronRight, Mic, StopCircle } from "lucide-react";
+import { ChevronDown, ChevronRight, Download, Mic, StopCircle, Trash } from "lucide-react";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -62,6 +62,20 @@ export default function Page() {
                 alert("Unexpected error accessing microphone.");
             }
         }
+    };
+
+    const stopRecording = () => {
+        mediaRecorderRef.current.stop();
+        setIsRecording(false);
+    };
+
+    // ✅ Delete recorded file
+    const deleteRecording = () => {
+        if (audioURL) {
+            URL.revokeObjectURL(audioURL); // free memory
+        }
+        setAudioURL(null);
+        setAudioBlob(null);
     };
 
     const rows = [
@@ -251,10 +265,18 @@ export default function Page() {
                                     rows="3"
                                 ></textarea>
 
-                                {/* 🎧 Preview Recorded Audio */}
+                                {/*  Preview Recorded Audio */}
                                 {audioURL && (
-                                    <div className="mt-2">
-                                        <audio controls src={audioURL} className="w-full" />
+                                    <div className="flex items-center justify-between mt-4 gap-5">
+                                        <audio src={audioURL} controls className="w-full" />
+                                        <div className="flex gap-2">
+                                            <button
+                                                onClick={deleteRecording}
+                                                className="text-blue rounded"
+                                            >
+                                                <Trash />
+                                            </button>
+                                        </div>
                                     </div>
                                 )}
                             </div>
