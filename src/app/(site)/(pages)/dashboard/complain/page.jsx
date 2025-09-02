@@ -1,11 +1,69 @@
 "use client";
 
 import DataTableComponent from "@/components/DataTableComponent/page";
-import { ChevronDown, ChevronRight } from "lucide-react";
-import { useState } from "react";
+import { ChevronDown, ChevronRight, Mic, StopCircle } from "lucide-react";
+import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
+
 export default function Page() {
+    const [isRecording, setIsRecording] = useState(false);
+    const [audioURL, setAudioURL] = useState(null);
+    const [audioBlob, setAudioBlob] = useState(null);
+    const mediaRecorderRef = useRef(null);
+    const audioChunks = useRef([]);
+
+    const startRecording = async () => {
+        if (isRecording) {
+            // stop recording
+            mediaRecorderRef.current?.stop();
+            setIsRecording(false);
+            return;
+        }
+
+        try {
+            // ✅ Check available devices first
+            const devices = await navigator.mediaDevices.enumerateDevices();
+            const hasMic = devices.some((d) => d.kind === "audioinput");
+
+            if (!hasMic) {
+                alert("No microphone found. Please connect a mic and allow access.");
+                return;
+            }
+
+            // ✅ Request mic access
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            const mediaRecorder = new MediaRecorder(stream);
+            mediaRecorderRef.current = mediaRecorder;
+            audioChunks.current = [];
+
+            mediaRecorder.ondataavailable = (event) => {
+                if (event.data.size > 0) {
+                    audioChunks.current.push(event.data);
+                }
+            };
+
+            mediaRecorder.onstop = () => {
+                const blob = new Blob(audioChunks.current, { type: "audio/webm" });
+                setAudioBlob(blob);
+                setAudioURL(URL.createObjectURL(blob));
+            };
+
+            mediaRecorder.start();
+            setIsRecording(true);
+        } catch (err) {
+            console.error("Error accessing mic:", err);
+
+            if (err.name === "NotAllowedError") {
+                alert("Microphone access was denied. Please allow mic permissions.");
+            } else if (err.name === "NotFoundError") {
+                alert("No microphone device found.");
+            } else {
+                alert("Unexpected error accessing microphone.");
+            }
+        }
+    };
+
     const rows = [
         { date: "02/09/2025", number: "#2344", ticketID: "#001", status: 'Pending', description: "Lorem Ipsum&nbsp;is simply dummy text.", total: "$24.00", paid: "$2.00", balance: "$26.00" },
         { date: "02/09/2025", number: "#2345", ticketID: "#002", status: 'Resolved', description: "Lorem Ipsum&nbsp;is simply dummy text.", total: "$50.00", paid: "$20.00", balance: "$30.00" },
@@ -121,49 +179,39 @@ export default function Page() {
             </div>
 
             <div className="overflow-x-auto">
-                {/* <table className="w-full text-sm text-left rtl:text-right text-dark">
-                    <thead className="text-xs text-white uppercase bg-blue">
-                        <tr>
-                            {role == "sales" && <th className="px-6 py-5">Customer Name</th>}
-                            <th className="px-6 py-5">Complain Date</th>
-                            <th className="px-6 py-3">Ticket ID</th>
-                            <th className="px-6 py-3">Order Number</th>
-                            <th className="px-6 py-3">Status</th>
-                            <th className="px-6 py-3"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {rows.map((row, i) => (
-                            <tr key={i} className="bg-white border-b border-[#ccc]">
-                                {role == "sales" && <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{selectedUser?.name}</th>}
-                                <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{row.date}</th>
-                                <td className="px-6 py-4">{row.ticketID}</td>
-                                <td className="px-6 py-4">{row.number}</td>
-                                <td className="px-6 py-4">{row.status}</td>
-                                <td className="px-6 py-4 relative overflow-visible cursor-pointer" onClick={() => setIsFeedbackOpen(true)}>
-                                    <p className="flex items-center text-blue">Give Feedback <ChevronRight color="#012169" /></p>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table> */}
-
                 <DataTableComponent columns={orderColumns} data={rows} />
             </div>
 
             {/* --- Raise Complain Modal --- */}
             {isOpen && (
-                <div className="fixed inset-0 bg-[#0000006b] flex items-center justify-center z-[9999]" onClick={() => setIsOpen(false)}>
-                    <div className="bg-white rounded-lg shadow-lg w-[90%] max-w-md p-6 relative" onClick={(e) => e.stopPropagation()}>
+                <div
+                    className="fixed inset-0 bg-[#0000006b] flex items-center justify-center z-[9999]"
+                    onClick={() => setIsOpen(false)}
+                >
+                    <div
+                        className="bg-white rounded-lg shadow-lg w-[90%] max-w-md p-6 relative"
+                        onClick={(e) => e.stopPropagation()}
+                    >
                         <div className="flex item-center justify-between mb-4">
                             <h2 className="text-lg font-semibold text-dark">Raise Complain</h2>
-                            <button onClick={() => setIsOpen(false)} className="text-gray-500 hover:text-black">✕</button>
+                            <button
+                                onClick={() => setIsOpen(false)}
+                                className="text-gray-500 hover:text-black"
+                            >
+                                ✕
+                            </button>
                         </div>
+
                         <form onSubmit={handleSubmit} className="space-y-4">
+                            {/* Upload File */}
                             <div>
-                                <label className="block text-sm font-medium mb-1">Upload File</label>
+                                <label className="block text-sm font-medium mb-1">
+                                    Upload from gallery/ this device/ upload using camera
+                                </label>
                                 <input type="file" className="w-full border border-[#ccc] rounded-md text-sm p-2" />
                             </div>
+
+                            {/* Select Order */}
                             <div>
                                 <label className="block text-sm font-medium mb-1">Select Order Number</label>
                                 <select
@@ -178,8 +226,22 @@ export default function Page() {
                                     <option value="online">#22556</option>
                                 </select>
                             </div>
+
+                            {/* Complain Text */}
                             <div>
-                                <label className="block text-sm font-medium mb-1">Your Complain</label>
+                                <div className="flex items-center justify-between mb-2">
+                                    <label className="block text-sm font-medium">Your Complain</label>
+
+                                    {/* 🎤 Voice Record Button */}
+                                    <button
+                                        type="button"
+                                        onClick={startRecording}
+                                        className="text-blue"
+                                    >
+                                        {isRecording ? <StopCircle size={20} /> : <Mic size={20} />}
+                                    </button>
+                                </div>
+
                                 <textarea
                                     name="remark"
                                     value={form.remark}
@@ -188,12 +250,23 @@ export default function Page() {
                                     className="w-full border border-[#ccc] rounded-md text-sm p-2"
                                     rows="3"
                                 ></textarea>
+
+                                {/* 🎧 Preview Recorded Audio */}
+                                {audioURL && (
+                                    <div className="mt-2">
+                                        <audio controls src={audioURL} className="w-full" />
+                                    </div>
+                                )}
                             </div>
-                            <button type="submit" className="primary-btn w-auto ml-auto">Submit</button>
+
+                            <button type="submit" className="primary-btn w-auto ml-auto">
+                                Submit
+                            </button>
                         </form>
                     </div>
                 </div>
             )}
+
 
             {/* --- Feedback Modal --- */}
             {isFeedbackOpen && (

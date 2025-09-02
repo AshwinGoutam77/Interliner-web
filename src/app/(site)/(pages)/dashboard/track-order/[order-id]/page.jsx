@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Check, Package, Truck, Home, Clock, MapPin, Phone, Mail, Star, Shield, RefreshCw, Calendar, User, CreditCard, Gift } from 'lucide-react';
+import { useSelector } from 'react-redux';
 
 const trackingSteps = [
     {
@@ -90,6 +91,7 @@ const deliveryPartner = {
 };
 
 export default function TrackOrder() {
+    const role = useSelector((state) => state.auth.role);
     const [hoveredStep, setHoveredStep] = useState(null);
     const [hoveredItem, setHoveredItem] = useState(null);
 
@@ -168,10 +170,15 @@ export default function TrackOrder() {
                     <div className="grid lg:grid-cols-3 gap-8">
                         <div className="lg:col-span-2">
                             <div className="border border-[#ccc] rounded-lg p-8">
-                                <h2 className="text-xl font-bold text-dark mb-8 flex items-center gap-3">
-                                    Order Journey
-                                </h2>
-
+                                <div className='flex items-center justify-between gap-4 mb-8 '>
+                                    <h2 className="text-xl font-bold text-dark flex items-center gap-3">
+                                        Order Journey
+                                    </h2>
+                                    {role !== "sales" && <div className='flex items-center gap-4'>
+                                        <button className='primary-btn'>Mark as Received</button>
+                                        <button className='primary-btn'>Download Invoice</button>
+                                    </div>}
+                                </div>
                                 <div className="relative">
                                     {trackingSteps.map((step, index) => {
                                         const styles = getStepStyles(step.status);
@@ -252,7 +259,7 @@ export default function TrackOrder() {
                         <div className="space-y-8">
                             <div className="border border-[#ccc] rounded-lg p-8">
                                 <h2 className="text-xl font-bold text-dark mb-6">
-                                    Order Items
+                                    Ordered Items
                                 </h2>
 
                                 <div className="flex flex-col gap-2">
@@ -263,7 +270,7 @@ export default function TrackOrder() {
                                             onMouseEnter={() => setHoveredItem(item.id)}
                                             onMouseLeave={() => setHoveredItem(null)}
                                         >
-                                            <div className="flex flex-col md:grid md:grid-cols-1 xxl:grid-cols-[auto,1fr] gap-4">
+                                            <div className="flex flex-row flex-wrap gap-4 mb-2">
                                                 <img
                                                     src={item.image}
                                                     alt={item.name}
@@ -271,7 +278,7 @@ export default function TrackOrder() {
                                                 />
                                                 <div className="flex-1">
                                                     <h3 className="font-semibold text-dark mb-1">{item.name}</h3>
-                                                    <div className="flex items-center justify-between">
+                                                    <div className="flex items-center justify-between gap-4">
                                                         <span className="text-sm text-dark">Qty: {item.quantity}</span>
                                                         <div className="text-right">
                                                             <div className="flex items-center gap-2">
