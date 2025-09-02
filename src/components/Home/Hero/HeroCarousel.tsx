@@ -23,29 +23,28 @@ const HeroCarousal = () => {
     >
       {slides.map((slide, index) => (
         <SwiperSlide key={index}>
-          <div className="flex items-center pt-6 sm:pt-0 flex-col-reverse sm:flex-row">
+          <div className="flex items-center pt-6 sm:pt-0 flex-col-reverse sm:flex-row bg-blue">
             <div className="max-w-[394px] py-10 sm:py-15 lg:py-29 pl-4 sm:pl-7.5 lg:pl-12.5">
               <div className="flex items-center gap-4 mb-7.5 sm:mb-10">
-                <span className="block font-semibold text-heading-3 sm:text-heading-1 text-blue">
+                <span className="block font-semibold text-heading-3 sm:text-heading-1 text-white">
                   {slide.discount}
                 </span>
-                <span className="block text-dark text-sm sm:text-custom-1 sm:leading-[24px] whitespace-pre-line">
+                <span className="block text-white text-sm sm:text-custom-1 sm:leading-[24px] whitespace-pre-line">
                   {slide.subtitle}
                 </span>
               </div>
 
-              <h1 className="font-semibold text-dark text-xl sm:text-3xl mb-3">
+              <h1 className="font-semibold text-white text-xl sm:text-3xl mb-3">
                 <a href="#">{slide.title}</a>
               </h1>
 
-              <p>{slide.description}</p>
+              <p className="text-white">{slide.description}</p>
 
-              <a
-                href="#"
-                className="primary-btn mt-10"
+              <button
+                className="bg-white secondary-btn mt-10"
               >
                 {slide.cta}
-              </a>
+              </button>
             </div>
 
             <div className="ml-auto text-end">

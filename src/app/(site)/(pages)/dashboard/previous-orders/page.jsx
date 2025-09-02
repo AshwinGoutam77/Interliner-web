@@ -48,68 +48,6 @@ export default function DashboardPage() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const buttonDropdown = (rowIndex) => (
-    <div
-      className="relative inline-block"
-      ref={(el) => (dropdownRefs.current[rowIndex] = el)}
-    >
-      <button
-        onClick={() =>
-          setOpenIndex(openIndex === rowIndex ? null : rowIndex)
-        }
-        type="button"
-      >
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle cx="5" cy="12" r="2" />
-          <circle cx="12" cy="12" r="2" />
-          <circle cx="19" cy="12" r="2" />
-        </svg>
-      </button>
-
-      {openIndex === rowIndex && (
-        <div className="absolute -right-56 mt-2 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow-sm z-50 dark:bg-gray-700 dark:divide-gray-600">
-          <ul className="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200">
-            <li className="py-2 px-3 hover:bg-gray-100">
-              <Link
-                href={{
-                  pathname: "/dashboard/payment",
-                  query: { tab: "pay-by-order" },
-                }}
-              >
-                Pay Due Payment
-              </Link>
-            </li>
-            <li className="py-2 px-3 hover:bg-gray-100">
-              <button onClick={() => { setRepeatOrderModal(true); setOpenIndex(null); }}>
-                Repeat Order
-              </button>
-            </li>
-            <li className="py-2 px-3 hover:bg-gray-100">
-              <button>Download Receipt</button>
-            </li>
-            <li className="py-2 px-3 hover:bg-gray-100">
-              <button onClick={() => { setIsOpen(true); setOpenIndex(null); }}>
-                Complain
-              </button>
-            </li>
-            <li className="py-2 px-3 hover:bg-gray-100">
-              <button>Download Invoice</button>
-            </li>
-            <li className="py-2 px-3 hover:bg-gray-100">
-              <button>Support</button>
-            </li>
-          </ul>
-        </div>
-      )}
-    </div>
-  );
-
   const rows = [
     { id: 1, date: "02/09/2025", number: "#2344", total: "$24.00", paid: "$2.00", balance: "$26.00" },
     { id: 2, date: "02/09/2025", number: "#2799", total: "$24.00", paid: "$2.00", balance: "$26.00" },
@@ -123,30 +61,29 @@ export default function DashboardPage() {
   const orderColumns = [
     ...(role === "sales"
       ? [
-          {
-            name: "Customer Name",
-            cell: () => selectedUser.name,
-          },
-        ]
+        {
+          name: "Customer Name",
+          cell: () => selectedUser.name,
+        },
+      ]
       : []),
     { name: "Order Date", selector: (row) => row.date, sortable: true },
     { name: "Order Number", selector: (row) => row.number, sortable: true },
     { name: "Total Amount", selector: (row) => row.total, sortable: true },
     { name: "Paid Amount", selector: (row) => row.paid, sortable: true },
     { name: "Balance Due", selector: (row) => row.balance, sortable: true },
-   {
-  name: "",
-  cell: (row, index) => (
-    <div style={{ position: 'relative' }} className="z-[0">
-      <div
-        ref={(el) => (dropdownRefs.current[index] = el)}
-        className="relative"
-      >
-        <button
-          onClick={() => setOpenIndex(openIndex === index ? null : index)}
-          className="focus:outline-none z-0"
+    {
+      name: "",
+      cell: (row, index) => (
+        <div
+          ref={(el) => (dropdownRefs.current[index] = el)}
+          className="relative"
         >
-          <svg
+          <button
+            onClick={() => setOpenIndex(openIndex === index ? null : index)}
+            className="focus:outline-none z-0 flex items-center gap-2"
+          >
+            {/* <svg
             width="24"
             height="24"
             viewBox="0 0 24 24"
@@ -156,63 +93,63 @@ export default function DashboardPage() {
             <circle cx="5" cy="12" r="2" />
             <circle cx="12" cy="12" r="2" />
             <circle cx="19" cy="12" r="2" />
-          </svg>
-        </button>
+          </svg> */}
+            More Options <ChevronRight />
+          </button>
 
-        {openIndex === index && (
-          <div
-            className="absolute right-0 mt-2 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow z-[999999999999999]"
-          >
-            <ul className="p-3 space-y-1 text-sm text-gray-700">
-              <li className="py-2 px-3 hover:bg-gray-100">
-                <Link
-                  href={{
-                    pathname: "/dashboard/payment",
-                    query: { tab: "pay-by-order" },
-                  }}
-                >
-                  Pay Due Payment
-                </Link>
-              </li>
-              <li className="py-2 px-3 hover:bg-gray-100">
-                <button
-                  onClick={() => {
-                    setRepeatOrderModal(true);
-                    setOpenIndex(null);
-                  }}
-                >
-                  Repeat Order
-                </button>
-              </li>
-              <li className="py-2 px-3 hover:bg-gray-100">
-                <button>Download Receipt</button>
-              </li>
-              <li className="py-2 px-3 hover:bg-gray-100">
-                <button
-                  onClick={() => {
-                    setIsOpen(true);
-                    setOpenIndex(null);
-                  }}
-                >
-                  Complain
-                </button>
-              </li>
-              <li className="py-2 px-3 hover:bg-gray-100">
-                <button>Download Invoice</button>
-              </li>
-              <li className="py-2 px-3 hover:bg-gray-100">
-                <button>Support</button>
-              </li>
-            </ul>
-          </div>
-        )}
-      </div>
-    </div>
-  ),
-  ignoreRowClick: true,
-  allowOverflow: true,
-  button: true,
-}
+          {openIndex === index && (
+            <div
+              className="absolute right-0 mt-2 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow z-[999999999999999]"
+            >
+              <ul className="p-3 space-y-1 text-sm text-gray-700">
+                <li className="py-2 px-3 hover:bg-gray">
+                  <Link
+                    href={{
+                      pathname: "/dashboard/payment",
+                      query: { tab: "pay-by-order" },
+                    }}
+                  >
+                    Pay Due Payment
+                  </Link>
+                </li>
+                <li className="py-2 px-3 hover:bg-gray">
+                  <button
+                    onClick={() => {
+                      setRepeatOrderModal(true);
+                      setOpenIndex(null);
+                    }}
+                  >
+                    Repeat Order
+                  </button>
+                </li>
+                <li className="py-2 px-3 hover:bg-gray">
+                  <button>Download Receipt</button>
+                </li>
+                <li className="py-2 px-3 hover:bg-gray">
+                  <button
+                    onClick={() => {
+                      setIsOpen(true);
+                      setOpenIndex(null);
+                    }}
+                  >
+                    Complain
+                  </button>
+                </li>
+                <li className="py-2 px-3 hover:bg-gray">
+                  <button>Download Invoice</button>
+                </li>
+                <li className="py-2 px-3 hover:bg-gray">
+                  <button>Support</button>
+                </li>
+              </ul>
+            </div>
+          )}
+        </div>
+      ),
+      ignoreRowClick: true,
+      allowOverflow: true,
+      button: true,
+    }
 
   ];
 

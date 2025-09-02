@@ -604,7 +604,7 @@ const ShopDetails = () => {
 
                               {/* Checkout */}
                               <Link
-                                href="/checkout"
+                                href="/cart"
                                 className="primary-btn text-center"
                               >
                                 Checkout

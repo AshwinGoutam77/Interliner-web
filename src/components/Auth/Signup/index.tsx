@@ -9,7 +9,7 @@ const Signup = () => {
   return (
     <>
       <section className="overflow-hidden py-20 bg-[#f3f4f62e] mt-40">
-        <div className="absolute inset-0 bg-[url('/images/banner/login-banner.png')] bg-cover bg-bottom opacity-50"></div>
+        <div className="absolute inset-0 bg-[url('/images/banner/login-banner-new.jpg')] bg-cover bg-center opacity-60"></div>
         <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0 relative z-10">
           <div className="max-w-[570px] w-full mx-auto rounded-xl bg-white shadow-1 p-4 sm:p-7.5 xl:p-11">
             <div className="text-center mb-6">

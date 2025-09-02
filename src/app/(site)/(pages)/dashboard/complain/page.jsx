@@ -174,7 +174,7 @@ export default function Page() {
             <div className="flex items-center justify-between gap-2 mb-8">
                 <h1 className="text-3xl font-bold text-dark">Complain</h1>
                 <div className="flex items-center justify-between gap-2">
-                    <button className="primary-btn" onClick={() => setIsOpen(true)}>Make Complain</button>
+                    {role !== "sales" && <button className="primary-btn" onClick={() => setIsOpen(true)}>Make Complain</button>}
                     {role === "sales" && selectedUser && (
                         <button
                             onClick={() => setIsModalOpen(true)}

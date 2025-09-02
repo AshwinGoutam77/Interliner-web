@@ -31,19 +31,11 @@ const PaymentMethod = () => {
               ></div>
             </div>
 
-            <div
-              className={`rounded-md border-[0.5px] py-3.5 px-5 ease-out duration-200 hover:bg-gray-2 hover:border-transparent hover:shadow-none w-full ${payment === "bank"
-                ? "border-transparent bg-gray-2"
-                : " border-gray-4 shadow-1"
-                }`}
-            >
-              <div className="flex items-center">
-                {/* <div className="pr-2.5">
-                  <Image src="/images/checkout/bank.svg" alt="bank" width={29} height={12} />
-                </div> */}
 
+            <div className={`rounded-md py-3.5 px-5 ease-out duration-200 hover:bg-gray-2 hover:border-transparent hover:shadow-none w-full bg-blue/20`}>
+              <div className="flex items-center">
                 <div className="">
-                  <p>Bank transfer</p>
+                  <p className="text-dark">Bank transfer</p>
                 </div>
               </div>
             </div>
@@ -69,19 +61,14 @@ const PaymentMethod = () => {
               ></div>
             </div>
 
-            <div
-              className={`rounded-md border-[0.5px] py-3.5 px-5 ease-out duration-200 hover:bg-gray-2 hover:border-transparent hover:shadow-none w-full ${payment === "cash"
-                ? "border-transparent bg-gray-2"
-                : " border-gray-4 shadow-1"
-                }`}
-            >
+            <div className={`rounded-md py-3.5 px-5 ease-out duration-200 hover:bg-gray-2 hover:border-transparent hover:shadow-none w-full bg-green/20`}>
               <div className="flex items-center">
                 {/* <div className="pr-2.5">
                   <Image src="/images/icons/cheque.png" alt="cash" width={21} height={21} />
                 </div> */}
 
                 <div className="">
-                  <p>Cheque</p>
+                  <p className="text-dark">Cheque</p>
                 </div>
               </div>
             </div>
@@ -106,19 +93,15 @@ const PaymentMethod = () => {
                   }`}
               ></div>
             </div>
-            <div
-              className={`rounded-md border-[0.5px] py-3.5 px-5 ease-out duration-200 hover:bg-gray-2 hover:border-transparent hover:shadow-none w-full ${payment === "wallet"
-                ? "border-transparent bg-gray-2"
-                : " border-gray-4 shadow-1"
-                }`}
-            >
+
+            <div className={`rounded-md py-3.5 px-5 ease-out duration-200 hover:bg-gray-2 hover:border-transparent hover:shadow-none w-full bg-orange/20`}>
               <div className="flex items-center">
                 {/* <div className="pr-2.5">
                   <Image src="/images/icons/wallet.png" alt="paypal" width={75} height={20} />
                 </div> */}
 
                 <div className="">
-                  <p>My Wallet</p>
+                  <p className="text-dark">My Wallet</p>
                   <p className="text-xs">$90</p>
                 </div>
               </div>
@@ -145,19 +128,15 @@ const PaymentMethod = () => {
               ></div>
             </div>
 
-            <div
-              className={`rounded-md border-[0.5px] py-3.5 px-5 ease-out duration-200 hover:bg-gray-2 hover:border-transparent hover:shadow-none w-full ${payment === "pay-later"
-                ? "border-transparent bg-gray-2"
-                : " border-gray-4 shadow-1"
-                }`}
-            >
+
+            <div className={`rounded-md py-3.5 px-5 ease-out duration-200 hover:bg-gray-2 hover:border-transparent hover:shadow-none w-full bg-teal/20`}>
               <div className="flex items-center">
                 {/* <div className="pr-2.5">
                   <Image src="/images/icons/pay.png" alt="pay-later" width={21} height={21} />
                 </div> */}
 
                 <div className="">
-                  <p>Pay later</p>
+                  <p className="text-dark">Pay later</p>
                   <p className="text-xs">Credit Balance: $90</p>
                 </div>
               </div>
@@ -184,19 +163,15 @@ const PaymentMethod = () => {
               ></div>
             </div>
 
-            <div
-              className={`rounded-md border-[0.5px] py-3.5 px-5 ease-out duration-200 hover:bg-gray-2 hover:border-transparent hover:shadow-none w-full ${payment === "full-payment"
-                ? "border-transparent bg-gray-2"
-                : " border-gray-4 shadow-1"
-                }`}
-            >
+
+            <div className={`rounded-md py-3.5 px-5 ease-out duration-200 hover:bg-gray-2 hover:border-transparent hover:shadow-none w-full bg-red/20`}>
               <div className="flex items-center">
                 {/* <div className="pr-2.5">
                   <Image src="/images/icons/full-payment.png" alt="full-payment" width={21} height={21} />
                 </div> */}
 
                 <div className="">
-                  <p>Full Payments</p>
+                  <p className="text-dark">Full Payments</p>
                 </div>
               </div>
             </div>
@@ -222,19 +197,15 @@ const PaymentMethod = () => {
               ></div>
             </div>
 
-            <div
-              className={`rounded-md border-[0.5px] py-3.5 px-5 ease-out duration-200 hover:bg-gray-2 hover:border-transparent hover:shadow-none w-full ${payment === "part-payment"
-                ? "border-transparent bg-gray-2"
-                : " border-gray-4 shadow-1"
-                }`}
-            >
+
+            <div className={`rounded-md py-3.5 px-5 ease-out duration-200 hover:bg-gray-2 hover:border-transparent hover:shadow-none w-full bg-yellow/20`}>
               <div className="flex items-center">
                 {/* <div className="pr-2.5">
                   <Image src="/images/icons/part-payment.png" alt="part-payment" width={21} height={21} />
                 </div> */}
 
                 <div className="">
-                  <p>Part Payments</p>
+                  <p className="text-dark">Part Payments</p>
                 </div>
               </div>
             </div>
@@ -260,12 +231,8 @@ const PaymentMethod = () => {
               ></div>
             </div>
 
-            <div
-              className={`rounded-md border-[0.5px] py-3.5 px-5 ease-out duration-200 hover:bg-gray-2 hover:border-transparent hover:shadow-none w-full ${payment === "online-link"
-                ? "border-transparent bg-gray-2"
-                : " border-gray-4 shadow-1"
-                }`}
-            >
+
+            <div className={`rounded-md py-3.5 px-5 ease-out duration-200 hover:bg-gray-2 hover:border-transparent hover:shadow-none w-full bg-dark/10`}>
               <div className="flex items-center">
                 {/* <div className="pr-2.5">
                   <Image src="/images/icons/link.png" alt="online-link" width={21} height={21} />

@@ -21,7 +21,7 @@ const customStyles = {
 
 const DataTableComponent = ({ columns, data, title }) => {
     return (
-        <div className="overflow-x-auto bg-white rounded-md shadow">
+        <div className="overflow-x-auto overflow-visible bg-white rounded-md shadow relative" style={{ overflow: 'visible' }}>
             <DataTable
                 title={title}
                 columns={columns}
