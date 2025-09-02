@@ -9,6 +9,7 @@ import DataTableComponent from "@/components/DataTableComponent/page";
 
 export default function DashboardPage() {
   const role = useSelector((state) => state.auth.role);
+  const lang = useSelector((s) => s.language.lang);
 
   const [openIndex, setOpenIndex] = useState(null);
   const dropdownRefs = useRef([]);
@@ -99,7 +100,7 @@ export default function DashboardPage() {
 
           {openIndex === index && (
             <div
-              className="absolute right-0 mt-2 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow z-[999999999999999]"
+              className={`absolute ${lang == 'ar' ? '-right-20' : 'right-0'}  mt-2 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow z-[999999999999999]`}
             >
               <ul className="p-3 space-y-1 text-sm text-gray-700">
                 <li className="py-2 px-3 hover:bg-gray">
