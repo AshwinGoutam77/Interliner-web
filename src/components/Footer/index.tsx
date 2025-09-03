@@ -18,7 +18,7 @@ const Footer = () => {
             </h2>
 
             <ul className="flex flex-col gap-3">
-              <li className="flex gap-4.5">
+              <li className="flex gap-4.5 hover:text-blue">
                 <span className="flex-shrink-0">
                   <svg
                     width="24"
@@ -35,11 +35,11 @@ const Footer = () => {
                     />
                   </svg>
                 </span>
-                Head Office: Ajman – UAE
+                <Link href='https://goo.gl/maps/1Ern1Fz4Ex2kQX9A8'>Head Office: Ajman – UAE</Link>
               </li>
 
               <li>
-                <a href="#" className="flex items-center gap-4.5">
+                <a href="tel:+971-6-7436061" className="flex items-center gap-4.5 hover:text-blue">
                   <svg
                     width="24"
                     height="24"
@@ -70,7 +70,7 @@ const Footer = () => {
               </li>
 
               <li>
-                <a href="#" className="flex items-center gap-4.5">
+                <a href="mailto:liners@eim.ae" className="flex items-center gap-4.5 hover:text-blue">
                   <svg
                     width="24"
                     height="24"
@@ -231,24 +231,19 @@ const Footer = () => {
 
             <ul className="flex flex-col gap-3">
               <li>
-                <a className="ease-out duration-200 hover:text-blue" href="#">
+                <Link href="/privacy-policy" className="ease-out duration-200 hover:text-blue" >
                   Privacy Policy
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="ease-out duration-200 hover:text-blue" href="#">
-                  Refund Policy
-                </a>
-              </li>
-              <li>
-                <a className="ease-out duration-200 hover:text-blue" href="#">
+                <Link href="/terms-of-use" className="ease-out duration-200 hover:text-blue">
                   Terms of Use
-                </a>
+                </Link>
               </li>
               <li>
-                <a className="ease-out duration-200 hover:text-blue" href="#">
+                <Link className="ease-out duration-200 hover:text-blue" href="/faq">
                   FAQ’s
-                </a>
+                </Link>
               </li>
               <li>
                 <Link className="ease-out duration-200 hover:text-blue" href="/contact">
@@ -259,7 +254,7 @@ const Footer = () => {
           </div>
 
           <div className="w-full sm:w-auto">
-            <h2 className="mb-7.5 text-custom-1 font-medium text-dark lg:text-right">
+            <h2 className="mb-7.5 text-custom-1 font-medium text-dark lg:text-left">
               Download App
             </h2>
             <ul className="flex flex-col lg:items-end gap-3">

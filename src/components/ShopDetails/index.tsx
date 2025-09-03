@@ -131,7 +131,7 @@ const ShopDetails = () => {
       ) : (
         <>
           <section className="overflow-hidden relative pb-20 pt-25 lg:pt-20 xl:pt-28 bg-[#f3f4f62e]">
-            <Breadcrumb title={"Straight Cut"} pages={["Categories/  Straight Cut"]} />
+            <Breadcrumb title={"Straight Cut"} pages={["Straight Cut"]} />
 
             <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
               <div className="flex flex-col lg:flex-row gap-7.5 xl:gap-17.5">
@@ -226,8 +226,8 @@ const ShopDetails = () => {
                                 <label
                                   key={key}
                                   htmlFor={color.name}
-                                  className={`cursor-pointer select-none flex flex-col items-center rounded-lg p-2 transition 
-                                              ${activeColor === color.name ? "border-[1px] border-blue-100" : "border-[1px] border-[#ccc]"} `}>
+                                  className={`cursor-pointer select-none flex flex-col items-center rounded-lg p-2 transition hover:border-blue
+                                              ${activeColor === color.name ? "border-[2px] border-blue" : "border-[2px] border-[#cccccc42]"} `}>
                                   <input
                                     type="radio"
                                     name="color"
@@ -396,7 +396,7 @@ const ShopDetails = () => {
 
                       <div>
                         <h4 className="font-medium text-dark mb-2">Number of un-cut rolls:</h4>
-                        <input type="number" placeholder="" className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20" />
+                        <input type="number" value='1' placeholder="" className="rounded-md border border-gray-3 bg-gray-1 placeholder:text-dark-5 w-full py-2.5 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20" />
                       </div>
 
                       {/* // <!-- details item --> */}
