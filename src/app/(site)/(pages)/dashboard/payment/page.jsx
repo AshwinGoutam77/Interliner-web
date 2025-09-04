@@ -415,7 +415,7 @@ export default function Page() {
                                         </div>
 
                                         {/* Submit */}
-                                        <button type="submit" className="primary-btn w-full">
+                                        <button type="submit" className="primary-btn">
                                             Submit Payment
                                         </button>
                                     </form>
