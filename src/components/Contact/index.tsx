@@ -46,7 +46,7 @@ const Contact = () => {
 
   return (
     <>
-      <section className="overflow-hidden relative pb-20 pt-5 lg:pt-20 xl:pt-28 bg-[#f3f4f62e] mt-30">
+      <section className="overflow-hidden relative pb-20 pt-5 lg:pt-20 xl:pt-28 bg-[#f3f4f62e] mt-40 lg:mt-30 md:mt-50">
         <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
           <div className="flex flex-col xl:flex-row gap-7.5">
             {/* Left side Contact Info */}

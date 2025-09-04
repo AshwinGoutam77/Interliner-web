@@ -126,7 +126,7 @@ export default function DashboardLayout({ children }) {
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 p-0 sm:p-8 mt-40 sm:mt-28 overflow-none bg-[#fff]">
+            <main className="flex-1 p-0 sm:p-8 mt-40 sm:mt-28 overflow-hidden bg-[#fff]">
                 {children}
             </main>
         </div>

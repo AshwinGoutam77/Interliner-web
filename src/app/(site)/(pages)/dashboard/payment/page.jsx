@@ -216,7 +216,7 @@ export default function Page() {
             )}
 
             {/* Tab Buttons */}
-            <div className="mb-4">
+            <div className="mb-4 sm:mt-20 lg:mt-0 md:mt-10">
                 <div className="flex items-center justify-between">
                     <ul className="flex flex-wrap -mb-px text-sm font-medium text-center border-b border-[#ccc]">
                         {tabs.map((tab) => (

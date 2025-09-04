@@ -89,7 +89,7 @@ export default function Page() {
     ];
 
     return (
-        <div className="flex flex-col min-h-screen bg-gray-50">
+        <div className="flex flex-col min-h-screen bg-gray-50 lg:mt-0 md:mt-10 ">
             <main className="flex-1 p-6">
                 <h1 className="text-3xl font-bold mb-8 text-dark">
                     Welcome {role === "sales" ? "Sales Team" : "User"}

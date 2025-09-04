@@ -155,7 +155,7 @@ export default function DashboardPage() {
   ];
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
+    <div className="p-6 bg-gray-50 min-h-screen lg:mt-0 md:mt-10 overflow-none">
       <div className="flex items-center justify-between gap-4 mb-8">
         <h1 className="text-3xl font-bold text-dark">Previous Orders</h1>
         {role === "sales" && selectedUser && (
