@@ -58,7 +58,7 @@ const OrderSummary = () => {
             href='/checkout'
             className="primary-btn mt-7.5 ml-auto"
           >
-            Process to Checkout
+            Proceed to Checkout
           </Link>
         </div>
       </div>

@@ -333,7 +333,13 @@ export default function Page() {
                                     className="bg-white rounded-lg shadow-lg w-[90%] max-w-md p-6 relative"
                                     onClick={(e) => e.stopPropagation()}
                                 >
-                                    <h2 className="text-lg font-semibold mb-4 text-dark">Make Payment</h2>
+                                    {/* <h2 className="text-lg font-semibold mb-4 text-dark">Make Payment</h2> */}
+                                    <div className="flex item-center justify-between mb-4">
+                                        <h2 className="text-lg font-semibold text-dark">Make Payment</h2>
+                                        <button onClick={() => setActiveTab("pay-by-order")} className="text-gray-500 hover:text-black">
+                                            ✕
+                                        </button>
+                                    </div>
                                     <h2 className="text-lg font-semibold mb-4 text-dark">Payment Due: $230</h2>
 
                                     <form onSubmit={handleSubmit} className="space-y-4">

@@ -126,8 +126,19 @@ export default function DashboardLayout({ children }) {
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 p-0 sm:p-8 mt-40 sm:mt-28 overflow-hidden bg-[#fff]">
+            <main className="relative flex-1 p-0 sm:p-8 mt-40 sm:mt-28 overflow-hidden bg-[#fff]">
                 {children}
+                <Link
+                    href="https://wa.me/+971-6-7436061"
+                    target="_blank"
+                    className="fixed bottom-10 right-10 z-[999999999] bg-white shadow-lg rounded-full p-2"
+                >
+                    <img
+                        src="/images/icons/whatsaap-icon.webp"
+                        alt="WhatsApp"
+                        className="w-12 h-12 hover:scale-110 transition-transform"
+                    />
+                </Link>
             </main>
         </div>
     );

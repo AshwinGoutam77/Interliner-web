@@ -235,24 +235,6 @@ export default function TrackOrder() {
                                     })}
                                 </div>
                             </div>
-                            {/* Footer */}
-                            <div className="mt-5 text-start">
-                                <div className="">
-                                    <p className="text-gray-600 mb-4">
-                                        Need help with your order? Our customer support team is here to assist you.
-                                    </p>
-                                    <div className="flex flex-wrap justify-start gap-4">
-                                        <button className="primary-btn flex items-center gap-3">
-                                            <Phone className="w-4 h-4 text-white" />
-                                            Call Support
-                                        </button>
-                                        <button className="primary-btn flex items-center gap-3">
-                                            <Mail className="w-4 h-4 text-white" />
-                                            Email Us
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                         {/* Order Items Sidebar */}
@@ -266,7 +248,7 @@ export default function TrackOrder() {
                                     {orderItems.map((item) => (
                                         <div
                                             key={item.id}
-                                            className="border-b border-[#ccc] py-2 cursor-pointer"
+                                            className="border-b border-[#ccc9] py-2 cursor-pointer"
                                             onMouseEnter={() => setHoveredItem(item.id)}
                                             onMouseLeave={() => setHoveredItem(null)}
                                         >
@@ -278,8 +260,8 @@ export default function TrackOrder() {
                                                 />
                                                 <div className="flex-1">
                                                     <h3 className="font-semibold text-dark mb-1">{item.name}</h3>
-                                                    <div className="flex items-center justify-between gap-4">
-                                                        <span className="text-sm text-dark">Qty: {item.quantity}</span>
+                                                    <div className="flex flex-wrap items-center justify-between gap-4">
+                                                        <span className="text-sm text-dark">Off White | Cut - 10 rolls | UnCut -  <br />2 rolls |36 Inch | 25 Meter</span>
                                                         <div className="text-right">
                                                             <div className="flex items-center gap-2">
                                                                 <span className="text-lg font-bold text-dark">
@@ -311,7 +293,7 @@ export default function TrackOrder() {
                                             <span className="text-dark">GST</span>
                                             <span className="font-semibold text-dark">$24</span>
                                         </div>
-                                        <div className="border-t border-[#ccc] pt-6">
+                                        <div className="border-t border-[#ccc9] pt-6">
                                             <div className="flex justify-between items-center">
                                                 <span className="text-xl font-bold text-dark">Total Paid</span>
                                                 <span className="text-2xl font-bold text-dark">

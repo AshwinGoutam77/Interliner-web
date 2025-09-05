@@ -325,7 +325,7 @@ export default function Page() {
                                     <option value="5">5 - Excellent</option>
                                 </select>
                             </div>
-                            <button type="submit" className="primary-btn w-auto ml-auto">Submit Feedback</button>
+                            <button type="submit" className="primary-btn w-auto">Submit Feedback</button>
                         </form>
                     </div>
                 </div>

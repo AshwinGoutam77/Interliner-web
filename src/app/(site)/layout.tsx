@@ -50,7 +50,7 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
                 </PreviewSliderProvider>
               </ModalProvider>
             </CartModalProvider>
-            <ScrollToTop />
+            {/* <ScrollToTop /> */}
             <Footer />
           </>
         )}

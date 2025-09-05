@@ -49,14 +49,16 @@ export default function DashboardPage() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const [openRow, setOpenRow] = useState(null);
+
   const rows = [
-    { id: 1, date: "02/09/2025", number: "#2344", total: "$24.00", paid: "$2.00", balance: "$26.00" },
-    { id: 2, date: "02/09/2025", number: "#2799", total: "$24.00", paid: "$2.00", balance: "$26.00" },
-    { id: 3, date: "02/09/2025", number: "#4588", total: "$24.00", paid: "$2.00", balance: "$26.00" },
-    { id: 4, date: "02/09/2025", number: "#2344", total: "$24.00", paid: "$2.00", balance: "$26.00" },
-    { id: 5, date: "02/09/2025", number: "#2344", total: "$24.00", paid: "$2.00", balance: "$26.00" },
-    { id: 5, date: "02/09/2025", number: "#2344", total: "$24.00", paid: "$2.00", balance: "$26.00" },
-    { id: 5, date: "02/09/2025", number: "#2344", total: "$24.00", paid: "$2.00", balance: "$26.00" },
+    { id: 1, date: "02/09/2025", number: "#2344", total: "$24.00", paid: "$2.00", balance: "$26.00", action: '' },
+    { id: 2, date: "02/09/2025", number: "#2799", total: "$24.00", paid: "$2.00", balance: "$26.00", action: '' },
+    { id: 3, date: "02/09/2025", number: "#4588", total: "$24.00", paid: "$2.00", balance: "$26.00", action: '' },
+    { id: 4, date: "02/09/2025", number: "#2344", total: "$24.00", paid: "$2.00", balance: "$26.00", action: '' },
+    { id: 5, date: "02/09/2025", number: "#2344", total: "$24.00", paid: "$2.00", balance: "$26.00", action: '' },
+    { id: 5, date: "02/09/2025", number: "#2344", total: "$24.00", paid: "$2.00", balance: "$26.00", action: '' },
+    { id: 5, date: "02/09/2025", number: "#2344", total: "$24.00", paid: "$2.00", balance: "$26.00", action: '' },
   ];
 
   const orderColumns = [
@@ -65,6 +67,7 @@ export default function DashboardPage() {
         {
           name: "Customer Name",
           cell: () => selectedUser.name,
+          sortable: true,
         },
       ]
       : []),
@@ -73,6 +76,73 @@ export default function DashboardPage() {
     { name: "Total Amount", selector: (row) => row.total, sortable: true },
     { name: "Paid Amount", selector: (row) => row.paid, sortable: true },
     { name: "Balance Due", selector: (row) => row.balance, sortable: true },
+    // {
+    //   name: "",
+    //   cell: (row) => (
+    //     <div className="relative">
+    //       <button
+    //         onClick={() =>
+    //           setOpenRow(openRow === row.number ? null : row.number)
+    //         }
+    //         className="focus:outline-none flex items-center gap-2"
+    //       >
+    //         More Options <ChevronRight />
+    //       </button>
+
+    //       {openRow === row.number && (
+    //         <div
+    //           className={`absolute ${lang == "ar" ? "-right-20" : "right-0"
+    //             } mt-2 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow z-[99999]`}
+    //         >
+    //           <ul className="p-3 space-y-1 text-sm text-gray-700">
+    //             <li className="py-2 px-3 hover:bg-gray">
+    //               <Link
+    //                 href={{
+    //                   pathname: "/dashboard/payment",
+    //                   query: { tab: "pay-by-order" },
+    //                 }}
+    //               >
+    //                 Pay Due Payment
+    //               </Link>
+    //             </li>
+    //             <li className="py-2 px-3 hover:bg-gray">
+    //               <button
+    //                 onClick={() => {
+    //                   setRepeatOrderModal(true);
+    //                   setOpenIndex(null);
+    //                 }}
+    //               >
+    //                 Repeat Order
+    //               </button>
+    //             </li>
+    //             <li className="py-2 px-3 hover:bg-gray">
+    //               <button>Download Receipt</button>
+    //             </li>
+    //             <li className="py-2 px-3 hover:bg-gray">
+    //               <button
+    //                 onClick={() => {
+    //                   setIsOpen(true);
+    //                   setOpenIndex(null);
+    //                 }}
+    //               >
+    //                 Complain
+    //               </button>
+    //             </li>
+    //             <li className="py-2 px-3 hover:bg-gray">
+    //               <button>Download Invoice</button>
+    //             </li>
+    //             <li className="py-2 px-3 hover:bg-gray">
+    //               <button>Support</button>
+    //             </li>
+    //           </ul>
+    //         </div>
+    //       )}
+    //     </div>
+    //   ),
+    //   ignoreRowClick: true,
+    //   allowOverflow: true,   // ✅ corrected spelling
+    //   button: true,          // ✅ valid here
+    // },
     {
       name: "",
       cell: (row, index) => (
@@ -84,17 +154,6 @@ export default function DashboardPage() {
             onClick={() => setOpenIndex(openIndex === index ? null : index)}
             className="focus:outline-none z-0 flex items-center gap-2"
           >
-            {/* <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="5" cy="12" r="2" />
-            <circle cx="12" cy="12" r="2" />
-            <circle cx="19" cy="12" r="2" />
-          </svg> */}
             More Options <ChevronRight />
           </button>
 
@@ -140,7 +199,7 @@ export default function DashboardPage() {
                   <button>Download Invoice</button>
                 </li>
                 <li className="py-2 px-3 hover:bg-gray">
-                  <button>Support</button>
+                  <Link href='/contact'>Support</Link>
                 </li>
               </ul>
             </div>
@@ -153,6 +212,7 @@ export default function DashboardPage() {
     }
 
   ];
+
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen lg:mt-0 md:mt-10 overflow-none">
@@ -195,7 +255,7 @@ export default function DashboardPage() {
 
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          className="fixed inset-0 bg-[#0000006b] flex items-center justify-center z-[999999]"
           onClick={() => setIsOpen(false)}
         >
           <div className="bg-white rounded-lg shadow-lg w-[90%] max-w-md p-6 relative" onClick={(e) => e.stopPropagation()}>
@@ -235,7 +295,7 @@ export default function DashboardPage() {
                   rows="3"
                 ></textarea>
               </div>
-              <button type="submit" className="primary-btn w-auto ml-auto">
+              <button type="submit" className="primary-btn w-auto">
                 Submit
               </button>
             </form>

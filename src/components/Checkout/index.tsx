@@ -188,7 +188,7 @@ const Checkout = () => {
                   href='/order-success'
                   className="primary-btn mt-7 ml-auto"
                 >
-                  Process to Checkout
+                  Proceed to Checkout
                 </Link>
               </div>
             </div>
