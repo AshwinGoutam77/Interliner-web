@@ -1,8 +1,34 @@
 import React, { useState } from "react";
 import Image from "next/image";
 
-const PaymentMethod = () => {
-  const [payment, setPayment] = useState("bank");
+interface PaymentMethodProps {
+  payment: string;
+  setPayment: React.Dispatch<React.SetStateAction<string>>;
+  showBankModal: boolean;
+  setShowBankModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setAccountNo: React.Dispatch<React.SetStateAction<string>>;
+  setIfsc: React.Dispatch<React.SetStateAction<string>>;
+  setBankName: React.Dispatch<React.SetStateAction<string>>;
+  accountNo: string;
+  ifsc: string;
+  bankName: string;
+}
+
+const PaymentMethod = ({ payment, setPayment, showBankModal, setShowBankModal, setAccountNo, setIfsc, setBankName, accountNo, ifsc, bankName, handleSelect }) => {
+  // const [payment, setPayment] = useState("bank");
+  // const [showBankModal, setShowBankModal] = useState(false);
+  // const [accountNo, setAccountNo] = useState("");
+  // const [ifsc, setIfsc] = useState("");
+  // const [bankName, setBankName] = useState("");
+
+  // const handleSelect = (method: string) => {
+  //   setPayment(method);
+  //   if (method === "bank" || method === "cash") {
+  //     setShowBankModal(true);
+  //   }
+  // };
+
+
   return (
     <div className="bg-white shadow-1 rounded-[5px] mt-7.5">
       <div className="border-b border-gray-3 py-5 px-4 sm:px-8.5 bg-blue rounded-t-[5px]">
@@ -21,7 +47,7 @@ const PaymentMethod = () => {
                 name="bank"
                 id="bank"
                 className="sr-only"
-                onChange={() => setPayment("bank")}
+                onChange={() => handleSelect("bank")}
               />
               <div
                 className={`flex h-4 w-4 items-center justify-center rounded-full ${payment === "bank"
@@ -51,7 +77,7 @@ const PaymentMethod = () => {
                 name="cash"
                 id="cash"
                 className="sr-only"
-                onChange={() => setPayment("cash")}
+                onChange={() => handleSelect("cash")}
               />
               <div
                 className={`flex h-4 w-4 items-center justify-center rounded-full ${payment === "cash"

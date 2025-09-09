@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Breadcrumb from "../Common/Breadcrumb";
 import Login from "./Login";
 import Shipping from "./Shipping";
@@ -11,10 +11,47 @@ import Link from "next/link";
 import { useAppSelector } from "@/redux/store";
 import { useSelector } from "react-redux";
 import { selectTotalPrice } from "@/redux/features/cart-slice";
+import { useRouter } from "next/navigation";
+import { X } from "lucide-react";
 
 const Checkout = () => {
+  const router = useRouter()
   const cartItems = useAppSelector((state) => state.cartReducer.items);
   const totalPrice = useSelector(selectTotalPrice)
+
+  const [payment, setPayment] = useState("bank");
+  const [showBankModal, setShowBankModal] = useState(false);
+  const [accountNo, setAccountNo] = useState("");
+  const [ifsc, setIfsc] = useState("");
+  const [bankName, setBankName] = useState("");
+  const [error, setError] = useState(false);
+
+  const handleSelect = (method: string) => {
+    setPayment(method);
+
+  };
+
+  const handleSubmitPayment = () => {
+    if (payment === "bank" || payment === "cash") {
+      setShowBankModal(true);
+    } else {
+      router.push('/order-success')
+    }
+  }
+
+  const validateBankDetails = (accountNo: string, ifsc: string) => {
+    if (!accountNo.trim()) {
+      setError(true);
+      return false;
+    }
+    if (!ifsc.trim()) {
+      setError(true)
+      return false;
+    }
+    return true;
+  };
+
+
   return (
     <>
       <section className="overflow-hidden py-20 bg-[#f3f4f62e]">
@@ -180,17 +217,98 @@ const Checkout = () => {
               {/* <ShippingMethod /> */}
 
               {/* <!-- payment box --> */}
-              <PaymentMethod />
+              <PaymentMethod handleSelect={handleSelect} payment={payment} setPayment={setPayment} showBankModal={showBankModal} setShowBankModal={setShowBankModal} setAccountNo={setAccountNo} setIfsc={setIfsc} setBankName={setBankName} accountNo={accountNo} ifsc={ifsc} bankName={bankName} />
 
               {/* <!-- checkout button --> */}
               <div className="text-end">
-                <Link
-                  href='/order-success'
+                <button
                   className="primary-btn mt-7 ml-auto"
+                  onClick={() => handleSubmitPayment()}
                 >
                   Confirm Order
-                </Link>
+                </button>
               </div>
+
+              {showBankModal && (
+                <div
+                  className="fixed inset-0 flex items-center justify-center bg-[#0000006b] z-[9999]"
+                  onClick={() => setShowBankModal(false)}
+                >
+                  <div
+                    className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="flex items-center justify-between mb-4">
+                      <h2 className="text-xl font-semibold text-dark">
+                        Enter Bank Details
+                      </h2>
+                      <span className="cursor-pointer" onClick={() => setShowBankModal(false)}>
+                        <X />
+                      </span>
+                    </div>
+
+                    {/* Account Number */}
+                    <label className="block mb-2">
+                      Account Number <span className="text-red">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={accountNo}
+                      onChange={(e) => setAccountNo(e.target.value)}
+                      className={`rounded-md border ${(!accountNo || !/^\d+$/.test(accountNo)) && error && "border-red-500"
+                        } border-gray-3 bg-gray-1 w-full py-2.5 px-5 mb-2`}
+                    />
+                    {(!accountNo || !/^\d+$/.test(accountNo)) && error && (
+                      <p className="text-red text-sm mb-3">
+                        Please enter a valid account number
+                      </p>
+                    )}
+
+                    {/* IFSC Code */}
+                    <label className="block mb-2">
+                      IFSC Code <span className="text-red">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={ifsc}
+                      onChange={(e) => setIfsc(e.target.value)}
+                      className={`rounded-md border ${(!ifsc || !/^[A-Za-z]{4}\d{7}$/.test(ifsc)) &&
+                        error &&
+                        "border-red-500"
+                        } border-gray-3 bg-gray-1 w-full py-2.5 px-5 mb-2`}
+                    />
+                    {(!ifsc || !/^[A-Za-z]{4}\d{7}$/.test(ifsc)) && error && (
+                      <p className="text-red text-sm mb-3">Please enter a valid IFSC code</p>
+                    )}
+
+                    {/* Buttons */}
+                    <div className="flex justify-end gap-3 mt-4">
+                      <button
+                        onClick={() => setShowBankModal(false)}
+                        className="px-4 py-2 text-dark rounded-md"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        onClick={() => {
+                          if (!validateBankDetails(accountNo, ifsc)) {
+                            setError(true);
+                            return;
+                          }
+                          setError(false);
+                          setShowBankModal(false);
+                          router.push('/order-success')
+                        }}
+                        className="primary-btn"
+                      >
+                        Submit
+                      </button>
+
+                    </div>
+                  </div>
+                </div>
+              )}
+
             </div>
           </div>
           {/* </form > */}
