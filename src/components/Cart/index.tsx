@@ -20,29 +20,29 @@ const Cart = () => {
               <button className="text-blue">Clear Shopping Cart</button>
             </div>
 
-            <div className="bg-white rounded-[10px] shadow-1">
+            <div className="bg-white rounded-[5px] shadow-1">
               <div className="w-full overflow-x-auto">
                 <div className="min-w-[1170px]">
                   {/* <!-- table header --> */}
-                  <div className="flex items-center py-5.5 px-7.5">
+                  <div className="flex items-center py-5.5 px-7.5 bg-blue rounded-t-[5px]">
                     <div className="min-w-[400px]">
-                      <p className="text-dark">Product</p>
+                      <p className="text-white">Product</p>
                     </div>
 
                     <div className="min-w-[180px]">
-                      <p className="text-dark">Price</p>
+                      <p className="text-white">Price</p>
                     </div>
 
                     <div className="min-w-[275px]">
-                      <p className="text-dark">Quantity</p>
+                      <p className="text-white">Quantity</p>
                     </div>
 
                     <div className="min-w-[200px]">
-                      <p className="text-dark">Subtotal</p>
+                      <p className="text-white">Subtotal</p>
                     </div>
 
                     <div className="min-w-[50px]">
-                      <p className="text-dark text-right">Action</p>
+                      <p className="text-white text-right">Action</p>
                     </div>
                   </div>
 

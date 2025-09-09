@@ -17,6 +17,7 @@ import ScrollToTop from "@/components/Common/ScrollToTop";
 import PreLoader from "@/components/Common/PreLoader";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import Link from "next/link";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -51,6 +52,17 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
               </ModalProvider>
             </CartModalProvider>
             {/* <ScrollToTop /> */}
+            <Link
+              href="https://wa.me/97167436061"
+              target="_blank"
+              className="fixed bottom-10 right-10 z-[99] bg-white shadow-lg rounded-full"
+            >
+              <img
+                src="/images/icons/whatsaap-icon-jpg.jfif"
+                alt="WhatsApp"
+                className="w-18 h-18 object-cover hover:scale-110 transition-transform rounded-full"
+              />
+            </Link>
             <Footer />
           </>
         )}

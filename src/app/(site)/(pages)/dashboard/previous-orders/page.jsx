@@ -162,7 +162,7 @@ export default function DashboardPage() {
               className={`absolute ${lang == 'ar' ? '-right-20' : 'right-0'}  mt-2 w-48 bg-white divide-y divide-gray-100 rounded-lg shadow z-[999999999999999]`}
             >
               <ul className="p-3 space-y-1 text-sm text-gray-700">
-                <li className="py-2 px-3 hover:bg-gray">
+                {role !== "sales" && <li className="py-2 px-3 hover:bg-gray">
                   <Link
                     href={{
                       pathname: "/dashboard/payment",
@@ -171,7 +171,7 @@ export default function DashboardPage() {
                   >
                     Pay Due Payment
                   </Link>
-                </li>
+                </li>}
                 <li className="py-2 px-3 hover:bg-gray">
                   <button
                     onClick={() => {

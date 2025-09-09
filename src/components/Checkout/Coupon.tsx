@@ -2,9 +2,9 @@ import React from "react";
 
 const Coupon = () => {
   return (
-    <div className="bg-white shadow-1 rounded-[10px] mt-7.5">
-      <div className="border-b border-gray-3 py-5 px-4 sm:px-8.5">
-        <h3 className="font-medium text-xl text-dark">Have any Promo Code?</h3>
+    <div className="bg-white shadow-1 rounded-[5px] mt-7.5">
+      <div className="border-b border-gray-3 py-5 px-4 sm:px-8.5 bg-blue rounded-t-[5px]">
+        <h3 className="font-medium text-xl text-white">Have any Promo Code?</h3>
       </div>
 
       <div className="py-8 px-4 sm:px-8.5">

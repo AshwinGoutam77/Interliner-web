@@ -54,9 +54,9 @@ const Checkout = () => {
             {/* // <!-- checkout right --> */}
             <div className="max-w-[455px] w-full">
               {/* <!-- order list box --> */}
-              <div className="bg-white shadow-1 rounded-[10px]">
-                <div className="border-b border-gray-3 py-5 px-4 sm:px-8.5">
-                  <h3 className="font-medium text-xl text-dark">
+              <div className="bg-white shadow-1 rounded-[5px]">
+                <div className="border-b border-gray-3 py-5 px-4 sm:px-8.5 bg-blue rounded-t-[5px]">
+                  <h3 className="font-medium text-xl text-white">
                     Your Order
                   </h3>
                 </div>
@@ -188,7 +188,7 @@ const Checkout = () => {
                   href='/order-success'
                   className="primary-btn mt-7 ml-auto"
                 >
-                  Proceed to Checkout
+                  Confirm Order
                 </Link>
               </div>
             </div>

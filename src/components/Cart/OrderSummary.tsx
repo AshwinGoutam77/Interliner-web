@@ -11,9 +11,9 @@ const OrderSummary = () => {
   return (
     <div className="lg:max-w-[455px] w-full">
       {/* <!-- order list box --> */}
-      <div className="bg-white shadow-1 rounded-[10px]">
-        <div className="border-b border-gray-3 py-5 px-4 sm:px-8.5">
-          <h3 className="font-medium text-xl text-dark">Order Summary</h3>
+      <div className="bg-white shadow-1 rounded-[5px]">
+        <div className="border-b border-gray-3 py-5 px-4 sm:px-8.5 bg-blue rounded-t-[5px]">
+          <h3 className="font-medium text-xl text-white">Order Summary</h3>
         </div>
 
         <div className="pt-2.5 pb-8.5 px-4 sm:px-8.5">
@@ -58,7 +58,7 @@ const OrderSummary = () => {
             href='/checkout'
             className="primary-btn mt-7.5 ml-auto"
           >
-            Proceed to Checkout
+            Continue with this order
           </Link>
         </div>
       </div>
