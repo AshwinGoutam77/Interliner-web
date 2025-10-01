@@ -1,0 +1,20 @@
+{
+  "features": [
+    {
+      "title": "Free Shipping",
+      "description": "For all orders $200"
+    },
+    {
+      "title": "1 & 1 Returns",
+      "description": "Cancellation after 1 day"
+    },
+    {
+      "title": "100% Secure Payments",
+      "description": "Guarantee secure payments"
+    },
+    {
+      "title": "24/7 Dedicated Support",
+      "description": "Anywhere & anytime"
+    }
+  ]
+}

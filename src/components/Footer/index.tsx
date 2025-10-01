@@ -2,10 +2,15 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { FooterTranslations } from "@/data";
 
 const Footer = () => {
   const year = new Date().getFullYear();
   const pathname = usePathname();
+  const lang = useSelector((state: RootState) => state.language.lang);
+  const footer = FooterTranslations[lang] || FooterTranslations.en;
 
   return (
     <footer className="overflow-hidden bg-gray-1 relative z-10">
@@ -14,7 +19,7 @@ const Footer = () => {
         <div className="flex flex-wrap xl:flex-nowrap gap-10 xl:gap-19 xl:justify-between pt-1.5 xl:pt-10.5 pb-10 xl:pb-15">
           <div className="max-w-[330px] w-full">
             <h2 className="mb-7.5 text-custom-1 font-medium text-dark">
-              Help & Support
+              {footer.helpSupport}
             </h2>
 
             <ul className="flex flex-col gap-3">
@@ -35,7 +40,7 @@ const Footer = () => {
                     />
                   </svg>
                 </span>
-                <Link href='https://goo.gl/maps/1Ern1Fz4Ex2kQX9A8'>Head Office: Ajman – UAE</Link>
+                <Link href='https://goo.gl/maps/1Ern1Fz4Ex2kQX9A8'> {footer.headOffice}</Link>
               </li>
 
               <li>
@@ -64,8 +69,7 @@ const Footer = () => {
                       fill="#012169"
                     />
                   </svg>
-                  +971-6-7436061/
-                  +971-6-5556354
+                  {footer.phone}
                 </a>
               </li>
 
@@ -85,7 +89,7 @@ const Footer = () => {
                       fill="#012169"
                     />
                   </svg>
-                  liners@eim.ae
+                  {footer.email}
                 </a>
               </li>
             </ul>
@@ -202,23 +206,23 @@ const Footer = () => {
 
           <div className="w-full sm:w-auto">
             <h2 className="mb-7.5 text-custom-1 font-medium text-dark">
-              Account
+              {footer.account}
             </h2>
 
             <ul className="flex flex-col gap-3.5">
               <li>
                 <Link className="ease-out duration-200 hover:text-blue" href="/signin">
-                  Login / Register
+                  {footer.loginRegister}
                 </Link>
               </li>
               <li>
                 <Link className="ease-out duration-200 hover:text-blue" href="/cart">
-                  Cart
+                  {footer.cart}
                 </Link>
               </li>
               <li>
                 <Link className="ease-out duration-200 hover:text-blue" href="/shop">
-                  Shop
+                  {footer.shop}
                 </Link>
               </li>
             </ul>
@@ -226,28 +230,28 @@ const Footer = () => {
 
           <div className="w-full sm:w-auto">
             <h2 className="mb-7.5 text-custom-1 font-medium text-dark">
-              Quick Link
+              {footer.quickLinks}
             </h2>
 
             <ul className="flex flex-col gap-3">
               <li>
                 <Link href="/privacy-policy" className="ease-out duration-200 hover:text-blue" >
-                  Privacy Policy
+                  {footer.privacyPolicy}
                 </Link>
               </li>
               <li>
                 <Link href="/terms-of-use" className="ease-out duration-200 hover:text-blue">
-                  Terms of Use
+                  {footer.termsOfUse}
                 </Link>
               </li>
               <li>
                 <Link className="ease-out duration-200 hover:text-blue" href="/faq">
-                  FAQ’s
+                  {footer.faqs}
                 </Link>
               </li>
               <li>
                 <Link className="ease-out duration-200 hover:text-blue" href="/contact">
-                  Contact
+                  {footer.contact}
                 </Link>
               </li>
             </ul>
@@ -255,7 +259,7 @@ const Footer = () => {
 
           <div className="w-full sm:w-auto">
             <h2 className="mb-7.5 text-custom-1 font-medium text-dark lg:text-left">
-              Download App
+              {footer.downloadApp}
             </h2>
             <ul className="flex flex-col lg:items-end gap-3">
               <li>
@@ -322,7 +326,7 @@ const Footer = () => {
         <div className="max-w-[1170px] mx-auto px-4 sm:px-8 xl:px-0">
           <div className="flex gap-5 flex-wrap items-center justify-between">
             <p className="text-dark font-medium text-center mx-auto">
-              &copy; {year}. All rights reserved by Interliners.
+              &copy; {year}. {footer.copyright}
             </p>
           </div>
         </div>

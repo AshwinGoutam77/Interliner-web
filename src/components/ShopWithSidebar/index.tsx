@@ -11,11 +11,16 @@ import shopData from "../Shop/shopData";
 import SingleGridItem from "../Shop/SingleGridItem";
 import SingleListItem from "../Shop/SingleListItem";
 import { usePathname } from "next/navigation";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { FilterTranslations } from "@/data";
 
 const ShopWithSidebar = () => {
   const pathname = usePathname();
   const lastSegment = pathname.split("/").filter(Boolean).pop() || "";
   const pageTitle = lastSegment.charAt(0).toUpperCase() + lastSegment.slice(1);
+  const lang = useSelector((state: RootState) => state.language.lang);
+  const content = FilterTranslations[lang] || FilterTranslations.en;
 
   const [productStyle, setProductStyle] = useState("grid");
   const [productSidebar, setProductSidebar] = useState(false);
@@ -152,25 +157,14 @@ const ShopWithSidebar = () => {
                   {/* <!-- filter box --> */}
                   <div className="bg-white shadow-1 rounded-lg py-4 px-5">
                     <div className="flex items-center justify-between">
-                      <p>Filters:</p>
-                      <button className="text-blue">Clean All</button>
+                      <p>{content.filters}:</p>
+                      <button className="text-blue">{content.cleanAll}</button>
                     </div>
                   </div>
 
                   {/* <!-- category box --> */}
                   <CategoryDropdown categories={data} />
-
-                  {/* <!-- gender box --> */}
-                  {/* <GenderDropdown genders={genders} /> */}
-
-                  {/* // <!-- size box --> */}
-                  {/* <SizeDropdown /> */}
-
-                  {/* // <!-- color box --> */}
-                  {/* <ColorsDropdwon /> */}
-
-                  {/* // <!-- price range box --> */}
-                  <PriceDropdown />
+                  {/* <PriceDropdown /> */}
                 </div>
               </form>
             </div>

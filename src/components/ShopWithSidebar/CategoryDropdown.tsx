@@ -1,22 +1,23 @@
 "use client";
 
+import { FilterTranslations } from "@/data";
+import { RootState } from "@/redux/store";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const CategoryItem = ({ category }) => {
   const [selected, setSelected] = useState(category.isRefined || false);
 
   return (
     <button
-      className={`${
-        selected && "text-blue"
-      } group flex items-center justify-between ease-out duration-200 hover:text-blue w-full`}
+      className={`${selected && "text-blue"
+        } group flex items-center justify-between ease-out duration-200 hover:text-blue w-full`}
       onClick={() => setSelected(!selected)}
     >
       <div className="flex items-center gap-2">
         <div
-          className={`cursor-pointer flex items-center justify-center rounded w-4 h-4 border ${
-            selected ? "border-[#ccc] bg-blue" : "bg-white border-[#ccc]"
-          }`}
+          className={`cursor-pointer flex items-center justify-center rounded w-4 h-4 border ${selected ? "border-[#ccc] bg-blue" : "bg-white border-[#ccc]"
+            }`}
         >
           <svg
             className={selected ? "block" : "hidden"}
@@ -40,9 +41,8 @@ const CategoryItem = ({ category }) => {
 
       {category.products && (
         <span
-          className={`${
-            selected ? "text-white bg-blue" : "bg-gray-2"
-          } inline-flex rounded-[30px] text-custom-xs px-2 ease-out duration-200 group-hover:text-white group-hover:bg-blue`}
+          className={`${selected ? "text-white bg-blue" : "bg-gray-2"
+            } inline-flex rounded-[30px] text-custom-xs px-2 ease-out duration-200 group-hover:text-white group-hover:bg-blue`}
         >
           {category.products}
         </span>
@@ -87,6 +87,8 @@ const ParentCategory = ({ parent }) => {
 
 const CategoryDropdown = ({ categories }) => {
   const [toggleDropdown, setToggleDropdown] = useState(true);
+  const lang = useSelector((state: RootState) => state.language.lang);
+  const content = FilterTranslations[lang] || FilterTranslations.en;
 
   // check if categories are parent-child or flat
   const hasParents = categories.some((cat) => cat.children);
@@ -99,16 +101,14 @@ const CategoryDropdown = ({ categories }) => {
           e.preventDefault();
           setToggleDropdown(!toggleDropdown);
         }}
-        className={`cursor-pointer flex items-center justify-between py-3 pl-6 pr-5.5 ${
-          toggleDropdown && "shadow-filter"
-        }`}
+        className={`cursor-pointer flex items-center justify-between py-3 pl-6 pr-5.5 ${toggleDropdown && "shadow-filter"
+          }`}
       >
-        <p className="text-dark">Category</p>
+        <p className="text-dark">{content.category}</p>
         <button
           aria-label="button for category dropdown"
-          className={`text-dark ease-out duration-200 ${
-            toggleDropdown && "rotate-180"
-          }`}
+          className={`text-dark ease-out duration-200 ${toggleDropdown && "rotate-180"
+            }`}
         >
           <svg
             className="fill-current"
@@ -131,13 +131,13 @@ const CategoryDropdown = ({ categories }) => {
       <div className={` mt-2 flex-col ${toggleDropdown ? "flex" : "hidden"}`}>
         {hasParents
           ? categories.map((parent, key) => (
-              <ParentCategory key={key} parent={parent} />
-            ))
+            <ParentCategory key={key} parent={parent} />
+          ))
           : categories.map((cat, key) => (
-              <div key={key} className="py-2 px-6">
-                <CategoryItem category={cat} />
-              </div>
-            ))}
+            <div key={key} className="py-2 px-6">
+              <CategoryItem category={cat} />
+            </div>
+          ))}
       </div>
     </div>
   );

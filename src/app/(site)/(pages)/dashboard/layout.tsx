@@ -16,32 +16,37 @@ import {
     BarChart3, // reports icon
 } from "lucide-react";
 import { useSelector } from "react-redux";
+import { MenuTranslations } from "@/data";
 
 export default function DashboardLayout({ children }) {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     interface RootState {
+        [x: string]: any;
         auth: {
             role: string;
         };
     }
     const role = useSelector((state: RootState) => state.auth.role);
+    const lang = useSelector((state: RootState) => state.language.lang);
+    const content = MenuTranslations[lang] || MenuTranslations.en;
+
     // base menu
     let menuItems = [
-        { icon: LayoutDashboard, label: "Dashboard", href: "/dashboard" },
-        { icon: Clock, label: "Previous Orders", href: "/dashboard/previous-orders" },
-        { icon: MapPin, label: "Track Orders", href: "/dashboard/track-order" },
-        { icon: CreditCard, label: "Credit Information", href: "/dashboard/credit-information" },
-        { icon: Banknote, label: "Payment", href: "/dashboard/payment" },
-        { icon: MessageSquare, label: "Complain", href: "/dashboard/complain" },
-        { icon: User, label: "Profile", href: "/dashboard/profile" },
+        { icon: LayoutDashboard, label: content?.dashboard, href: "/dashboard" },
+        { icon: Clock, label: content?.previousOrders, href: "/dashboard/previous-orders" },
+        { icon: MapPin, label: content?.trackOrders, href: "/dashboard/track-order" },
+        { icon: CreditCard, label: content?.creditInformation, href: "/dashboard/credit-information" },
+        { icon: Banknote, label: content?.payment, href: "/dashboard/payment" },
+        { icon: MessageSquare, label: content?.complain, href: "/dashboard/complain" },
+        { icon: User, label: content?.profile, href: "/dashboard/profile" },
     ];
 
     // if sales → replace Credit Information with Reports
     if (role === "sales") {
         menuItems = menuItems.map((item) =>
             item.label === "Credit Information"
-                ? { icon: BarChart3, label: "Reports", href: "/dashboard/reports" }
+                ? { icon: BarChart3, label: content?.reports, href: "/dashboard/reports" }
                 : item
         );
     }
@@ -119,7 +124,7 @@ export default function DashboardLayout({ children }) {
                             className="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition-all duration-200"
                         >
                             <LogOut className="h-5 w-5 text-white" />
-                            <span className="font-medium text-white">Logout</span>
+                            <span className="font-medium text-white">{content?.logout}</span>
                         </Link>
                     </div>
                 </nav>

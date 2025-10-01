@@ -6,10 +6,13 @@ import {
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
+import { DashboardTranslations } from '@/data';
 
 export default function Page() {
     const role = useSelector((state) => state.auth.role);
     const router = useRouter();
+    const lang = useSelector((state) => state.language.lang);
+    const content = DashboardTranslations[lang] || DashboardTranslations.en;
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
@@ -31,24 +34,24 @@ export default function Page() {
     const dashboardItems = [
         {
             icon: Box,
-            title: 'Start New Order',
-            description: 'Place new order',
+            title: content.startNewOrder?.title,
+            description: content.startNewOrder?.description,
             color: 'from-blue-500 to-blue-600',
             hoverColor: 'bg-blue',
             onClick: handleStartNewOrder
         },
         {
             icon: Clock,
-            title: 'Previous Orders',
-            description: 'View your order history',
+            title: content.previousOrders.title,
+            description: content.previousOrders.description,
             color: 'from-blue-500 to-blue-600',
             hoverColor: 'bg-blue',
             link: '/dashboard/previous-orders'
         },
         {
             icon: MapPin,
-            title: 'Track Orders',
-            description: 'Monitor shipment status',
+            title: content?.trackOrders?.title,
+            description: content?.trackOrders?.description,
             color: 'from-emerald-500 to-emerald-600',
             hoverColor: 'bg-blue',
             link: '/dashboard/track-order'
@@ -56,32 +59,32 @@ export default function Page() {
         role === "sales"
             ? {
                 icon: BarChart3,
-                title: 'Reports',
-                description: 'View sales reports',
+                title: content?.reports?.title,
+                description: content?.reports?.description,
                 color: 'from-pink-500 to-pink-600',
                 hoverColor: 'bg-blue',
                 link: '/dashboard/reports'
             }
             : {
                 icon: CreditCard,
-                title: 'Credit Information',
-                description: 'Manage payment methods',
+                title: content?.creditInfo?.title,
+                description: content?.creditInfo?.description,
                 color: 'from-purple-500 to-purple-600',
                 hoverColor: 'bg-blue',
                 link: '/dashboard/credit-information'
             },
         {
             icon: Banknote,
-            title: 'Payment',
-            description: 'Process payments',
+            title: content?.payment?.title,
+            description: content?.payment?.description,
             color: 'from-amber-500 to-amber-600',
             hoverColor: 'bg-blue',
             link: '/dashboard/payment'
         },
         {
             icon: MessageSquare,
-            title: 'Complain',
-            description: 'Submit feedback or issues',
+            title: content?.complain?.title,
+            description: content?.complain?.description,
             color: 'from-red-500 to-red-600',
             hoverColor: 'bg-blue',
             link: '/dashboard/complain'
@@ -92,7 +95,7 @@ export default function Page() {
         <div className="flex flex-col min-h-screen bg-gray-50 lg:mt-0 md:mt-10 ">
             <main className="flex-1 p-6">
                 <h1 className="text-3xl font-bold mb-8 text-dark">
-                    Welcome {role === "sales" ? "Sales Team" : "User"}
+                    {role === "sales" ? content.welcomeSales : content.welcomeUser}
                 </h1>
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-10">
                     {dashboardItems.map((item, index) => {

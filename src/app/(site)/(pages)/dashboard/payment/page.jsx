@@ -4,11 +4,14 @@ import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import DataTableComponent from "../../../../../components/DataTableComponent/page"
+import { PaymentTranslations } from "@/data";
 
 export default function Page() {
     const searchParams = useSearchParams();
     const tabFromUrl = searchParams.get("tab");
     const [activeTab, setActiveTab] = useState("payment-records");
+    const lang = useSelector((state) => state.language.lang);
+    const t = PaymentTranslations[lang] || PaymentTranslations.en;
 
     useEffect(() => {
         if (tabFromUrl) {
@@ -35,11 +38,12 @@ export default function Page() {
     });
 
     const tabs = [
-        { id: "payment-records", label: "Payment Records", sales: true, user: true },
-        { id: "pay-by-order", label: "Pay by Order", sales: true, user: true },
-        { id: "make-payment", label: "Make Payment", sales: false, user: true },
-        { id: "credit-info", label: "Credit Informations", sales: true, user: false },
+        { id: "payment-records", label: t.tabs.paymentRecords, sales: true, user: true },
+        { id: "pay-by-order", label: t.tabs.payByOrder, sales: true, user: true },
+        { id: "make-payment", label: t.tabs.makePayment, sales: false, user: true },
+        { id: "credit-info", label: t.tabs.creditInfo, sales: true, user: false },
     ];
+
 
     const usersCreditData = [
         {
@@ -85,82 +89,25 @@ export default function Page() {
 
 
     const paymentColumns = [
-        ...(role === "sales"
-            ? [
-                {
-                    name: "Customer Name",
-                    selector: () => selectedUser.name,
-                    sortable: false,
-                },
-            ]
-            : []),
-        {
-            name: "Date",
-            selector: row => row.date,
-            sortable: true,
-        },
-        {
-            name: "Payment Method",
-            selector: row => row.method,
-            sortable: true,
-        },
-        {
-            name: "Amount",
-            selector: row => row.total,
-            sortable: true,
-        },
-        {
-            name: "Paid Via",
-            selector: row => row.paidVia,
-            sortable: true,
-        },
+        ...(role === "sales" ? [{ name: t.table.customerName, selector: () => selectedUser.name }] : []),
+        { name: t.table.date, selector: row => row.date },
+        { name: t.table.paymentMethod, selector: row => row.method },
+        { name: t.table.amount, selector: row => row.total },
+        { name: t.table.paidVia, selector: row => row.paidVia },
     ];
 
     const orderColumns = [
-        ...(role === "sales"
-            ? [
-                {
-                    name: "Customer Name",
-                    selector: () => selectedUser.name,
-                },
-            ]
-            : []),
-        {
-            name: "Order Date",
-            selector: row => row.date,
-        },
-        {
-            name: "Order Number",
-            selector: row => row.number,
-        },
-        {
-            name: "Total Amount",
-            selector: row => row.total,
-        },
-        {
-            name: "Paid Amount",
-            selector: row => row.paid,
-        },
-        {
-            name: "Balance Due",
-            selector: row => row.balance,
-        },
+        ...(role === "sales" ? [{ name: t.table.customerName, selector: () => selectedUser.name }] : []),
+        { name: t.table.orderDate, selector: row => row.date },
+        { name: t.table.orderNumber, selector: row => row.number },
+        { name: t.table.totalAmount, selector: row => row.total },
+        { name: t.table.paidAmount, selector: row => row.paid },
+        { name: t.table.balanceDue, selector: row => row.balance },
         ...(role !== "sales"
-            ? [
-                {
-                    name: "",
-                    cell: () => (
-                        <p
-                            className="flex items-center text-blue cursor-pointer"
-                            onClick={() => setIsOpen(true)}
-                        >
-                            Pay Now <ChevronRight color="#012169" />
-                        </p>
-                    ),
-                },
-            ]
+            ? [{ name: "", cell: () => <p onClick={() => setIsOpen(true)} className="flex items-center text-blue">{t.table.payNow} <ChevronRight color="#012169" /></p> }]
             : []),
     ];
+
 
 
     const handleFileChange = (e) => {
@@ -279,44 +226,6 @@ export default function Page() {
                         ) : tab.id === "pay-by-order" ? (
                             <div className="overflow-x-auto overflow-visible">
                                 <div className="relative overflow-x-auto overflow-visible h-100">
-                                    {/* <table className="w-full text-sm text-left rtl:text-right text-dark">
-                                        <thead className="text-xs text-white uppercase bg-blue">
-                                            <tr>
-                                                {role === "sales" && <th className="px-6 py-5">Customer Name</th>}
-                                                <th className="px-6 py-5">Order Date</th>
-                                                <th className="px-6 py-3">Order Number</th>
-                                                <th className="px-6 py-3">Total Amount</th>
-                                                <th className="px-6 py-3">Paid Amount</th>
-                                                <th className="px-6 py-3">Balance Due</th>
-                                                {role !== "sales" && <th className="px-6 py-3"></th>}
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {rows.map((row, i) => (
-                                                <tr key={i} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-[#ccc]">
-                                                    {role === "sales" && <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{selectedUser.name}</th>}
-                                                    <th className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{row.date}</th>
-                                                    <td className="px-6 py-4">{row.number}</td>
-                                                    <td className="px-6 py-4">{row.total}</td>
-                                                    <td className="px-6 py-4">{row.paid}</td>
-                                                    <td className="px-6 py-4">{row.balance}</td>
-                                                    {role !== "sales" &&
-                                                        // <td className="px-6 py-4 relative overflow-visible">
-                                                        //     <button
-                                                        //         onClick={() => setIsOpen(true)}
-                                                        //         className="bg-blue text-white px-3 py-2 rounded-md text-xs hover:bg-blue/90"
-                                                        //     >
-                                                        //         Pay Now
-                                                        //     </button>
-                                                        // </td>
-                                                        <td className="px-6 py-4 relative overflow-visible cursor-pointer" onClick={() => setIsOpen(true)}>
-                                                            <p className="flex items-center text-blue">Pay Now <ChevronRight color="#012169" /></p>
-                                                        </td>
-                                                    }
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table> */}
                                     <DataTableComponent
                                         columns={orderColumns}
                                         data={rows}
@@ -333,31 +242,33 @@ export default function Page() {
                                     className="bg-white rounded-lg shadow-lg w-[90%] max-w-md p-6 relative"
                                     onClick={(e) => e.stopPropagation()}
                                 >
-                                    {/* <h2 className="text-lg font-semibold mb-4 text-dark">Make Payment</h2> */}
-                                    <div className="flex item-center justify-between mb-4">
-                                        <h2 className="text-lg font-semibold text-dark">Make Payment</h2>
+                                    {/* Header */}
+                                    <div className="flex items-center justify-between mb-4">
+                                        <h2 className="text-lg font-semibold text-dark">{t.modal.makePayment}</h2>
                                         <button onClick={() => setActiveTab("pay-by-order")} className="text-gray-500 hover:text-black">
                                             ✕
                                         </button>
                                     </div>
-                                    <h2 className="text-lg font-semibold mb-4 text-dark">Payment Due: $230</h2>
+
+                                    {/* Payment Due */}
+                                    <h2 className="text-lg font-semibold mb-4 text-dark">
+                                        {lang === "ar" ? "المبلغ المستحق" : "Payment Due"}: $230
+                                    </h2>
 
                                     <form onSubmit={handleSubmit} className="space-y-4">
-                                        {/* Select Payment Via */}
+                                        {/* Payment Via */}
                                         <div>
-                                            <label className="block text-sm font-medium mb-1">
-                                                Payment Via
-                                            </label>
+                                            <label className="block text-sm font-medium mb-1">{t.modal.paymentVia}</label>
                                             <select
                                                 name="paymentVia"
                                                 value={form.paymentVia}
                                                 onChange={handleChange}
                                                 className="w-full border border-[#ccc] rounded-md text-sm p-2"
                                             >
-                                                <option value="">Select</option>
-                                                <option value="cash">Cash</option>
-                                                <option value="cheque">Cheque</option>
-                                                <option value="online">Online</option>
+                                                <option value="">{lang === "ar" ? "اختر" : "Select"}</option>
+                                                <option value="cash">{lang === "ar" ? "نقدا" : "Cash"}</option>
+                                                <option value="cheque">{lang === "ar" ? "شيك" : "Cheque"}</option>
+                                                <option value="online">{lang === "ar" ? "عبر الإنترنت" : "Online"}</option>
                                             </select>
                                         </div>
 
@@ -372,7 +283,7 @@ export default function Page() {
                                                         : "bg-white text-dark"
                                                         }`}
                                                 >
-                                                    Full Payment
+                                                    {lang === "ar" ? "الدفع الكامل" : "Full Payment"}
                                                 </button>
                                                 <button
                                                     type="button"
@@ -382,25 +293,29 @@ export default function Page() {
                                                         : "bg-white text-dark"
                                                         }`}
                                                 >
-                                                    Part Payment
+                                                    {lang === "ar" ? "الدفع الجزئي" : "Part Payment"}
                                                 </button>
                                             </div>
 
                                             {form.paymentType === "full" && (
                                                 <p className="text-green-600 text-sm font-medium">
-                                                    You will receive <strong className="text-green">10% credit</strong> on making a full payment!
+                                                    {lang === "ar"
+                                                        ? "ستحصل على رصيد 10٪ عند الدفع الكامل!"
+                                                        : "You will receive 10% credit on making a full payment!"}
                                                 </p>
                                             )}
 
                                             {form.paymentType === "part" && (
                                                 <div className="mt-2">
-                                                    <label className="block text-sm font-medium mb-1">Part Payment Amount</label>
+                                                    <label className="block text-sm font-medium mb-1">
+                                                        {lang === "ar" ? "المبلغ الجزئي" : "Part Payment Amount"}
+                                                    </label>
                                                     <input
                                                         type="number"
                                                         name="partAmount"
                                                         value={form.partAmount || ""}
                                                         onChange={handleChange}
-                                                        placeholder="Enter part amount"
+                                                        placeholder={lang === "ar" ? "أدخل المبلغ الجزئي" : "Enter part amount"}
                                                         className="w-full border border-[#ccc] rounded-md text-sm p-2"
                                                     />
                                                 </div>
@@ -409,12 +324,14 @@ export default function Page() {
 
                                         {/* Remark */}
                                         <div>
-                                            <label className="block text-sm font-medium mb-1">Remark</label>
+                                            <label className="block text-sm font-medium mb-1">
+                                                {lang === "ar" ? "ملاحظة" : "Remark"}
+                                            </label>
                                             <textarea
                                                 name="remark"
                                                 value={form.remark}
                                                 onChange={handleChange}
-                                                placeholder="Enter remark"
+                                                placeholder={lang === "ar" ? "أدخل ملاحظة" : "Enter remark"}
                                                 className="w-full border border-[#ccc] rounded-md text-sm p-2"
                                                 rows="3"
                                             ></textarea>
@@ -422,11 +339,12 @@ export default function Page() {
 
                                         {/* Submit */}
                                         <button type="submit" className="primary-btn">
-                                            Submit Payment
+                                            {lang === "ar" ? "إرسال الدفع" : "Submit Payment"}
                                         </button>
                                     </form>
                                 </div>
-                            </div> :
+                            </div>
+                            :
                             <div className="space-y-6">
                                 {usersCreditData.map((user) => (
                                     <div
@@ -457,7 +375,7 @@ export default function Page() {
                 <div className="fixed inset-0 bg-[#0000006b] flex items-center justify-center z-[999999999]" onClick={() => setIsOpen(false)}>
                     <div className="bg-white rounded-lg shadow-lg w-[90%] max-w-md p-6 relative" onClick={(e) => e.stopPropagation()}>
                         <div className="flex item-center justify-between mb-4">
-                            <h2 className="text-lg font-semibold text-dark">Make Payment</h2>
+                            <h2 className="text-lg font-semibold text-dark">{t.modal.makePayment}</h2>
                             <button
                                 onClick={() => setIsOpen(false)}
                                 className="text-gray-500 hover:text-black"
@@ -469,7 +387,7 @@ export default function Page() {
                             {/* Select Payment Via */}
                             <div>
                                 <label className="block text-sm font-medium mb-1">
-                                    Payment Via
+                                    {t.modal.paymentVia}
                                 </label>
                                 <select
                                     name="paymentVia"
@@ -477,10 +395,9 @@ export default function Page() {
                                     onChange={handleChange}
                                     className="w-full border border-[#ccc] rounded-md text-sm p-2"
                                 >
-                                    <option value="">Select</option>
-                                    <option value="cash">Cash</option>
-                                    <option value="cheque">Cheque</option>
-                                    <option value="online">Online</option>
+                                    <option value="cash">{lang === "ar" ? "نقدا" : "Cash"}</option>
+                                    <option value="cheque">{lang === "ar" ? "شيك" : "Cheque"}</option>
+                                    <option value="online">{lang === "ar" ? "عبر الإنترنت" : "Online"}</option>
                                 </select>
                             </div>
 

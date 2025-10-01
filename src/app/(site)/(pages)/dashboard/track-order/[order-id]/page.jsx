@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Check, Package, Truck, Home, Clock, MapPin, Phone, Mail, Star, Shield, RefreshCw, Calendar, User, CreditCard, Gift } from 'lucide-react';
 import { useSelector } from 'react-redux';
+import { TrackOrderTranslations } from '@/data';
 
 const trackingSteps = [
     {
@@ -94,6 +95,8 @@ export default function TrackOrder() {
     const role = useSelector((state) => state.auth.role);
     const [hoveredStep, setHoveredStep] = useState(null);
     const [hoveredItem, setHoveredItem] = useState(null);
+    const lang = useSelector((state) => state.language.lang);
+    const t = TrackOrderTranslations[lang] || TrackOrderTranslations.en;
 
     const getStepStyles = (status) => {
         switch (status) {
@@ -137,19 +140,19 @@ export default function TrackOrder() {
                             <div>
                                 <div className="flex items-center gap-3 mb-4">
                                     <div>
-                                        <h1 className="text-3xl font-bold text-dark">Track Orders</h1>
-                                        <p className="text-gray-600 mt-1">Real-time updates on your package</p>
+                                        <h1 className="text-3xl font-bold text-dark">{t.pageTitle}</h1>
+                                        <p className="text-gray-600 mt-1">{t.pageSubtitle}</p>
                                     </div>
                                 </div>
 
                                 <div className="flex flex-wrap items-center gap-4 text-sm">
                                     <div className="flex items-center gap-2 bg-blue-100 px-4 py-2 rounded-full">
-                                        <span className="font-semibold text-blue-800">Order ID:</span>
+                                        <span className="font-semibold text-blue-800">{t.orderId}</span>
                                         <span className="text-blue-900 font-mono">#ORD-88</span>
                                     </div>
                                     <div className="flex items-center gap-2 bg-green-100 px-4 py-2 rounded-full">
                                         <Calendar className="w-4 h-4 text-green-600" />
-                                        <span className="text-green-800">Placed on Aug 22, 2025</span>
+                                        <span className="text-green-800">{t.placedOn} Aug 22, 2025</span>
                                     </div>
                                 </div>
                             </div>
@@ -157,9 +160,9 @@ export default function TrackOrder() {
                             <div className="mt-6 lg:mt-0">
                                 <div className="bg-gradient-to-r from-blue-500 to-purple-600 p-6 rounded-2xl text-white">
                                     <div className="text-center">
-                                        <p className="text-blue-100 text-sm">Estimated Delivery</p>
+                                        <p className="text-blue-100 text-sm">{t.estimatedDelivery}</p>
                                         <p className="text-2xl font-bold">Today</p>
-                                        <p className="text-blue-100">by 6:00 PM</p>
+                                        <p className="text-blue-100">{t.by} 6:00 PM</p>
                                     </div>
                                 </div>
                             </div>
@@ -172,11 +175,11 @@ export default function TrackOrder() {
                             <div className="border border-[#ccc] rounded-lg p-8">
                                 <div className='flex items-center justify-between gap-4 mb-8 '>
                                     <h2 className="text-xl font-bold text-dark flex items-center gap-3">
-                                        Order Journey
+                                        {t.orderJourney}
                                     </h2>
                                     {role !== "sales" && <div className='flex items-center gap-4'>
-                                        <button className='primary-btn'>Mark as Received</button>
-                                        <button className='primary-btn'>Download Invoice</button>
+                                        <button className='primary-btn'>{t.markReceived}</button>
+                                        <button className='primary-btn'>{t.downloadInvoice}</button>
                                     </div>}
                                 </div>
                                 <div className="relative">
@@ -240,9 +243,7 @@ export default function TrackOrder() {
                         {/* Order Items Sidebar */}
                         <div className="space-y-8">
                             <div className="border border-[#ccc] rounded-lg p-8">
-                                <h2 className="text-xl font-bold text-dark mb-6">
-                                    Ordered Items
-                                </h2>
+                                <h2 className="text-xl font-bold text-dark mb-6">{t.orderedItems}</h2>
 
                                 <div className="flex flex-col gap-2">
                                     {orderItems.map((item) => (
@@ -279,48 +280,41 @@ export default function TrackOrder() {
 
 
                                 {/* Order Summary */}
-                                <div className="mt-6">
-                                    <div className="space-y-3">
+                                <div className="mt-6 space-y-3">
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-dark">{t.subtotal}</span>
+                                        <span className="font-semibold text-dark">₹20,000</span>
+                                    </div>
+                                    <div className="flex justify-between items-center text-green-600">
+                                        <span className="text-dark">{t.saved}</span>
+                                        <span className="font-semibold">₹2,000</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-dark">{t.gst}</span>
+                                        <span className="font-semibold text-dark">$24</span>
+                                    </div>
+                                    <div className="border-t border-[#ccc9] pt-6">
                                         <div className="flex justify-between items-center">
-                                            <span className="text-dark">Subtotal</span>
-                                            <span className="font-semibold text-dark">₹{totalAmount.toLocaleString()}</span>
-                                        </div>
-                                        <div className="flex justify-between items-center text-green-600">
-                                            <span className="text-dark">You Saved</span>
-                                            <span className="font-semibold">₹{totalSavings.toLocaleString()}</span>
-                                        </div>
-                                        <div className="flex justify-between items-center">
-                                            <span className="text-dark">GST</span>
-                                            <span className="font-semibold text-dark">$24</span>
-                                        </div>
-                                        <div className="border-t border-[#ccc9] pt-6">
-                                            <div className="flex justify-between items-center">
-                                                <span className="text-xl font-bold text-dark">Total Paid</span>
-                                                <span className="text-2xl font-bold text-dark">
-                                                    ₹{totalAmount.toLocaleString()}
-                                                </span>
-                                            </div>
+                                            <span className="text-xl font-bold text-dark">{t.totalPaid}</span>
+                                            <span className="text-2xl font-bold text-dark">₹18,000</span>
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Payment Info */}
                                 <div className="border-t border-[#ccc9] pt-6 mt-6">
-                                    <h2 className="text-xl font-bold text-dark mb-4">
-                                        Payment Details
-                                    </h2>
-
+                                    <h2 className="text-xl font-bold text-dark mb-4">{t.paymentDetails}</h2>
                                     <div className="space-y-3">
                                         <div className="flex justify-between items-center">
-                                            <span className="text-gray-600">Payment Method</span>
+                                            <span className="text-gray-600">{t.paymentMethod}</span>
                                             <span className="font-medium text-gray-900">Credit Card</span>
                                         </div>
                                         <div className="flex justify-between items-center">
-                                            <span className="text-gray-600">Card ending in</span>
+                                            <span className="text-gray-600">{t.cardEnding}</span>
                                             <span className="font-medium text-gray-900">****4242</span>
                                         </div>
                                         <div className="flex justify-between items-center">
-                                            <span className="text-gray-600">Transaction ID</span>
+                                            <span className="text-gray-600">{t.transactionId}</span>
                                             <span className="font-mono text-sm text-gray-900">TXN123456789</span>
                                         </div>
                                     </div>
