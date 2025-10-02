@@ -27,15 +27,15 @@ const PromoBanner = () => {
           {banners.map((item, index) => (
             <div
               key={index}
-              className={`relative z-1 overflow-hidden rounded-lg py-10 xl:py-16 px-4 sm:px-7.5 xl:px-10 lg:col-span-${item.position === "right" ? "7" : "5"
-                }`}
+              className={`relative z-1 overflow-hidden rounded-lg py-10 xl:py-16 px-4 sm:px-7.5 xl:px-10 
+        ${item.position === "right" ? "lg:col-span-7" : "lg:col-span-5"}`}
               style={{ backgroundColor: item.bgColor }}
             >
               <Image
                 src={item.img}
                 alt={item.title}
-                className={`absolute top-1/2 -translate-y-1/2 ${item.position === "right" ? "left-0 sm:left-0" : "right-[-20px] sm:right-[10px]"
-                  } -z-1`}
+                className={`absolute top-1/2 -translate-y-1/2 
+          ${item.position === "right" ? "left-0 sm:left-0" : "right-[-20px] sm:right-[10px]"} -z-1`}
                 width={item.position === "right" ? 300 : 220}
                 height={200}
               />
@@ -47,8 +47,8 @@ const PromoBanner = () => {
                 </h2>
                 <Link
                   href={item.link}
-                  className={`inline-flex font-medium text-custom-sm text-white py-2.5 px-8.5 rounded-md ease-out duration-200 ${item.position === "right" ? "bg-teal hover:bg-teal-dark" : "bg-orange hover:bg-orange-dark"
-                    }`}
+                  className={`inline-flex font-medium text-custom-sm text-white py-2.5 px-8.5 rounded-md ease-out duration-200 
+            ${item.position === "right" ? "bg-teal hover:bg-teal-dark" : "bg-orange hover:bg-orange-dark"}`}
                 >
                   {item.btnText}
                 </Link>
@@ -56,6 +56,7 @@ const PromoBanner = () => {
             </div>
           ))}
         </div>
+
       </div>
     </section>
   );
