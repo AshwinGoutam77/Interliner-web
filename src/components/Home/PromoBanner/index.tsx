@@ -1,16 +1,18 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { CategoryHeaderTranslations, CategoryTranslations } from "@/data";
+import API from "@/services/api";
 
 const PromoBanner = () => {
   const lang = useSelector((state: RootState) => state.language.lang);
   const banners = CategoryTranslations[lang] || CategoryTranslations.en;
   const header = CategoryHeaderTranslations[lang] || CategoryHeaderTranslations.en;
-
+  const layoutData = useSelector((state: RootState) => state.layout);
+  // console.log('categorydata0', layoutData);
   return (
     <section className="overflow-hidden py-20">
       <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
@@ -24,33 +26,24 @@ const PromoBanner = () => {
         </div>
 
         <div className="grid gap-7.5 grid-cols-1 lg:grid-cols-12">
-          {banners.map((item, index) => (
+          {layoutData?.categories?.map((item, index) => (
             <div
               key={index}
               className={`relative z-1 overflow-hidden rounded-lg py-10 xl:py-16 px-4 sm:px-7.5 xl:px-10 
-        ${item.position === "right" ? "lg:col-span-7" : "lg:col-span-5"}`}
-              style={{ backgroundColor: item.bgColor }}
+                ${index == 0 || index == 3 || index == 4 ? "lg:col-span-7" : "lg:col-span-5"}`}
+              style={{ backgroundImage: item.photo ? `url(${item.photo})` : 'none', backgroundSize: 'cover', backgroundPosition: 'center' }}
             >
-              <Image
-                src={item.img}
-                alt={item.title}
-                className={`absolute top-1/2 -translate-y-1/2 
-          ${item.position === "right" ? "left-0 sm:left-0" : "right-[-20px] sm:right-[10px]"} -z-1`}
-                width={item.position === "right" ? 300 : 220}
-                height={200}
-              />
-
               <div className={item.position === "right" ? "text-right" : ""}>
-                <span className="block text-lg text-dark mb-1.5">{item.category}</span>
+                <span className="block text-lg text-dark mb-1.5">{item.slug}</span>
                 <h2 className="font-bold text-xl lg:text-heading-4 text-dark mb-2.5">
-                  {item.title}
+                  {item.name}
                 </h2>
                 <Link
-                  href={item.link}
+                  href={'/categories/' + item.slug}
                   className={`inline-flex font-medium text-custom-sm text-white py-2.5 px-8.5 rounded-md ease-out duration-200 
-            ${item.position === "right" ? "bg-teal hover:bg-teal-dark" : "bg-orange hover:bg-orange-dark"}`}
+                    ${index == 0 || index == 3 || index == 4 ? "bg-teal hover:bg-teal-dark" : "bg-orange hover:bg-orange-dark"}`}
                 >
-                  {item.btnText}
+                  Shop Now
                 </Link>
               </div>
             </div>

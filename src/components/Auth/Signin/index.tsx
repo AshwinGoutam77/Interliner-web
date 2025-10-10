@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginAsSales, loginAsUser } from "@/redux/features/authSlice";
 import { useRouter } from "next/navigation";
 import { SigninTranslations } from "@/data";
+import API from "@/services/api"; // ✅ import API
 
 interface Errors {
   phone?: string;
@@ -14,12 +15,13 @@ interface Errors {
 const Signin: React.FC = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const lang = useSelector((state: any) => state.language.lang); // redux language
+  const lang = useSelector((state: any) => state.language.lang);
   const t = SigninTranslations[lang] || SigninTranslations.en;
 
   const [phone, setPhone] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errors, setErrors] = useState<Errors>({});
+  const [loading, setLoading] = useState(false);
 
   const validate = (): boolean => {
     let newErrors: Errors = {};
@@ -40,27 +42,61 @@ const Signin: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleLogin = (role: "user" | "sales") => {
+  const handleLogin = async (role: "user" | "sales") => {
     if (!validate()) return;
 
-    if (role === "user") {
-      dispatch(loginAsUser());
-    } else {
-      dispatch(loginAsSales());
-    }
+    try {
+      setLoading(true);
 
-    router.push("/dashboard");
+      const response = await API.loginCustomer({
+        phone: phone, // mapping phone field to email
+        password,
+      });
+
+      if (response.data?.status) {
+        const token = response?.data?.data?.token;
+
+        // ✅ Save in localStorage
+        localStorage.setItem("token", token);
+
+        // ✅ Dispatch with token
+        if (role === "user") {
+          dispatch(loginAsUser(token));
+        } else {
+          dispatch(loginAsSales(token));
+        }
+
+        router.push("/dashboard");
+      }
+    } catch (error: any) {
+      console.error("Login error:", error);
+      alert(error.response?.data?.message || "Login failed");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <section className="overflow-hidden py-20 bg-[#f3f4f62e] mt-45" dir={lang === "ar" ? "rtl" : "ltr"}>
+    <section
+      className="overflow-hidden py-20 bg-[#f3f4f62e] mt-45"
+      dir={lang === "ar" ? "rtl" : "ltr"}
+    >
       <div className="absolute inset-0 bg-[url('/images/banner/login-banner-new.jpg')] bg-cover bg-center opacity-60"></div>
       <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0 relative z-10">
         <div className="max-w-[570px] w-full mx-auto rounded-xl bg-white shadow-1 p-4 sm:p-7.5 xl:p-11">
           <div className="text-center">
-            <img src="/images/logo/permisis-logo.png" alt="logo" width={200} className="mx-auto" />
-            <p className="mt-2">{t.broughtBy} <b className="text-blue">Interliners</b></p>
-            <h2 className="font-semibold text-xl sm:text-2xl xl:text-heading-5 text-dark my-5">{t.signInTitle}</h2>
+            <img
+              src="/images/logo/permisis-logo.png"
+              alt="logo"
+              width={200}
+              className="mx-auto"
+            />
+            <p className="mt-2">
+              {t.broughtBy} <b className="text-blue">Interliners</b>
+            </p>
+            <h2 className="font-semibold text-xl sm:text-2xl xl:text-heading-5 text-dark my-5">
+              {t.signInTitle}
+            </h2>
           </div>
 
           <form onSubmit={(e) => e.preventDefault()}>
@@ -70,15 +106,18 @@ const Signin: React.FC = () => {
                 {t.phoneLabel} <span className="text-red">{t.required}</span>
               </label>
               <input
-                type="number"
+                type="email"
                 name="phone"
                 id="phone"
                 placeholder={t.phonePlaceholder}
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className={`rounded-lg border ${errors.phone ? "border-red-500" : "border-gray-3"} bg-gray-1 placeholder:text-dark-5 w-full py-3 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20`}
+                className={`rounded-lg border ${errors.phone ? "border-red-500" : "border-gray-3"
+                  } bg-gray-1 placeholder:text-dark-5 w-full py-3 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20`}
               />
-              {errors.phone && <p className="text-red text-sm mt-1">{errors.phone}</p>}
+              {errors.phone && (
+                <p className="text-red text-sm mt-1">{errors.phone}</p>
+              )}
             </div>
 
             {/* Password */}
@@ -94,18 +133,38 @@ const Signin: React.FC = () => {
                 value={password}
                 autoComplete="on"
                 onChange={(e) => setPassword(e.target.value)}
-                className={`rounded-lg border ${errors.password ? "border-red-500" : "border-gray-3"} bg-gray-1 placeholder:text-dark-5 w-full py-3 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20`}
+                className={`rounded-lg border ${errors.password ? "border-red-500" : "border-gray-3"
+                  } bg-gray-1 placeholder:text-dark-5 w-full py-3 px-5 outline-none duration-200 focus:border-transparent focus:shadow-input focus:ring-2 focus:ring-blue/20`}
               />
-              {errors.password && <p className="text-red text-sm mt-1">{errors.password}</p>}
+              {errors.password && (
+                <p className="text-red text-sm mt-1">{errors.password}</p>
+              )}
             </div>
 
             {/* Buttons */}
             <div className="flex items-center gap-2 mt-5 flex-col md:flex-row">
-              <button className="primary-btn w-full" onClick={() => handleLogin("user")}>{t.signInCustomer}</button>
-              <button className="primary-btn w-full" onClick={() => handleLogin("sales")}>{t.signInSales}</button>
+              <button
+                type="button"
+                className="primary-btn w-full"
+                disabled={loading}
+                onClick={() => handleLogin("user")}
+              >
+                {loading ? "Signing in..." : t.signInCustomer}
+              </button>
+              <button
+                type="button"
+                className="primary-btn w-full"
+                disabled={loading}
+                onClick={() => handleLogin("sales")}
+              >
+                {loading ? "Signing in..." : t.signInSales}
+              </button>
             </div>
 
-            <Link href="/forgot-password" className="block text-center text-dark-4 mt-4.5 ease-out duration-200 hover:text-dark">
+            <Link
+              href="/forgot-password"
+              className="block text-center text-dark-4 mt-4.5 ease-out duration-200 hover:text-dark"
+            >
               {t.forgetPassword}
             </Link>
 
@@ -116,7 +175,12 @@ const Signin: React.FC = () => {
 
             <p className="text-center mt-6">
               {t.noAccount}
-              <Link href="/signup" className="text-dark ease-out duration-200 hover:text-blue pl-2">{t.signUp}</Link>
+              <Link
+                href="/signup"
+                className="text-dark ease-out duration-200 hover:text-blue pl-2"
+              >
+                {t.signUp}
+              </Link>
             </p>
           </form>
         </div>

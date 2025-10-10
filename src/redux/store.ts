@@ -6,6 +6,7 @@ import wishlistReducer from "./features/wishlist-slice";
 import productDetailsReducer from "./features/product-details";
 import languageReducer from "./features/languageSlice";
 import authReducer from "./features/authSlice";
+import layoutReducer from "./features/layoutSlice";
 
 import { TypedUseSelectorHook, useSelector } from "react-redux";
 
@@ -17,6 +18,7 @@ export const store = configureStore({
     productDetailsReducer,
     language: languageReducer,
     auth: authReducer,
+    layout: layoutReducer,
   },
 });
 

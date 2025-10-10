@@ -7,17 +7,23 @@ const apiClient = axios.create({
     headers: { "Content-Type": "application/json" },
 });
 
-// Optional: Add auth token if needed
 apiClient.interceptors.request.use(async (config) => {
-    const token = "";
+    const token = localStorage.getItem("token");
     if (token) config.headers.Authorization = `Bearer ${token}`;
     return config;
 });
 
 const API = {
+    // Layout
+    fetchLayoutData: () => apiClient.get("/get-setting"),
+
     // Auth / Customer
-    createCustomer: (data) => apiClient.post("/create-customer", data)
+    createCustomer: (data) => apiClient.post("/create-customer", data),
+    loginCustomer: (data) => apiClient.post("/login-customer", data),
+
+    getCategories: (params) => apiClient.get("/categories", { params }),
+    getCategoriesById: (id) => apiClient.get(`/categories/${id}`),
+    getGroupsById: (id) => apiClient.get(`/groups/${id}`),
 };
 
 export default API;
-

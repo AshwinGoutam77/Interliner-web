@@ -9,8 +9,24 @@ import { AppDispatch, useAppSelector } from "@/redux/store";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "@/redux/features/cart-slice";
+import { useQuery } from "@tanstack/react-query";
+import API from "@/services/api";
+import { usePathname, useSearchParams } from "next/navigation";
 
 const ShopDetails = () => {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // Extract slug from the path
+  const slug = pathname.split("/").filter(Boolean).pop() || "";
+
+  // Extract subId from query params
+  const subId = searchParams.get("subId");
+
+  console.log("Slug:", slug);
+  console.log("SubId:", subId);
+
+
   const dispatch = useDispatch<AppDispatch>();
   const [activeColor, setActiveColor] = useState("White");
   const { openPreviewModal } = usePreviewSlider();
@@ -22,6 +38,20 @@ const ShopDetails = () => {
   const [quantity, setQuantity] = useState(1);
 
   const [activeTab, setActiveTab] = useState("tabOne");
+
+  const { data: productData, isLoading, error } = useQuery({
+    queryKey: ["productDetail"],
+    queryFn: async () => {
+      const response = await API.getGroupsById(subId);
+      return response.data.data?.group || [];
+    },
+    staleTime: Infinity,
+  });
+  console.log("productData", productData);
+
+
+  const photos = JSON.parse(productData.photo || "[]");
+
 
   const storages = [
     {
@@ -131,14 +161,14 @@ const ShopDetails = () => {
       ) : (
         <>
           <section className="overflow-hidden relative pb-20 pt-25 lg:pt-20 xl:pt-28 bg-[#f3f4f62e]">
-            <Breadcrumb title={"Straight Cut"} pages={["Straight Cut"]} />
+            <Breadcrumb title={productData?.name} pages={["Straight Cut"]} />
 
             <div className="max-w-[1170px] w-full mx-auto px-4 sm:px-8 xl:px-0">
               <div className="flex flex-col lg:flex-row gap-7.5 xl:gap-17.5">
                 <div className="lg:max-w-[570px] w-full">
                   <div className="lg:min-h-[512px] rounded-lg shadow-1 bg-gray-2 p-4 sm:p-7.5 relative flex items-center justify-center">
                     <div>
-                      <button
+                      {/* <button
                         onClick={handlePreviewSlider}
                         aria-label="button for zoom"
                         className="gallery__Image w-11 h-11 rounded-[5px] bg-gray-1 shadow-1 flex items-center justify-center ease-out duration-200 text-dark hover:text-blue absolute top-4 lg:top-6 right-4 lg:right-6 z-50"
@@ -158,10 +188,10 @@ const ShopDetails = () => {
                             fill=""
                           />
                         </svg>
-                      </button>
+                      </button> */}
 
-                      <Image
-                        src={product.imgs?.previews[previewImg]}
+                      <img
+                        src={photos}
                         alt="products-details"
                         width={400}
                         height={400}
@@ -169,7 +199,6 @@ const ShopDetails = () => {
                     </div>
                   </div>
 
-                  {/* ?  &apos;border-blue &apos; :  &apos;border-transparent&apos; */}
                   <div className="flex flex-wrap sm:flex-nowrap gap-4.5 mt-6">
                     {product.imgs?.thumbnails.map((item, key) => (
                       <button
@@ -194,20 +223,29 @@ const ShopDetails = () => {
                 {/* <!-- product content --> */}
                 <div className="max-w-[539px] w-full">
                   <div className="flex items-center justify-between mb-5">
-                    <h3 className="font-medium text-custom-1 mb-0">
+                    <h3 className="font-medium text-custom-1 mb-0 flex gap-2">
                       <span className="text-sm sm:text-base text-dark">
-                        Price: ${product.price}
+                        Price:
+                      </span>
+                      <span className="text-sm sm:text-base text-dark line-through">
+                        ${productData?.price}
+                      </span>
+                      <span className="text-sm sm:text-base">
+                        {productData.discount_type === 1
+                          ? (productData.price - productData.discount).toFixed(2)
+                          : (productData.price - (productData.price * productData.discount / 100)).toFixed(2)
+                        }
                       </span>
                     </h3>
 
                     <div className="inline-flex font-medium text-custom-sm text-white bg-blue rounded py-0.5 px-2.5">
-                      30% OFF
+                      {productData?.discount}% OFF
                     </div>
                   </div>
 
                   <ul className="flex flex-col gap-2">
                     <li className="flex items-center gap-2.5">
-                      Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry.Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry.Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry.Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry.Lorem Ipsum&nbsp;is simply dummy text of the printing and typesetting industry.
+                      {productData?.description}
                     </li>
                   </ul>
 
@@ -222,7 +260,7 @@ const ShopDetails = () => {
                         <div className="flex items-center gap-2.5">
                           <div className="flex items-center gap-4">
                             <div className="flex items-center gap-3">
-                              {colors.map((color, key) => (
+                              {productData?.children.map((color, key) => (
                                 <label
                                   key={key}
                                   htmlFor={color.name}
@@ -239,7 +277,7 @@ const ShopDetails = () => {
                                   {/* Color box */}
                                   <div
                                     className="w-16 h-12 rounded-md"
-                                    style={{ backgroundColor: color.hex }}
+                                    style={{ backgroundColor: color.hexcode }}
                                   ></div>
 
                                   {/* Label */}

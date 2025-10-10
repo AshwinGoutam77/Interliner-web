@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { FooterTranslations } from "@/data";
 
-const Footer = () => {
+const Footer = ({ data }) => {
   const year = new Date().getFullYear();
   const pathname = usePathname();
   const lang = useSelector((state: RootState) => state.language.lang);
@@ -40,7 +40,7 @@ const Footer = () => {
                     />
                   </svg>
                 </span>
-                <Link href='https://goo.gl/maps/1Ern1Fz4Ex2kQX9A8'> {footer.headOffice}</Link>
+                <Link href={data?.setting?.address_link}> {data?.setting?.address_text}</Link>
               </li>
 
               <li>
@@ -69,7 +69,7 @@ const Footer = () => {
                       fill="#012169"
                     />
                   </svg>
-                  {footer.phone}
+                  {data?.setting?.phone}/ {data?.setting?.alt_phone}
                 </a>
               </li>
 
@@ -89,7 +89,7 @@ const Footer = () => {
                       fill="#012169"
                     />
                   </svg>
-                  {footer.email}
+                  {data?.setting?.email}
                 </a>
               </li>
             </ul>
@@ -97,7 +97,7 @@ const Footer = () => {
             {/* <!-- Social Links start --> */}
             <div className="flex items-center gap-4 mt-7.5">
               <a
-                href="#"
+                href={data?.setting?.facebook_link || "#"}
                 aria-label="Facebook Social Link"
                 className="flex ease-out duration-200 hover:text-blue"
               >
@@ -122,7 +122,7 @@ const Footer = () => {
               </a>
 
               <a
-                href="#"
+                href={data?.setting?.x_link || "#"}
                 aria-label="Twitter Social Link"
                 className="flex ease-out duration-200 hover:text-blue"
               >
@@ -142,7 +142,7 @@ const Footer = () => {
               </a>
 
               <a
-                href="#"
+                href={data?.setting?.insta_link || "#"}
                 aria-label="Instagram Social Link"
                 className="flex ease-out duration-200 hover:text-blue"
               >
@@ -177,7 +177,7 @@ const Footer = () => {
               </a>
 
               <a
-                href="#"
+                href={data?.setting?.linkedin_link || "#"}
                 aria-label="Linkedin Social Link"
                 className="flex ease-out duration-200 hover:text-blue"
               >
@@ -220,11 +220,11 @@ const Footer = () => {
                   {footer.cart}
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link className="ease-out duration-200 hover:text-blue" href="/shop">
                   {footer.shop}
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
 

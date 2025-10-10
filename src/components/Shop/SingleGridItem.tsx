@@ -1,68 +1,34 @@
 "use client";
 import React from "react";
-import Image from "next/image";
 import { Product } from "@/types/product";
 import { useModalContext } from "@/app/context/QuickViewModalContext";
-import { updateQuickView } from "@/redux/features/quickView-slice";
-import { addItemToCart } from "@/redux/features/cart-slice";
-import { addItemToWishlist } from "@/redux/features/wishlist-slice";
 import { updateproductDetails } from "@/redux/features/product-details";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCartModalContext } from "@/app/context/CartSidebarModalContext";
 
-const ProductItem = ({ item }: { item: Product }) => {
+const ProductItem = ({ item, pageTitle }: { item: Product; pageTitle: string }) => {
+  console.log(item);
+
   const router = useRouter()
-  const { openModal } = useModalContext();
 
   const dispatch = useDispatch<AppDispatch>();
-  const { openCartModal } = useCartModalContext();
-  1
-  // update the QuickView state
-  const handleQuickViewUpdate = () => {
-    dispatch(updateQuickView({ ...item }));
-    localStorage.setItem('productDetails', JSON.stringify(item))
-    router.push('/shop-details')
-  };
-
-  // add to cart
-  const handleAddToCart = () => {
-    dispatch(
-      addItemToCart({
-        ...item,
-        quantity: 1,
-      })
-    );
-    openCartModal()
-  };
-
-  const handleItemToWishList = () => {
-    dispatch(
-      addItemToWishlist({
-        ...item,
-        status: "available",
-        quantity: 1,
-      })
-    );
-  };
-
   const handleProductDetails = () => {
     dispatch(updateproductDetails({ ...item }));
   };
 
   const handleViewProduct = () => {
     localStorage.setItem('productDetails', JSON.stringify(item))
-    // router.push('/shop-details')
   }
 
+  const photos = JSON.parse(item.photo || "[]");
+
   return (
-    <Link href="/shop-details" className="cursor-pointer group" onClick={handleViewProduct}>
+    <Link href={`/categories/${pageTitle}/${item.slug}?subId=${item?.encrypted_id}/`} className="cursor-pointer group" onClick={handleViewProduct}>
       <div className="relative overflow-hidden flex items-center justify-center rounded-lg bg-[#F6F7FB] min-h-[270px] mb-4">
-        {/* <Image src={item.imgs.previews[0]} alt="" width={250} height={250} style={{ width: '100%', height: '280px', objectFit: 'cover' }} /> */}
-        <Image
-          src={item.imgs.previews[0]}
+        <img
+          src={photos[0] || '/images/no-image.jpg'}
           alt=""
           width={250}
           height={250}
@@ -77,13 +43,8 @@ const ProductItem = ({ item }: { item: Product }) => {
           className="font-medium text-lg text-dark ease-out duration-200 hover:text-blue"
           onClick={() => handleProductDetails()}
         >
-          <Link href="/shop-details"> {item.title} </Link>
+          <Link href="/shop-details"> {item.name} </Link>
         </h3>
-
-        <span className="flex items-center gap-2 font-medium text-lg">
-          <span className="text-dark">${item.discountedPrice}</span>
-          <span className="text-dark-4 line-through">${item.price}</span>
-        </span>
       </div>
     </Link>
   );

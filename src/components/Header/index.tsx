@@ -13,7 +13,7 @@ import LanguageDropdown from "./LangugageDropdown";
 import { usePathname } from "next/navigation";
 import { subMenuData } from "./subMenuData";
 
-const Header = () => {
+const Header = ({ data}) => {
   const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState("");
   const [navigationOpen, setNavigationOpen] = useState(false);
@@ -22,6 +22,7 @@ const Header = () => {
 
   const product = useAppSelector((state) => state.cartReducer.items);
   const totalPrice = useSelector(selectTotalPrice);
+
 
   const handleOpenCartModal = () => {
     openCartModal();
@@ -40,17 +41,6 @@ const Header = () => {
     window.addEventListener("scroll", handleStickyMenu);
   });
 
-  const options = [
-    { label: "All Categories", value: "0" },
-    { label: "Shirts", value: "1" },
-    { label: "Kandura", value: "2" },
-    { label: "Trousers", value: "3" },
-    { label: "Jackets Blazer", value: "4" },
-    { label: "Women's Clothes", value: "5" },
-    { label: "T-Shirts & Hoodies", value: "6" },
-    { label: "Non-woven", value: "7" },
-  ];
-
   return (
     <header
       className={`fixed left-0 top-0 w-full z-9999 bg-white transition-all ease-in-out duration-300 ${stickyMenu && "shadow"
@@ -66,7 +56,7 @@ const Header = () => {
           <div className="xl:w-auto flex-col sm:flex-row w-full flex sm:justify-between sm:items-center gap-5 sm:gap-10">
             <Link className="flex-shrink-0" href="/">
               <img
-                src="https://www.interliners.net/wp-content/uploads/2021/02/Logo_Interliners.png"
+                src={data?.setting?.logo ? data?.setting?.logo : "/images/logo/logo.png"}
                 alt="Logo"
                 width={100}
                 height={36}
@@ -139,7 +129,7 @@ const Header = () => {
                   24/7 SUPPORT
                 </span>
                 <Link href="tel:+971-6-7436061" className="font-medium text-custom-sm text-dark hover:underline">
-                  +971-6-7436061
+                  {data?.setting?.phone ? data?.setting?.phone : "+971-6-7436061"}
                 </Link>
               </div>
             </div>
@@ -284,22 +274,22 @@ const Header = () => {
             >
               <nav>
                 <ul className="flex xl:items-center flex-col xl:flex-row gap-5 xl:gap-6">
-                  {subMenuData.map((menuItem, i) =>
+                  {data && data?.categories?.map((menuItem, i) =>
                   (
                     <li
                       key={i}
                       className={`group relative before:h-[3px] before:bg-blue before:absolute before:left-0 before:top-0 before:rounded-b-[3px] before:ease-out before:duration-200 hover:before:w-full
-                        ${pathname === menuItem.path
+                        ${pathname === menuItem.slug
                           ? "before:w-full"
                           : "before:w-0 "
                         }`}
                     >
                       <Link
-                        href={menuItem.path}
+                        href={'/categories/' + menuItem.slug}
                         className={`hover:text-blue text-custom-sm font-medium text-dark flex ${stickyMenu ? "xl:py-4" : "xl:py-6"
                           }`}
                       >
-                        {menuItem.title}
+                        {menuItem.name}
                       </Link>
                     </li>
                   )

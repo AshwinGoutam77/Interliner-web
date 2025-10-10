@@ -11,7 +11,7 @@ import { AppDispatch } from "@/redux/store";
 import Link from "next/link";
 import Image from "next/image";
 
-const SingleListItem = ({ item }: { item: Product }) => {
+const SingleListItem = ({ item, pageTitle }: { item: Product; pageTitle: string }) => {
   const { openModal } = useModalContext();
   const dispatch = useDispatch<AppDispatch>();
 
